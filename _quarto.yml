@@ -1,0 +1,43 @@
+project:
+  type: book
+
+book:
+  title: "Simulation for Industrial Engineers"
+  author: "Ernesto L. Garcia, Ph.D."
+  chapters:
+    - index.qmd
+    - chapter1.qmd
+    - chapter2.qmd
+    - chapter3.qmd
+    - chapter4.qmd
+    - chapter5.qmd
+    - chapter6.qmd
+    - chapter7.qmd
+    - chapter8.qmd
+  sidebar:
+    collapse-level: 2
+  page-navigation: true
+
+crossref:
+  chapters: true
+  custom:
+    - kind: float
+      reference-prefix: Theorem
+      key: th
+
+bibliography: bibliography.bib
+csl: https://www.zotero.org/styles/apa
+
+format:
+  html:
+    theme:
+      - litera
+      - custom.scss
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    smooth-scroll: true
+    code-fold: true
+    code-tools: true
+    search: true
+    link-external-icon: true

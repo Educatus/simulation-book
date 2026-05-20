@@ -1,0 +1,128 @@
+# Overview of statistical tools for MC and DES {#ch:Overview}
+
+<div style="float:right; width:100%; text-align:right; font-style: italic; margin: 20px 0;">
+
+> Statistics are like bikinis, they show a lot but not everything. 
+> 
+> — Lou Piniella
+
+</div>
+## Introduction
+
+Statistical methods are essential for the design, execution, and interpretation or simulation models. Without rigorous statistical foundations, the results generated can lead to poor decisions, wasted resources, loss of engineering credibility and profits.
+
+The accuracy and precision of the Monte Carlo Method depends on the quality of the random number generators and the correctness of the input distributions. Thus, statistical methods ensure that:
+
+- **Input modeling** reflects real-world variability through appropriate probability distributions.
+
+- **Sampling techniques** reduce variance and improve efficiency.
+
+- **Confidence intervals and hypothesis tests** validate the reliability of estimates, such as risk measures or expected values.
+
+For example, in financial risk analysis, Monte Carlo simulations estimate the probability of portfolio losses under uncertain market conditions. Statistical tools like **bootstrapping** and **variance reduction techniques** enhance precision and reduce computational cost.
+
+While DES focuses on event-driven dynamics, randomness permeates its inputs and outputs^[Arrival rates, service times, failure
+probabilities, etc.]. Thus, statistical methods are critical for:
+
+- **Input Analysis.** To validate that the assumed distributions match empirical data.
+
+- **Output Analysis.** Using descriptive and inferential statistics to summarize performance metrics like average waiting time or throughput.
+
+- **Experimental Designs.** Applying factorial arrays and Analysis of Variance (ANOVA), to mention two, for the systematic exploration of multiple factors and their effects in performance indicators.
+
+- **Uncertainty Quantification.** Confidence intervals and hypothesis testing ensure that observed differences between scenarios are statistically significant, not due to random variation.
+
+Monte Carlo and Discrete Event Simulation provide estimates rather than exact solutions or mathematically optimal results. These *estimates* are subject to sampling error and variability. Therefore, statistical methods provide the tools needed to:
+
+- Quantify uncertainty through confidence intervals.
+
+- Compare alternatives using hypothesis testing.
+
+- Optimize designs using regression and metamodeling^[Metamodeling is the process of creating a model of models: a higher-level abstraction that describes the structure, rules, and relationships of other models. A metamodel defines how models are built, what elements they contain, and how those elements interact. It provides a framework or language for constructing and interpreting models consistently.].
+
+- Validate models against real-world data.
+
+Without these methods, simulation becomes guesswork rather than an engineering^[And scientific.] decision support tool.
+
+## Descriptive and Inferential Statistics
+
+Summarizing simulation outputs with statistics such as the mean, variance, standard deviation, and confidence intervals, provides insight into the performance of systems under study. For example, calculating the average waiting time and its variability for customers in a queue. Descriptive and inferential statistics form the basis for performance evaluation and comparison across different scenarios and system's designs [@Moroney1954].
+
+Confidence intervals (CI's) quantify uncertainty in simulation estimates, enabling decision-makers to estimate the precision of our findings. For example, we might state that the mean throughput of as simulated process is 120 ± 5 units/hour at 95% confidence. CI's are used because simulation results are subject to sampling error. Therefore, CI's provide a statistical guarantee about the precision of estimates, which is crucial for risk sensitive decisions [@Devore2012].
+
+Hypothesis testing and comparisons such as t-tests, ANOVA, Anderson-Darling for normality etc., determine whether differences between scenarios are statistically significant. For example, testing if a new scheduling policy reduces patient wait times compared to the current policy^[A two-way comparison.]. Hypothesis testing is a technique used to check if what we observe in our data is real or just happened by chance. This is, it helps with decisions based on random variation, ensuring changes are statistically justified [@Gonnick1993].
+
+## Probability Distributions
+
+Simulation models rely on probability distributions to represent stochastic elements such as inter arrival times, service duration, and machine failures, to mention a few. Common probability functions include the exponential for arrival processes, the normal for processing times, and the Weibull family for reliability modeling. As another example, consider the simulation of an emergency department in a hospital, patient arrival times may follow a Poisson process modeled using an exponential distribution.
+
+:::{.callout-note}
+### What is a Poisson process?
+A Poisson process is a stochastic process that models the occurrence of events over time (or space) where:
+
+  -  Events occur one at a time and are independent of each other.
+  
+  -  The probability of an event occurring in a small interval is proportional to the length of that interval. 
+
+  -  The number of events in disjoint intervals is independent. 
+  
+  -  The number of events in an interval of specific length *t* follows a Poisson distribution with mean $\lambda t$, where $\lambda$ is the rate of occurrence.
+:::
+
+Probability distributions obtained from real data provide accurate input modeling ensuring that our simulation model reflects real world variability critical for valid decision making [@Vecillas2025; @Moroney1954].
+
+## Bootstrapping
+
+Bootstrapping estimates the distribution of simulation outputs by resampling^[Bootstrapping is a simple way to figure out how confident you can be about a result when you only have a limited amount of data.]. It is useful when analytical solutions are infeasible. For example, estimating the confidence interval for median waiting time in a congested emergency system. Bootstrapping handles non-normality and small sample sizes, improving robustness of our statistical inferences [@Efron1979].
+
+## Random and Pseudo-random Number Generators
+
+Random number generators (RNGs), and specifically Pseudo-Random number generators (PRNGs) produce sequences of data used to sample from probability distributions. High quality PRNGs ensure reproducibility and statistical validity. PRNGs underpin the stochastic nature of DES and Monte Carlo. Poor quality random number generators can introduce correlation and bias, compromising simulation integrity [@Goldreich2010].
+
+## Design of Experiments (DOE)
+
+DOE systematically explores the effect of multiple factors on system performance reducing the number of required runs compared to one factor at a time (OFAT) approaches. For example, using a factorial design to study the combined effect of staffing levels and arrival rates on hospital throughput. DOE enhances efficiency and supports optimization by identifying key drivers and interactions [@Law2017; @Gjerloev2025; @Box1978].
+
+## Regression and Metamodeling
+
+Regression models and metamodels approximate simulation behavior, enabling sensitivity analysis and optimization. For example, building a regression model to predict average queue length based on arrival and service rates. Metamodels, on the other hand, reduce computational cost and allow real-time decision support [@Blas2021; @Montgomery2001].
+
+## Goodness-of-Fit Tests
+
+Tests like Kolmogorov-Smirnov and Chi-square validate input distributions against empirical data. For example, checking if observed interarrival times fit an exponential distribution. These tests ensure input functions accurately represent reality, reducing bias in simulation outcomes [@Vecillas2025; @Devore2012].
+
+## Queueing Theory
+
+Analytical formulas from queueing theory serve as benchmarks for simulation validation. For example, comparing a simulated average queue length with theoretical M/M/1 results provides a sanity check, helps detect modeling errors, and validates the simulation [@Karlin1981].
+
+## Conclusion
+
+Statistical tools are the backbone of DES and Monte Carlo, enabling rigorous input modeling, design of scenarios to run, and output analysis. Their incorporation ensures that simulation studies produce reliable and actionable insights. As DES and Monte Carlo applications expand in healthcare, manufacturing, finance, marketing, supply chain, logistics, and other industries and functions, the role of advanced statistical techniques^[To cope with large amounts of data.] will continue to grow, supporting data driven decision making in increasingly complex and sophisticated environments.
+
+## Questions
+
+1.  Why are statistical methods essential for Monte Carlo and Discrete Event Simulation modeling?
+
+2.  How do input modeling and sampling techniques affect the accuracy of Monte Carlo simulations?
+
+3.  What role do confidence intervals and hypothesis testing play in simulation studies?
+
+4.  Why are statistical tools critical for input and output analysis in Discrete Event Simulation?
+
+5.  Explain why Monte Carlo and DES provide estimates rather than exact solutions.
+
+6.  What is the difference between descriptive and inferential statistics in the context of simulation output analysis?
+
+7.  Why are probability distributions important in simulation modeling? Provide one example.
+
+8.  What is bootstrapping, and why is it useful in simulation output analysis?
+
+9.  What is the role of pseudo-random number generators (PRNGs) in simulation modeling?
+
+10. How do Design of Experiments (DOE) and metamodeling improve the efficiency of simulation studies?
+
+## Notes of the Chapter {#notes-of-the-chapter .unnumbered}
+
+- Lou Piniella (born August 28, 1943) is a former Major League Baseball player and manager, best known for his successful career as an outfielder and later as a fiery, competitive manager. He played for teams like the Kansas City Royals and New York Yankees, winning Rookie of the Year in 1969 and two World Series titles with the Yankees. As a manager, he led teams such as the Cincinnati Reds, Seattle Mariners, and Chicago Cubs, earning three Manager of the Year awards. Piniella is also remembered for the humorous quote at the beginning of this chapter, highlighting his belief that numbers alone cannot capture the full complexity of the game.
+
+## References {#References .unnumbered}
