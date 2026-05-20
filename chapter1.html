@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Introduction to simulation – Simulation for Industrial Engineers</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./chapter2.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f373fb00a65503beeb3bf15a1f5a7197.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter1.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to simulation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Simulation for Industrial Engineers</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Web version for Simulation for Industrial Engineers</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to simulation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Overview of statistical tools for MC and DES</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Random and Pseudo-random numbers</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Generating probability distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Estimating probability distributions from data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Output data analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Monte Carlo Simulation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building and delivering a Discrete Event Simulation</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#systems" id="toc-systems" class="nav-link active" data-scroll-target="#systems"><span class="header-section-number">2.1</span> Systems</a></li>
+  <li><a href="#processes-and-systems" id="toc-processes-and-systems" class="nav-link" data-scroll-target="#processes-and-systems"><span class="header-section-number">2.2</span> Processes and Systems</a></li>
+  <li><a href="#discrete-event-simulation" id="toc-discrete-event-simulation" class="nav-link" data-scroll-target="#discrete-event-simulation"><span class="header-section-number">2.3</span> Discrete Event Simulation</a></li>
+  <li><a href="#monte-carlo-simulation" id="toc-monte-carlo-simulation" class="nav-link" data-scroll-target="#monte-carlo-simulation"><span class="header-section-number">2.4</span> Monte Carlo Simulation</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">2.5</span> Questions</a></li>
+  <li><a href="#notes-of-the-introduction" id="toc-notes-of-the-introduction" class="nav-link" data-scroll-target="#notes-of-the-introduction">Notes of the Introduction</a></li>
+  <li><a href="#References" id="toc-References" class="nav-link" data-scroll-target="#References">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="ch:Intro" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to simulation</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div style="float:right; width:100%; text-align:right; font-style: italic; margin: 20px 0;">
+<blockquote class="blockquote">
+<p>Remember that all models are wrong; the practical question is how wrong do they have to be to not be useful.</p>
+<p>— George Box — because he understood simulation deeply.</p>
+</blockquote>
+</div>
+<p>Simulation is a very important analytics tool for Industrial Engineering. In a broad sense, simulation is the emulation of real processes or systems over time. In this age, simulation is done with computer systems, data platforms, and software to represent and analytically evaluate the behavior of complex real-world systems efficiently. There are many definitions of simulation&nbsp;<span class="citation" data-cites="Tuncer2011">(<a href="#ref-Tuncer2011" role="doc-biblioref">Tuncer, 2011</a>)</span>. However, in this book, we will define and learn the basic end-to-end process of creating and using models via Monte Carlo (MC) and Discrete Event Simulation (DES), which are two of the tools most used by industrial engineering practitioners. To do this, we will first explain and define some important concepts of systems and models.</p>
+<section id="systems" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="systems"><span class="header-section-number">2.1</span> Systems</h2>
+<p>A system is defined as a set of interrelated components interacting to achieve a common objective. Systems are ubiquitous in engineering, management, and the natural sciences, encompassing everything from manufacturing plants to biological ecosystems and social organizations. The key characteristics and governing principles of systems, as related to simulation<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>,</p>
+<ol type="1">
+<li><p><strong>Interconnectedness</strong>: Each component within a system influences and is influenced by other components. This mutual dependency is central to system behavior and often leads to emergent properties that cannot be understood by examining components in isolation.</p></li>
+<li><p><strong>Holism</strong>: The system as a whole exhibits properties and behaviors that are not present in its individual parts. This principle underscores the necessity of studying systems in their entirety rather than as a collection of discrete elements.</p></li>
+<li><p><strong>Purpose</strong>: Systems are goal-oriented, operating to fulfill specific functions or objectives. The purpose of a system guides its design, operation, and evaluation <span class="citation" data-cites="Leemis2006">(<a href="#ref-Leemis2006" role="doc-biblioref">Leemis &amp; Park, 2006</a>)</span>.</p></li>
+</ol>
+<p>The study of systems can be approached by direct experimentation and models<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<ul>
+<li><p><strong>Direct Experimentation:</strong> Observing and manipulating the actual system to understand its behavior. While this approach provides real-world insights, it may be impractical, costly, or risky for complex or critical systems.</p></li>
+<li><p><strong>Model-Based Analysis:</strong> Physical or mathematical representations of the system under study. These models allow controlled experimentation, hypothesis testing, and scenario analysis without the constraints imposed by real systems.</p></li>
+<li><p><strong>Analytical Models:</strong> Mathematical representations<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> that describe system behavior. These models are often limited to simple or idealized representations of a system due to the complexity of real-world phenomena.</p></li>
+<li><p><strong>Simulation Models:</strong> The use of computational techniques to mimic the operation of systems over time, enabling the study of their dynamic and stochastic behavior under varied conditions.</p></li>
+</ul>
+<div id="fig-SysSim" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Representation of different types of systems, experimentation, models, and simulation.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SysSim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="graphics/SysSim2.png" class="img-fluid figure-img" style="width:100.0%" alt="Representation of different types of systems, experimentation, models, and simulation.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SysSim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: Relation of Systems, experimentation, models, and simulation.
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-SysSim" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>, adapted from&nbsp;<span class="citation" data-cites="Law2000">Law &amp; Kelton (<a href="#ref-Law2000" role="doc-biblioref">2000</a>)</span>, presents the relation of systems and simulation modeling.</p>
+<p>An elegant<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> model will use the <strong>principle of relevance from systems theory</strong> <span class="citation" data-cites="Bertalanffy1969">(<a href="#ref-Bertalanffy1969" role="doc-biblioref"><span class="nocase">vonBertalanffy</span>, 1969</a>)</span>. This principle states that when analyzing or modeling a system, the engineer should focus only on the elements, relationships, and variables that significantly affect the system’s behavior or outcomes, while ignoring extraneous details. Thus, we ensure that our models remain manageable, meaningful, and useful without being overwhelmed by unnecessary complexity.</p>
+<p>The key points of this principle, as related to simulation, are:</p>
+<ul>
+<li><p><strong>Definition of boundaries</strong> to determine what is inside of the model and what belongs to the environment.</p></li>
+<li><p><strong>Selective focus</strong> to include only variables that influence the goals and performance of the model.</p></li>
+<li><p><strong>Purpose driven</strong> which states that relevance depends on the objective of the analysis.</p></li>
+</ul>
+</section>
+<section id="processes-and-systems" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="processes-and-systems"><span class="header-section-number">2.2</span> Processes and Systems</h2>
+<p>Processes are all related activities or parts inside a system that work together to make it function. Processes are subsets of systems, they are effective in what they do so the sytem can operate or run efficiently. A process is a specific sequence of actions or steps taken within a system to achieve a particular outcome, typically having a defined starting and ending point<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<p>As you can see, modeling is about representing reality in an elegant way so we can predict, analyze, and improve performance without experimenting on the real system.</p>
+</section>
+<section id="discrete-event-simulation" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="discrete-event-simulation"><span class="header-section-number">2.3</span> Discrete Event Simulation</h2>
+<p>Real systems that exhibit stochastic and dynamic behavior over time are best represented by the creation of probabilistic models generating these stochastic mechanisms and observing the results of the model as time goes on. Considering the specific purpose of the simulation, there will be certain performance indicators of interest to be determined. Nevertheless, due to the evolution of our model over time, we need a logical arrangement of its parts and their interrelations: This is not a trivial task.</p>
+<p>Discrete Event Simulation offers an elegant framework based on the idea of discrete events that help the observation of a model over time and the determination of key performance indicators of interest.</p>
+<p>DES models a system where events happen at specific points in time, like customers arriving at a store or machines breaking down. This model also tracks how the system changes when these events occur.</p>
+<p>We can formally define DES as a modeling technique in which the state<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> of a system changes only at discrete points in time, triggered by the occurrence of events<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. At the same time, DES estimates the system’s behavior when these events occur: the key performance indicators. Between events, the system’s state remains constant <span class="citation" data-cites="Ross1990">(<a href="#ref-Ross1990" role="doc-biblioref">Ross, 1990</a>)</span>.</p>
+<p>In summary, Discrete Event Simulation (DES) is a technique used to model complex systems where changes occur at discrete points in time. It is widely applied in manufacturing, healthcare, logistics, and service systems to analyze performance under uncertainty. Unlike deterministic models, DES incorporates randomness to mimic real-world variability, making statistical tools indispensable for both input and output analysis. These tools enable practitioners to design experiments, validate models, and interpret simulation results with rigor and confidence.</p>
+</section>
+<section id="monte-carlo-simulation" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="monte-carlo-simulation"><span class="header-section-number">2.4</span> Monte Carlo Simulation</h2>
+<p>Monte Carlo simulation is a method that uses random sampling to estimate outcomes when things are uncertain. Instead of calculating an exact answer, which might be impossible, an engineer runs the model many times with random inputs and see what happens on average. For example, to calculate the probability of winning a game of solitaire, the obvious and practical procedure will be to produce a large number of games and then calculate the relative proportion of games won.</p>
+<p>Formally, Monte Carlo simulation is a computational technique that uses repeated random sampling from probability distributions to approximate solutions for mathematical or statistical problems that are difficult or impossible to solve analytically. It generates a large number of scenarios based on random inputs and applies statistical analysis to estimate outcomes, probabilities, or risk measures <span class="citation" data-cites="Metropolis1949">(<a href="#ref-Metropolis1949" role="doc-biblioref">Metropolis &amp; Ulam, 1949</a>)</span>.</p>
+<p>The method was created when John vonNeumann and Stanislaw Ulam wanted to understand the behavior of neutrons in a nuclear explosion. They realized that directly calculating the complex movements of individual neutrons was impractical. Their innovative solution simulated many random neutron paths that they used to analyze overall trends and predict the efficiency of a nuclear fission reaction.</p>
+<div id="fig-Neutron" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Representation of of a nuclear explosion at the atom level.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Neutron-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="graphics/FissionChain.png" class="img-fluid figure-img" style="width:100.0%" alt="Representation of of a nuclear explosion at the atom level.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Neutron-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: Behavior of neutrons in a nuclear explosion.
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-Neutron" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> illustrates the behavior of neutrons during a fission chain reaction&nbsp;<span class="citation" data-cites="Neutrons">(<a href="#ref-Neutrons" role="doc-biblioref">Encyclopedia, 2025</a>)</span>.</p>
+<p>This book focuses on the practical modeling of real-world systems through Monte Carlo (MC) and Discrete Event Simulation (DES). To accomplish this, engineers must rely on their statistical knowledge to construct accurate models, explore scenarios that address “what-if” questions, and derive quantitative insights that support sound decision-making. These steps are essential for understanding system behavior and evaluating alternative strategies in complex environments. To prepare for effective simulation modeling, a solid foundation in statistics is indispensable. Concepts such as probability distributions, sampling methods, hypothesis testing, and confidence intervals play a critical role in ensuring that models reflect reality and produce reliable results. The following section provides a concise overview of these statistical principles and the tools most commonly used in simulation practice.</p>
+</section>
+<section id="questions" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="questions"><span class="header-section-number">2.5</span> Questions</h2>
+<ol type="1">
+<li><p>How is simulation defined in the context of Industrial Engineering according to the text?</p></li>
+<li><p>Why are computer systems and software essential in modern simulation practice?</p></li>
+<li><p>What are the two main simulation tools emphasized in this chapter for industrial engineers?</p></li>
+<li><p>Define a system as presented in the text.</p></li>
+<li><p>What does the concept of interconnectedness mean in systems theory?</p></li>
+<li><p>Explain the principle of holism and why it is important in system analysis.</p></li>
+<li><p>Why is purpose considered a fundamental characteristic of systems?</p></li>
+<li><p>What are the limitations of direct experimentation with real systems?</p></li>
+<li><p>How does a model differ from a real-world system?</p></li>
+<li><p>What distinguishes analytical models from simulation models?</p></li>
+<li><p>What is meant by an elegant model in the context of systems and simulation?</p></li>
+<li><p>State and explain the principle of relevance from systems theory.</p></li>
+<li><p>What are the three key points of the principle of relevance as applied to simulation?</p></li>
+<li><p>How does the text distinguish between a system and a process?</p></li>
+<li><p>What simple test is suggested to determine whether something is a process?</p></li>
+<li><p>Why are stochastic and dynamic systems difficult to analyze analytically?</p></li>
+<li><p>Define Discrete Event Simulation (DES) in formal terms.</p></li>
+<li><p>What is a state in Discrete Event Simulation? Give an example.</p></li>
+<li><p>What role do events play in DES models?</p></li>
+<li><p>What is Monte Carlo simulation, and what historical problem motivated its development?</p></li>
+</ol>
+</section>
+<section id="notes-of-the-introduction" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="notes-of-the-introduction">Notes of the Introduction</h2>
+<ul>
+<li>George E. P. Box (October 18, 1919 — March 28, 2013) was a British-born statistician and one of the most influential figures in modern statistics, experimental design, time-series analysis, and simulation-based modeling. Originally trained as a chemist, he taught himself statistics during World War II —an experience that shaped his lifelong emphasis on real-world data over purely theoretical models. After the war, Box held prominent positions at Imperial Chemical Industries (ICI), Princeton University, and later founded the Department of Statistics at the University of Wisconsin–Madison. Box introduced or co-developed foundational tools such as the Box-Jenkins methodology, Box-Cox transformation, and response surface methods, bridging engineering practice, scientific modeling, and statistical theory. Box’s famous aphorism—“All models are wrong, but some are useful.”—was not meant as cynicism, but as encouragement. Box stressed that models should be iteratively improved through experimentation and simulation, not worshipped as exact representations of reality. He even titled his autobiography <em>An Accidental Statistician</em>, reflecting that he never planned to be a statistician at all—it “just happened” while solving practical engineering problems.</li>
+</ul>
+</section>
+<section id="References" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="References">References</h2>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-Adams2014" class="csl-entry" role="listitem">
+Adams, K. MacG., Hester, P. T., Bradley, J. M., Meyers, T. J., &amp; Keating, C. B. (2014). <span class="nocase">Systems Theory as the foundation for Understanding Systems</span>. <em>Systems Engineering</em>, <em>17</em>(1), 112–123.
+</div>
+<div id="ref-Neutrons" class="csl-entry" role="listitem">
+Encyclopedia, E. (2025). <em>Fission chain reaction</em>. <a href="https://www.energyencyclopedia.com/en/nuclear-energy/the-nuclear-power-industry/fission-chain-reaction" class="uri">https://www.energyencyclopedia.com/en/nuclear-energy/the-nuclear-power-industry/fission-chain-reaction</a>.
+</div>
+<div id="ref-Law2000" class="csl-entry" role="listitem">
+Law, A. M., &amp; Kelton, W. D. (2000). <em><span class="nocase">Simulation Modeling and Analysis</span></em> (Third). McGraw-Hill, NY.
+</div>
+<div id="ref-Leemis2006" class="csl-entry" role="listitem">
+Leemis, L. M., &amp; Park, S. K. (2006). <em><span>Discrete-Event Simulation: A First Course</span></em> (First). Pearson Prentice Hall.
+</div>
+<div id="ref-Metropolis1949" class="csl-entry" role="listitem">
+Metropolis, N., &amp; Ulam, S. (1949). <span>The Monte Carlo Method</span>. <em>Journal of the American Statistical Association</em>, <em>44</em>(247), 335–341.
+</div>
+<div id="ref-NASASystemsENgHandbook2016" class="csl-entry" role="listitem">
+NASA. (2016). <em><span>NASA Systems Engineering Handbook</span></em>. <a href="https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf?emrc=4096b9" class="uri">https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf?emrc=4096b9</a>.
+</div>
+<div id="ref-Ross1990" class="csl-entry" role="listitem">
+Ross, S. M. (1990). <em><span class="nocase">A Course in Simulation</span></em> (First). Macmillan Publishing company, NY.
+</div>
+<div id="ref-Tuncer2011" class="csl-entry" role="listitem">
+Tuncer, O. (2011). The many facets of simulation through a collection of about 100 definitions. <em>SCS MS Magazine</em>, <em>2</em>, 82, 92.
+</div>
+<div id="ref-Bertalanffy1969" class="csl-entry" role="listitem">
+<span class="nocase">vonBertalanffy, L.</span> (1969). <em><span>General Systems Theory: Foundations, Development, Applications</span></em> (First). George Braziller, NY.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>For a comprehensive description of the characteristics and governing principles of a system see <span class="citation" data-cites="Bertalanffy1969"><span class="nocase">vonBertalanffy</span> (<a href="#ref-Bertalanffy1969" role="doc-biblioref">1969</a>)</span>, <span class="citation" data-cites="NASASystemsENgHandbook2016">NASA (<a href="#ref-NASASystemsENgHandbook2016" role="doc-biblioref">2016</a>)</span>, <span class="citation" data-cites="Adams2014">Adams et al. (<a href="#ref-Adams2014" role="doc-biblioref">2014</a>)</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>A model is the simplified version of a system. Models can be created and studied without dealing with all the complexity of real world systems. Its like making a mini-map of a city, it does not include every tree or building detail, but keeps the important parts so the user can understand how to get from one place to another.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Usually a set of equations.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Elegance is the quality of a solution, proof or concept that combines simplicity, clarity, and depth while achieving correctness and generality. An elegant solution or model typically uses minimal assumptions, avoids unnecessary com- plexity, and often reveals unexpected connections or insights.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>A simple test to determine if we are working with a system or a process is to ask if there is a start and an end. If the answer is “yes”, we are dealing with a process.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>A state is a collection of attributes or variables that represent the entities of the system. For example, the number of parts produced, number of jobs in progress, number of planes waiting to land, etc.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>An event is an instantaneous occurrence in time that alters the state of a system. For example; Arrival of a customer, a patient completing a treatment, a machine starting a job, a plane landing, etc.)<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Web version for Simulation for Industrial Engineers">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Web version for Simulation for Industrial Engineers</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./chapter2.html" class="pagination-link" aria-label="Overview of statistical tools for MC and DES">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Overview of statistical tools for MC and DES</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction to simulation {#ch:Intro}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">"float:right; width:100%; text-align:right; font-style: italic; margin: 20px 0;"</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Remember that all models are wrong; the practical question is how wrong do they have to be to not be useful.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; — George Box --- because he understood simulation deeply.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Simulation is a very important analytics tool for Industrial Engineering. In a broad sense, simulation is the emulation of real processes or systems over time. In this age, simulation is done with computer systems, data platforms, and software to represent and analytically evaluate the behavior of complex real-world systems efficiently. There are many definitions of simulation&nbsp;<span class="co">[</span><span class="ot">@Tuncer2011</span><span class="co">]</span>. However, in this book, we will define and learn the basic end-to-end process of creating and using models via Monte Carlo (MC) and Discrete Event Simulation (DES), which are two of the tools most used by industrial engineering practitioners. To do this, we will first explain and define some important concepts of systems and models.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Systems</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>A system is defined as a set of interrelated components interacting to achieve a common objective. Systems are ubiquitous in engineering, management, and the natural sciences, encompassing everything from manufacturing plants to biological ecosystems and social organizations. The key characteristics and governing principles of systems, as related to simulation^[For a comprehensive description of the</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>characteristics and governing principles</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>of a system see  @Bertalanffy1969, @NASASystemsENgHandbook2016, @Adams2014], </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Interconnectedness**: Each component within a system influences and is influenced by other components. This mutual dependency is central to system behavior and often leads to emergent properties that cannot be understood by examining components in isolation.</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Holism**: The system as a whole exhibits properties and behaviors that are not present in its individual parts. This principle underscores the necessity of studying systems in their entirety rather than as a collection of discrete elements.</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Purpose**: Systems are goal-oriented, operating to fulfill specific functions or objectives. The purpose of a system guides its design, operation, and evaluation <span class="co">[</span><span class="ot">@Leemis2006</span><span class="co">]</span>.</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>The study of systems can be approached by direct experimentation and models^<span class="co">[</span><span class="ot">A model is the simplified version of a system. Models can be created and studied without dealing with all the complexity of real world systems. Its like making a mini-map of a city, it does not include every tree or building detail, but keeps the important parts so the user can understand how to get from one place to another.</span><span class="co">]</span>:</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Direct Experimentation:** Observing and manipulating the actual system to understand its behavior. While this approach provides real-world insights, it may be impractical, costly, or risky for complex or critical systems.</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Model-Based Analysis:** Physical or mathematical representations of the system under study. These models allow controlled experimentation, hypothesis testing, and scenario analysis without the constraints imposed by real systems.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Analytical Models:** Mathematical representations^<span class="co">[</span><span class="ot">Usually a set of equations.</span><span class="co">]</span> that describe system behavior. These models are often limited to simple or idealized representations of a system due to the complexity of real-world phenomena.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Simulation Models:** The use of computational techniques to mimic the operation of systems over time, enabling the study of their dynamic and stochastic behavior under varied conditions.</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>::: {#fig-SysSim}</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/SysSim2.png)</span>{width=100% alt="Representation of different types of systems, experimentation, models, and simulation." }</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>Relation of Systems, experimentation, models, and simulation.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>@fig-SysSim, adapted from&nbsp;@Law2000, presents the relation of systems and simulation modeling.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>An elegant^<span class="co">[</span><span class="ot">Elegance is the quality of a solution, proof or concept that combines simplicity, clarity, and depth while achieving correctness and generality. An elegant solution or model typically uses minimal assumptions, avoids unnecessary com- plexity, and often reveals unexpected connections or insights.</span><span class="co">]</span> model will use the **principle of relevance from systems theory** <span class="co">[</span><span class="ot">@Bertalanffy1969</span><span class="co">]</span>. This principle states that when analyzing or modeling a system, the engineer should focus only on the elements, relationships, and variables that significantly affect the system's behavior or outcomes, while ignoring extraneous details. Thus, we ensure that our models remain manageable, meaningful, and useful without being overwhelmed by unnecessary complexity.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>The key points of this principle, as related to simulation, are:</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Definition of boundaries** to determine what is inside of the model and what belongs to the environment.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Selective focus** to include only variables that influence the goals and performance of the model.</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Purpose driven** which states that relevance depends on the objective of the analysis.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Processes and Systems</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Processes are all related activities or parts inside a system that work together to make it function. Processes are subsets of systems, they are effective in what they do so the sytem can operate or run efficiently. A process is a specific sequence of actions or steps taken within a system to achieve a particular outcome, typically having a defined starting and ending point^<span class="co">[</span><span class="ot">A simple test to determine if we are working with a system or a process is to ask if there is a start and an end. If the answer is "yes", we are dealing with a process.</span><span class="co">]</span>.</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>As you can see, modeling is about representing reality in an elegant way so we can predict, analyze, and improve performance without experimenting on the real system.</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Discrete Event Simulation</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>Real systems that exhibit stochastic and dynamic behavior over time are best represented by the creation of probabilistic models generating these stochastic mechanisms and observing the results of the model as time goes on. Considering the specific purpose of the simulation, there will be certain performance indicators of interest to be determined. Nevertheless, due to the evolution of our model over time, we need a logical arrangement of its parts and their interrelations: This is not a trivial task.</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>Discrete Event Simulation offers an elegant framework based on the idea of discrete events that help the observation of a model over time and the determination of key performance indicators of interest.</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>DES models a system where events happen at specific points in time, like customers arriving at a store or machines breaking down. This model also tracks how the system changes when these events occur.</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>We can formally define DES as a modeling technique in which the state^[A state is a collection of attributes or</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>variables that represent the entities of the system. For example, the number of parts produced, number of jobs in</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>progress, number of planes waiting to land, etc.] of a system changes only at discrete points in time, triggered by the occurrence of events^<span class="co">[</span><span class="ot">An event is an instantaneous occurrence in time that alters the state of a system. For example; Arrival of a customer, a patient completing a treatment, a machine starting a job, a plane landing, etc.)</span><span class="co">]</span>. At the same time, DES estimates the system's behavior when these events occur: the key performance indicators. Between events, the system's state remains constant <span class="co">[</span><span class="ot">@Ross1990</span><span class="co">]</span>.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>In summary, Discrete Event Simulation (DES) is a technique used to model complex systems where changes occur at discrete points in time. It is widely applied in manufacturing, healthcare, logistics, and service systems to analyze performance under uncertainty. Unlike deterministic models, DES incorporates randomness to mimic real-world variability, making statistical tools indispensable for both input and output analysis. These tools enable practitioners to design experiments, validate models, and interpret simulation results with rigor and confidence.</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## Monte Carlo Simulation</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>Monte Carlo simulation is a method that uses random sampling to estimate outcomes when things are uncertain. Instead of calculating an exact answer, which might be impossible, an engineer runs the model many times with random inputs and see what happens on average. For example, to calculate the probability of winning a game of solitaire, the obvious and practical procedure will be to produce a large number of games and then calculate the relative proportion of games won.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>Formally, Monte Carlo simulation is a computational technique that uses repeated random sampling from probability distributions to approximate solutions for mathematical or statistical problems that are difficult or impossible to solve analytically. It generates a large number of scenarios based on random inputs and applies statistical analysis to estimate outcomes, probabilities, or risk measures <span class="co">[</span><span class="ot">@Metropolis1949</span><span class="co">]</span>.</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>The method was created when John vonNeumann and Stanislaw Ulam wanted to understand the behavior of neutrons in a nuclear explosion. They realized that directly calculating the complex movements of individual neutrons was impractical. Their innovative solution simulated many random neutron paths that they used to analyze overall trends and predict the efficiency of a nuclear fission reaction.</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>::: {#fig-Neutron}</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/FissionChain.png)</span>{width=100% alt="Representation of of a nuclear explosion at the atom level." }</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>Behavior of neutrons in a nuclear explosion.</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>@fig-Neutron illustrates the behavior of neutrons during a fission chain reaction&nbsp;<span class="co">[</span><span class="ot">@Neutrons</span><span class="co">]</span>.</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>This book focuses on the practical modeling of real-world systems through Monte Carlo (MC) and Discrete Event Simulation (DES). To accomplish this, engineers must rely on their statistical knowledge to construct accurate models, explore scenarios that address "what-if" questions, and derive quantitative insights that support sound decision-making. These steps are essential for understanding system behavior and evaluating alternative strategies in complex environments. To prepare for effective simulation modeling, a solid foundation in statistics is indispensable. Concepts such as probability distributions, sampling methods, hypothesis testing, and confidence intervals play a critical role in ensuring that models reflect reality and produce reliable results. The following section provides a concise overview of these statistical principles and the tools most commonly used in simulation practice.</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Questions</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>How is simulation defined in the context of Industrial Engineering according to the text?</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Why are computer systems and software essential in modern simulation practice?</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>What are the two main simulation tools emphasized in this chapter for industrial engineers?</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Define a system as presented in the text.</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>What does the concept of interconnectedness mean in systems theory?</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Explain the principle of holism and why it is important in system analysis.</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Why is purpose considered a fundamental characteristic of systems?</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>What are the limitations of direct experimentation with real systems?</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>How does a model differ from a real-world system?</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>What distinguishes analytical models from simulation models?</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>What is meant by an elegant model in the context of systems and simulation?</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>State and explain the principle of relevance from systems theory.</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>What are the three key points of the principle of relevance as applied to simulation?</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>How does the text distinguish between a system and a process?</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>What simple test is suggested to determine whether something is a process?</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Why are stochastic and dynamic systems difficult to analyze analytically?</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Define Discrete Event Simulation (DES) in formal terms.</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>What is a state in Discrete Event Simulation? Give an example.</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">19. </span>What role do events play in DES models?</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="ss">20. </span>What is Monte Carlo simulation, and what historical problem motivated its development?</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## Notes of the Introduction {#notes-of-the-introduction .unnumbered}</span></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>George E. P. Box (October 18, 1919 --- March 28, 2013) was a British-born statistician and one of the most influential figures in modern statistics, experimental design, time-series analysis, and simulation-based modeling. Originally trained as a chemist, he taught himself statistics during World War II ---an experience that shaped his lifelong emphasis on real-world data over purely theoretical models. After the war, Box held prominent positions at Imperial Chemical Industries (ICI), Princeton University, and later founded the Department of Statistics at the University of Wisconsin--Madison. Box introduced or co-developed foundational tools such as the Box-Jenkins methodology, Box-Cox transformation, and response surface methods, bridging engineering practice, scientific modeling, and statistical theory. Box's famous aphorism---"All models are wrong, but some are useful."---was not meant as cynicism, but as encouragement. Box stressed that models should be iteratively improved through experimentation and simulation, not worshipped as exact representations of reality. He even titled his autobiography *An Accidental Statistician*, reflecting that he never planned to be a statistician at all---it "just happened" while solving practical engineering problems.</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {#References .unnumbered}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
