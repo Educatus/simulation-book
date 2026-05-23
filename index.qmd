@@ -12,8 +12,7 @@ author: "Ernesto Luis García Contreras, Ph.D."
 </div>
 
 
-> "A process cannot be understood by stopping it. Understanding must move  
-with the flow of the process, must join it and flow with it."  
+> "A process cannot be understood by stopping it. Understanding must move with the flow of the process, must join it and flow with it."  
 > 
 > — First Law of Mentat, **Dune**, by Frank Herbert
 
@@ -22,6 +21,8 @@ with the flow of the process, must join it and flow with it."
 
 ## Dedication
  To *S, J, and I*,... my amazing girls.
+
+*I love them at ten in the morning, and at eleven, and at twelve noon. I love them with all my soul and  —sometimes— on rainy afternoons.*^[ With some poetic license from a poem by Jaime Sabines: "Te quiero a las diez de la mañana, y a las once, y a las doce del día. Te quiero con toda mi alma y todo mi cuerpo, a veces, en las tardes de lluvia." ]
 
 ***
 
