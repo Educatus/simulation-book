@@ -25,10 +25,6 @@ crossref:
       reference-prefix: Theorem
       key: th
 
-language:
-  crossref-nte-prefix: "Theorem"
-  crossref-nte-title: "Theorem"
-
 bibliography: bibliography.bib
 csl: https://www.zotero.org/styles/apa
 

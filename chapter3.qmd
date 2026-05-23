@@ -66,14 +66,22 @@ The computational form of these LCG's illustrates a common characteristic of mos
 
 In the case of the linear congruential method, the period^[The period of a PRNG is the number of outputs it generates before it starts to repeat itself. It can be seen also as the length of a sequence of unique numbers that the PRNG can generate before cycling back to the beginning. The period sets the amount of randomness that a PRNG can generate.] of the sequence is dependent on both the multiplier $a$ and the increment $c$. 
 
-@nte-hd developed by  @HullDobell1962 provides a means for obtaining the maximum, or full, period that can be defined by the congruence relation in @eq-LCGBasic. This is important because if $m$ is large, the sequence may take most of the representable values in the interval \[0,1).
+@th-hd developed by @HullDobell1962 provides a means for obtaining the maximum, or full, period that can be defined by the congruence relation in @eq-LCGBasic. This is important because if $m$ is large, the sequence may take most of the representable values in the interval \[0,1).
 
+::: {#th-hd}
+<div style="text-align: justify;">
 
-::: {.callout-note #nte-hd title="Hull–Dobell."}
+**Hull–Dobell Theorem**
+
 The linear congruential sequence has a period of length $m$, or **full period**, if and only if:
+
 1. $c$ is relatively prime to $m$.
-2. $b=a-1$ is a multiple of $p$ for every prime $p$ dividing $m$.
+   
+2. $b = a - 1$ is a multiple of $p$ for every prime $p$ dividing $m$.
+   
 3. $b$ is a multiple of 4 if $m$ is a multiple of 4.
+
+</div>
 :::
 
 Two integers are said to be relatively prime^[Relatively prime numbers are used in various areas of mathematics, including number theory, cryptography, abstract algebra, and random number generation.], also known as coprime, if their greatest common factor (GCF) is 1. In other words, two integers are relatively prime if they have no common factors other than 1. For example, 7 and 20 are relatively prime because their GCF is 1. This means that there is no integer that can divide both 7 and 20 evenly. Some properties of relatively prime numbers are:
@@ -84,7 +92,7 @@ Two integers are said to be relatively prime^[Relatively prime numbers are used 
 
 - The LCM (least common multiple) of two relative prime numbers is equal to their product.
 
-The conditions stated in @nte-hd guarantee that the LCG will cycle through all possible values before repeating, giving the longest possible sequence. Obviously, if any condition fails, the generator will have a shorter period, reducing randomness quality.
+The conditions stated in @th-hd guarantee that the LCG will cycle through all possible values before repeating, giving the longest possible sequence. Obviously, if any condition fails, the generator will have a shorter period, reducing randomness quality.
 
 These type of pseudo-random number generators can be created with very fast and deterministic calculations. They are easier to test and debug because the sequences repeat after a long period, and they can be reproduced if the starting point or seed of the sequence is known. They also need low memory and can be generated with code only^[They do not need external hardware.]. A PRNG is thus cost efficient for the creation of small and large simulation models.
 
