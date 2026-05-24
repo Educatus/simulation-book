@@ -2053,291 +2053,292 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-465"><a href="#cb7-465" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-466"><a href="#cb7-466" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Once $I$ is chosen, sample $x$ from $f_I(x)$.</span>
 <span id="cb7-467"><a href="#cb7-467" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-468"><a href="#cb7-468" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Return the sample $x$. This sample is distributed according to the mixture $f(x)$.</span>
-<span id="cb7-469"><a href="#cb7-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-470"><a href="#cb7-470" aria-hidden="true" tabindex="-1"></a>The index $I$ is important because it transforms the mixture problem into two simpler ones:</span>
-<span id="cb7-471"><a href="#cb7-471" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-472"><a href="#cb7-472" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sampling from a discrete distribution, for $I$.</span>
-<span id="cb7-473"><a href="#cb7-473" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-474"><a href="#cb7-474" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sampling from a single component distribution, for $x$.</span>
-<span id="cb7-475"><a href="#cb7-475" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-476"><a href="#cb7-476" aria-hidden="true" tabindex="-1"></a>This avoids computing complicated mixture densities or inversion.</span>
-<span id="cb7-477"><a href="#cb7-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-478"><a href="#cb7-478" aria-hidden="true" tabindex="-1"></a>@lst-Mixture presents the python code to generate random variates for 2 mixed Normal distributions, as presented in @fig-mixnorm.</span>
-<span id="cb7-479"><a href="#cb7-479" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-480"><a href="#cb7-480" aria-hidden="true" tabindex="-1"></a>::: {#lst-Mixture}</span>
-<span id="cb7-481"><a href="#cb7-481" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Listing: Mixture method that generates two mixed normal distributionsin python."}</span>
-<span id="cb7-482"><a href="#cb7-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-483"><a href="#cb7-483" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb7-484"><a href="#cb7-484" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb7-485"><a href="#cb7-485" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-486"><a href="#cb7-486" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sample_gaussian_mixture(n, weights, means, sds):</span>
-<span id="cb7-487"><a href="#cb7-487" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> np.array(weights)</span>
-<span id="cb7-488"><a href="#cb7-488" aria-hidden="true" tabindex="-1"></a>components <span class="op">=</span> np.random.choice(<span class="bu">len</span>(weights), size<span class="op">=</span>n, p<span class="op">=</span>weights)</span>
-<span id="cb7-489"><a href="#cb7-489" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> np.array([</span>
-<span id="cb7-490"><a href="#cb7-490" aria-hidden="true" tabindex="-1"></a>np.random.normal(loc<span class="op">=</span>means[i], scale<span class="op">=</span>sds[i])</span>
-<span id="cb7-491"><a href="#cb7-491" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> components</span>
-<span id="cb7-492"><a href="#cb7-492" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb7-493"><a href="#cb7-493" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> samples</span>
-<span id="cb7-494"><a href="#cb7-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-495"><a href="#cb7-495" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: mixture 70% N(0,1), 30% N(3,0.5)</span></span>
-<span id="cb7-496"><a href="#cb7-496" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb7-497"><a href="#cb7-497" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> [<span class="fl">0.7</span>, <span class="fl">0.3</span>]</span>
-<span id="cb7-498"><a href="#cb7-498" aria-hidden="true" tabindex="-1"></a>meansmeans <span class="op">=</span> [<span class="fl">0.0</span>, <span class="fl">3.0</span>]</span>
-<span id="cb7-499"><a href="#cb7-499" aria-hidden="true" tabindex="-1"></a>sds <span class="op">=</span> [<span class="fl">1.0</span>, <span class="fl">0.5</span>]</span>
-<span id="cb7-500"><a href="#cb7-500" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">", "</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, samples)))</span>
-<span id="cb7-501"><a href="#cb7-501" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-502"><a href="#cb7-502" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-468"><a href="#cb7-468" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-469"><a href="#cb7-469" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Return the sample $x$. This sample is distributed according to the mixture $f(x)$.</span>
+<span id="cb7-470"><a href="#cb7-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-471"><a href="#cb7-471" aria-hidden="true" tabindex="-1"></a>The index $I$ is important because it transforms the mixture problem into two simpler ones:</span>
+<span id="cb7-472"><a href="#cb7-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-473"><a href="#cb7-473" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sampling from a discrete distribution, for $I$.</span>
+<span id="cb7-474"><a href="#cb7-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-475"><a href="#cb7-475" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sampling from a single component distribution, for $x$.</span>
+<span id="cb7-476"><a href="#cb7-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-477"><a href="#cb7-477" aria-hidden="true" tabindex="-1"></a>This avoids computing complicated mixture densities or inversion.</span>
+<span id="cb7-478"><a href="#cb7-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-479"><a href="#cb7-479" aria-hidden="true" tabindex="-1"></a>@lst-Mixture presents the python code to generate random variates for 2 mixed Normal distributions, as presented in @fig-mixnorm.</span>
+<span id="cb7-480"><a href="#cb7-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-481"><a href="#cb7-481" aria-hidden="true" tabindex="-1"></a>::: {#lst-Mixture}</span>
+<span id="cb7-482"><a href="#cb7-482" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Listing: Mixture method that generates two mixed normal distributionsin python."}</span>
+<span id="cb7-483"><a href="#cb7-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-484"><a href="#cb7-484" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb7-485"><a href="#cb7-485" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-486"><a href="#cb7-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-487"><a href="#cb7-487" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sample_gaussian_mixture(n, weights, means, sds):</span>
+<span id="cb7-488"><a href="#cb7-488" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> np.array(weights)</span>
+<span id="cb7-489"><a href="#cb7-489" aria-hidden="true" tabindex="-1"></a>components <span class="op">=</span> np.random.choice(<span class="bu">len</span>(weights), size<span class="op">=</span>n, p<span class="op">=</span>weights)</span>
+<span id="cb7-490"><a href="#cb7-490" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> np.array([</span>
+<span id="cb7-491"><a href="#cb7-491" aria-hidden="true" tabindex="-1"></a>np.random.normal(loc<span class="op">=</span>means[i], scale<span class="op">=</span>sds[i])</span>
+<span id="cb7-492"><a href="#cb7-492" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> components</span>
+<span id="cb7-493"><a href="#cb7-493" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb7-494"><a href="#cb7-494" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> samples</span>
+<span id="cb7-495"><a href="#cb7-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-496"><a href="#cb7-496" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: mixture 70% N(0,1), 30% N(3,0.5)</span></span>
+<span id="cb7-497"><a href="#cb7-497" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb7-498"><a href="#cb7-498" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> [<span class="fl">0.7</span>, <span class="fl">0.3</span>]</span>
+<span id="cb7-499"><a href="#cb7-499" aria-hidden="true" tabindex="-1"></a>meansmeans <span class="op">=</span> [<span class="fl">0.0</span>, <span class="fl">3.0</span>]</span>
+<span id="cb7-500"><a href="#cb7-500" aria-hidden="true" tabindex="-1"></a>sds <span class="op">=</span> [<span class="fl">1.0</span>, <span class="fl">0.5</span>]</span>
+<span id="cb7-501"><a href="#cb7-501" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">", "</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, samples)))</span>
+<span id="cb7-502"><a href="#cb7-502" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb7-503"><a href="#cb7-503" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-504"><a href="#cb7-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-504"><a href="#cb7-504" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb7-505"><a href="#cb7-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-506"><a href="#cb7-506" aria-hidden="true" tabindex="-1"></a>::: {#fig-mixnorm}</span>
-<span id="cb7-507"><a href="#cb7-507" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/twoNormalsMix.png)</span>{width=60% alt="Random variates for the mixtures of two normal distributions."}</span>
-<span id="cb7-508"><a href="#cb7-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-509"><a href="#cb7-509" aria-hidden="true" tabindex="-1"></a>Random variates for the mixtures of two normal distributions.</span>
-<span id="cb7-510"><a href="#cb7-510" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-511"><a href="#cb7-511" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-512"><a href="#cb7-512" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transformation methods to obtain normal random variates</span></span>
-<span id="cb7-513"><a href="#cb7-513" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-514"><a href="#cb7-514" aria-hidden="true" tabindex="-1"></a>A transformation uses the functions and operators available in standard computer libraries^[e.g., trigonometric, exponential, and</span>
-<span id="cb7-515"><a href="#cb7-515" aria-hidden="true" tabindex="-1"></a>logarithmic functions.]. Transformations are appropriate for the generation of normal random variates because the inverse method cannot be used directly^<span class="co">[</span><span class="ot">The normal distribution does not have a closed form expression for its inverse CDF.</span><span class="co">] [@Marsaglia1964]</span>, <span class="co">[</span><span class="ot">@Box1958</span><span class="co">]</span>.</span>
-<span id="cb7-516"><a href="#cb7-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-517"><a href="#cb7-517" aria-hidden="true" tabindex="-1"></a><span class="fu">### Box-Muller method</span></span>
-<span id="cb7-518"><a href="#cb7-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-519"><a href="#cb7-519" aria-hidden="true" tabindex="-1"></a>Let $u_1$ and $u_2$ be independent random variables from $U(0,1)$. Then, the random variables in @eq-x1x2 are $N(\mu=0, \sigma=1)$.</span>
-<span id="cb7-520"><a href="#cb7-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-521"><a href="#cb7-521" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-522"><a href="#cb7-522" aria-hidden="true" tabindex="-1"></a>    \begin{array}{ll}\label{eq:x1x2}</span>
-<span id="cb7-523"><a href="#cb7-523" aria-hidden="true" tabindex="-1"></a>        x_1=\sqrt{-2 \ln u_1} \cdot \cos 2 \pi u_2<span class="sc">\\</span></span>
-<span id="cb7-524"><a href="#cb7-524" aria-hidden="true" tabindex="-1"></a>        x_2=\sqrt{-2 \ln u_1} \cdot \sin 2 \pi u_2</span>
-<span id="cb7-525"><a href="#cb7-525" aria-hidden="true" tabindex="-1"></a>    \end{array}</span>
-<span id="cb7-526"><a href="#cb7-526" aria-hidden="true" tabindex="-1"></a>$$ {#eq-x1x2}</span>
-<span id="cb7-527"><a href="#cb7-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-528"><a href="#cb7-528" aria-hidden="true" tabindex="-1"></a>@lst-normmuller presents the python code to generate 1000 random normal variates using the method presented by&nbsp;@Ripley1983. Their histogram is presented in @fig-NormalBoxMuller.</span>
-<span id="cb7-529"><a href="#cb7-529" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-530"><a href="#cb7-530" aria-hidden="true" tabindex="-1"></a>::: {#lst-normmuller}</span>
-<span id="cb7-531"><a href="#cb7-531" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Listing: Box-Muller method to generate random variates."}</span>
-<span id="cb7-532"><a href="#cb7-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-533"><a href="#cb7-533" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb7-534"><a href="#cb7-534" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb7-535"><a href="#cb7-535" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb7-536"><a href="#cb7-536" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-537"><a href="#cb7-537" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Normal random deviates Box-Muller Method</span></span>
-<span id="cb7-538"><a href="#cb7-538" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-539"><a href="#cb7-539" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb7-540"><a href="#cb7-540" aria-hidden="true" tabindex="-1"></a>    u1 <span class="op">=</span> np.random.random(n)</span>
-<span id="cb7-541"><a href="#cb7-541" aria-hidden="true" tabindex="-1"></a>    u2 <span class="op">=</span> np.random.random(n)</span>
-<span id="cb7-542"><a href="#cb7-542" aria-hidden="true" tabindex="-1"></a>    r_squared <span class="op">=</span> <span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.log(u1)</span>
-<span id="cb7-543"><a href="#cb7-543" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> np.sqrt(r_squared)</span>
-<span id="cb7-544"><a href="#cb7-544" aria-hidden="true" tabindex="-1"></a>    theta <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>u2</span>
-<span id="cb7-545"><a href="#cb7-545" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> r<span class="op">*</span>np.cos(theta)</span>
-<span id="cb7-546"><a href="#cb7-546" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> r<span class="op">*</span>np.sin(theta)</span>
-<span id="cb7-547"><a href="#cb7-547" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-548"><a href="#cb7-548" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plotting Histograms for x and Y.</span></span>
-<span id="cb7-549"><a href="#cb7-549" aria-hidden="true" tabindex="-1"></a>    fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, sharey<span class="op">=</span><span class="va">True</span>, tight_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-550"><a href="#cb7-550" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-551"><a href="#cb7-551" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>].hist(x, bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"blue"</span>)</span>
-<span id="cb7-552"><a href="#cb7-552" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].hist(y, bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"green"</span>)</span>
-<span id="cb7-553"><a href="#cb7-553" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>].set_title(<span class="st">'X1'</span>)</span>
-<span id="cb7-554"><a href="#cb7-554" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].set_title(<span class="st">'X2'</span>)</span>
-<span id="cb7-555"><a href="#cb7-555" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb7-556"><a href="#cb7-556" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-557"><a href="#cb7-557" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-558"><a href="#cb7-558" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-506"><a href="#cb7-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-507"><a href="#cb7-507" aria-hidden="true" tabindex="-1"></a>::: {#fig-mixnorm}</span>
+<span id="cb7-508"><a href="#cb7-508" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/twoNormalsMix.png)</span>{width=60% alt="Random variates for the mixtures of two normal distributions."}</span>
+<span id="cb7-509"><a href="#cb7-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-510"><a href="#cb7-510" aria-hidden="true" tabindex="-1"></a>Random variates for the mixtures of two normal distributions.</span>
+<span id="cb7-511"><a href="#cb7-511" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-512"><a href="#cb7-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-513"><a href="#cb7-513" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transformation methods to obtain normal random variates</span></span>
+<span id="cb7-514"><a href="#cb7-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-515"><a href="#cb7-515" aria-hidden="true" tabindex="-1"></a>A transformation uses the functions and operators available in standard computer libraries^[e.g., trigonometric, exponential, and</span>
+<span id="cb7-516"><a href="#cb7-516" aria-hidden="true" tabindex="-1"></a>logarithmic functions.]. Transformations are appropriate for the generation of normal random variates because the inverse method cannot be used directly^<span class="co">[</span><span class="ot">The normal distribution does not have a closed form expression for its inverse CDF.</span><span class="co">] [@Marsaglia1964]</span>, <span class="co">[</span><span class="ot">@Box1958</span><span class="co">]</span>.</span>
+<span id="cb7-517"><a href="#cb7-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-518"><a href="#cb7-518" aria-hidden="true" tabindex="-1"></a><span class="fu">### Box-Muller method</span></span>
+<span id="cb7-519"><a href="#cb7-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-520"><a href="#cb7-520" aria-hidden="true" tabindex="-1"></a>Let $u_1$ and $u_2$ be independent random variables from $U(0,1)$. Then, the random variables in @eq-x1x2 are $N(\mu=0, \sigma=1)$.</span>
+<span id="cb7-521"><a href="#cb7-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-522"><a href="#cb7-522" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb7-523"><a href="#cb7-523" aria-hidden="true" tabindex="-1"></a>    \begin{array}{ll}\label{eq:x1x2}</span>
+<span id="cb7-524"><a href="#cb7-524" aria-hidden="true" tabindex="-1"></a>        x_1=\sqrt{-2 \ln u_1} \cdot \cos 2 \pi u_2<span class="sc">\\</span></span>
+<span id="cb7-525"><a href="#cb7-525" aria-hidden="true" tabindex="-1"></a>        x_2=\sqrt{-2 \ln u_1} \cdot \sin 2 \pi u_2</span>
+<span id="cb7-526"><a href="#cb7-526" aria-hidden="true" tabindex="-1"></a>    \end{array}</span>
+<span id="cb7-527"><a href="#cb7-527" aria-hidden="true" tabindex="-1"></a>$$ {#eq-x1x2}</span>
+<span id="cb7-528"><a href="#cb7-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-529"><a href="#cb7-529" aria-hidden="true" tabindex="-1"></a>@lst-normmuller presents the python code to generate 1000 random normal variates using the method presented by&nbsp;@Ripley1983. Their histogram is presented in @fig-NormalBoxMuller.</span>
+<span id="cb7-530"><a href="#cb7-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-531"><a href="#cb7-531" aria-hidden="true" tabindex="-1"></a>::: {#lst-normmuller}</span>
+<span id="cb7-532"><a href="#cb7-532" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Listing: Box-Muller method to generate random variates."}</span>
+<span id="cb7-533"><a href="#cb7-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-534"><a href="#cb7-534" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb7-535"><a href="#cb7-535" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-536"><a href="#cb7-536" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-537"><a href="#cb7-537" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-538"><a href="#cb7-538" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Normal random deviates Box-Muller Method</span></span>
+<span id="cb7-539"><a href="#cb7-539" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-540"><a href="#cb7-540" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb7-541"><a href="#cb7-541" aria-hidden="true" tabindex="-1"></a>    u1 <span class="op">=</span> np.random.random(n)</span>
+<span id="cb7-542"><a href="#cb7-542" aria-hidden="true" tabindex="-1"></a>    u2 <span class="op">=</span> np.random.random(n)</span>
+<span id="cb7-543"><a href="#cb7-543" aria-hidden="true" tabindex="-1"></a>    r_squared <span class="op">=</span> <span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.log(u1)</span>
+<span id="cb7-544"><a href="#cb7-544" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> np.sqrt(r_squared)</span>
+<span id="cb7-545"><a href="#cb7-545" aria-hidden="true" tabindex="-1"></a>    theta <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>u2</span>
+<span id="cb7-546"><a href="#cb7-546" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> r<span class="op">*</span>np.cos(theta)</span>
+<span id="cb7-547"><a href="#cb7-547" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> r<span class="op">*</span>np.sin(theta)</span>
+<span id="cb7-548"><a href="#cb7-548" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-549"><a href="#cb7-549" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plotting Histograms for x and Y.</span></span>
+<span id="cb7-550"><a href="#cb7-550" aria-hidden="true" tabindex="-1"></a>    fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, sharey<span class="op">=</span><span class="va">True</span>, tight_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-551"><a href="#cb7-551" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-552"><a href="#cb7-552" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>].hist(x, bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"blue"</span>)</span>
+<span id="cb7-553"><a href="#cb7-553" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].hist(y, bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"green"</span>)</span>
+<span id="cb7-554"><a href="#cb7-554" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>].set_title(<span class="st">'X1'</span>)</span>
+<span id="cb7-555"><a href="#cb7-555" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].set_title(<span class="st">'X2'</span>)</span>
+<span id="cb7-556"><a href="#cb7-556" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb7-557"><a href="#cb7-557" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-558"><a href="#cb7-558" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb7-559"><a href="#cb7-559" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-560"><a href="#cb7-560" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-561"><a href="#cb7-561" aria-hidden="true" tabindex="-1"></a>::: {#fig-NormalBoxMuller}</span>
-<span id="cb7-562"><a href="#cb7-562" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/NormalsBoxMuller.png)</span>{width=90% alt="Normal distributions obtained from Box-Muller method"}</span>
-<span id="cb7-563"><a href="#cb7-563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-564"><a href="#cb7-564" aria-hidden="true" tabindex="-1"></a>Normal distributions obtained from Box-Muller method.</span>
-<span id="cb7-565"><a href="#cb7-565" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-566"><a href="#cb7-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-560"><a href="#cb7-560" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-561"><a href="#cb7-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-562"><a href="#cb7-562" aria-hidden="true" tabindex="-1"></a>::: {#fig-NormalBoxMuller}</span>
+<span id="cb7-563"><a href="#cb7-563" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/NormalsBoxMuller.png)</span>{width=90% alt="Normal distributions obtained from Box-Muller method"}</span>
+<span id="cb7-564"><a href="#cb7-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-565"><a href="#cb7-565" aria-hidden="true" tabindex="-1"></a>Normal distributions obtained from Box-Muller method.</span>
+<span id="cb7-566"><a href="#cb7-566" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb7-567"><a href="#cb7-567" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-568"><a href="#cb7-568" aria-hidden="true" tabindex="-1"></a>The assumptions of the Box-Muller method are:</span>
-<span id="cb7-569"><a href="#cb7-569" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-570"><a href="#cb7-570" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The uniform random variates are independet and well distributed. This is: $u_1,u_2 \sim \mathnormal{U}(0,1)$.</span>
-<span id="cb7-571"><a href="#cb7-571" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-572"><a href="#cb7-572" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The domain is continuous and has no zero values. *i.e.*, assumes $u_1 &gt;0$ because the formulas use $ln(u_1)$. Also, $ln(0)$ is not defined.</span>
-<span id="cb7-573"><a href="#cb7-573" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-574"><a href="#cb7-574" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Availability of trigonometric functions. The method uses polar coordinates explicitly, so sine and cosine must be accurate and efficient.</span>
-<span id="cb7-575"><a href="#cb7-575" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-576"><a href="#cb7-576" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Floating point precision. The logarithms and square root should be precise enough so numerical errors cannot distort the tails of the normal distribution.</span>
-<span id="cb7-577"><a href="#cb7-577" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-578"><a href="#cb7-578" aria-hidden="true" tabindex="-1"></a><span class="fu">### Marsaglia-Bray method</span></span>
-<span id="cb7-579"><a href="#cb7-579" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-580"><a href="#cb7-580" aria-hidden="true" tabindex="-1"></a>@Marsaglia1964 provided an improvement to @Box1958 that runs faster^[Sometimes called the *polar form of the</span>
-<span id="cb7-581"><a href="#cb7-581" aria-hidden="true" tabindex="-1"></a>Box-Muller method*.]. It transforms uniform points inside a unit disk into points distributed according to a bivariate normal distribution avoiding \"expensive\" trigonometric functions used in the original Box-Muller method. The algorithm is as follows:</span>
-<span id="cb7-582"><a href="#cb7-582" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-583"><a href="#cb7-583" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Generate two independent uniform random numbers $u$ and $v$ from $U(-1,1)$^<span class="co">[</span><span class="ot">If $y \sim U(0,1)$, then $g=2y-1 \sim U(-1,1)$.</span><span class="co">]</span>.</span>
-<span id="cb7-584"><a href="#cb7-584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-585"><a href="#cb7-585" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Compute $s=u^2 + v^2$.</span>
-<span id="cb7-586"><a href="#cb7-586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-587"><a href="#cb7-587" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>If $s \geq 1$ or $s=0$, reject and go back to step 1.</span>
-<span id="cb7-588"><a href="#cb7-588" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-589"><a href="#cb7-589" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Compute $m=\sqrt{\frac{-2 ln (s)}{s}}.$</span>
-<span id="cb7-590"><a href="#cb7-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-591"><a href="#cb7-591" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Calculate $z_0=u \cdot m$ and $z_1=v \cdot m$.</span>
-<span id="cb7-592"><a href="#cb7-592" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-593"><a href="#cb7-593" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Append $z_0$ and $z_1$ to the list of random variates $z$.</span>
-<span id="cb7-594"><a href="#cb7-594" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-595"><a href="#cb7-595" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Repeat until $n$ samples are generated.</span>
-<span id="cb7-596"><a href="#cb7-596" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-597"><a href="#cb7-597" aria-hidden="true" tabindex="-1"></a>@lst-MarsBrey presents the python code to generate 1000 random normal variates. The histogram of these random numbers is presented in @fig-MarsBreyNormal.</span>
-<span id="cb7-598"><a href="#cb7-598" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-599"><a href="#cb7-599" aria-hidden="true" tabindex="-1"></a>::: {#lst-MarsBrey}</span>
-<span id="cb7-600"><a href="#cb7-600" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Listing: Marsaglia-Bray Polar method to generate random variates."}</span>
-<span id="cb7-601"><a href="#cb7-601" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-602"><a href="#cb7-602" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb7-603"><a href="#cb7-603" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb7-604"><a href="#cb7-604" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb7-605"><a href="#cb7-605" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
-<span id="cb7-606"><a href="#cb7-606" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb7-607"><a href="#cb7-607" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> time.perf_counter()</span>
-<span id="cb7-608"><a href="#cb7-608" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> marsaglia_bray(n, seed<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb7-609"><a href="#cb7-609" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(seed)</span>
-<span id="cb7-610"><a href="#cb7-610" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> []</span>
-<span id="cb7-611"><a href="#cb7-611" aria-hidden="true" tabindex="-1"></a>draws <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-612"><a href="#cb7-612" aria-hidden="true" tabindex="-1"></a>rejections <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-613"><a href="#cb7-613" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="bu">len</span>(samples) <span class="op">&lt;</span> n:</span>
-<span id="cb7-614"><a href="#cb7-614" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw U, V ~ Uniform(-1, 1)</span></span>
-<span id="cb7-615"><a href="#cb7-615" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> rng.uniform(<span class="op">-</span><span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb7-616"><a href="#cb7-616" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> rng.uniform(<span class="op">-</span><span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb7-617"><a href="#cb7-617" aria-hidden="true" tabindex="-1"></a>draws <span class="op">+=</span> <span class="dv">2</span></span>
-<span id="cb7-618"><a href="#cb7-618" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> U<span class="op">*</span>U <span class="op">+</span> V<span class="op">*</span>V</span>
-<span id="cb7-619"><a href="#cb7-619" aria-hidden="true" tabindex="-1"></a><span class="co"># Reject if outside the unit disk or at the origin</span></span>
-<span id="cb7-620"><a href="#cb7-620" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> S <span class="op">==</span> <span class="fl">0.0</span> <span class="kw">or</span> S <span class="op">&gt;=</span> <span class="fl">1.0</span>:</span>
-<span id="cb7-621"><a href="#cb7-621" aria-hidden="true" tabindex="-1"></a>rejections <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb7-622"><a href="#cb7-622" aria-hidden="true" tabindex="-1"></a><span class="cf">continue</span></span>
-<span id="cb7-623"><a href="#cb7-623" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to standard normals</span></span>
-<span id="cb7-624"><a href="#cb7-624" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.sqrt(<span class="op">-</span><span class="fl">2.0</span> <span class="op">*</span> np.log(S) <span class="op">/</span> S)</span>
-<span id="cb7-625"><a href="#cb7-625" aria-hidden="true" tabindex="-1"></a>Z0 <span class="op">=</span> U <span class="op">*</span> M</span>
-<span id="cb7-626"><a href="#cb7-626" aria-hidden="true" tabindex="-1"></a>Z1 <span class="op">=</span> V <span class="op">*</span> M</span>
-<span id="cb7-627"><a href="#cb7-627" aria-hidden="true" tabindex="-1"></a>samples.append(Z0)</span>
-<span id="cb7-628"><a href="#cb7-628" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(samples) <span class="op">&lt;</span> n:</span>
-<span id="cb7-629"><a href="#cb7-629" aria-hidden="true" tabindex="-1"></a>samples.append(Z1)</span>
-<span id="cb7-630"><a href="#cb7-630" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> np.array(samples), draws, rejections</span>
-<span id="cb7-631"><a href="#cb7-631" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Generate 1,000 random variates ----</span></span>
-<span id="cb7-632"><a href="#cb7-632" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb7-633"><a href="#cb7-633" aria-hidden="true" tabindex="-1"></a>samples, draws, rejs <span class="op">=</span> marsaglia_bray(N, seed<span class="op">=</span><span class="dv">2025</span>)</span>
-<span id="cb7-634"><a href="#cb7-634" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-635"><a href="#cb7-635" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Generated: </span><span class="sc">{</span>N<span class="sc">}</span><span class="ss"> samples | Uniform draws: </span><span class="sc">{</span>draws<span class="sc">}</span><span class="ss"> | Rejections: </span><span class="sc">{</span>rejs<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-636"><a href="#cb7-636" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sample mean: </span><span class="sc">{</span>samples<span class="sc">.</span>mean()<span class="sc">:.4f}</span><span class="ss">, sample std: </span><span class="sc">{</span>samples<span class="sc">.</span>std(ddof<span class="op">=</span><span class="dv">1</span>)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb7-637"><a href="#cb7-637" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">", "</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, samples))) </span>
-<span id="cb7-638"><a href="#cb7-638" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> time.perf_counter()</span>
-<span id="cb7-639"><a href="#cb7-639" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Time Elapsed: </span><span class="sc">{</span>end <span class="op">-</span> start<span class="sc">:.3f}</span><span class="ss"> s"</span>)</span>
-<span id="cb7-640"><a href="#cb7-640" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-641"><a href="#cb7-641" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-568"><a href="#cb7-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-569"><a href="#cb7-569" aria-hidden="true" tabindex="-1"></a>The assumptions of the Box-Muller method are:</span>
+<span id="cb7-570"><a href="#cb7-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-571"><a href="#cb7-571" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The uniform random variates are independet and well distributed. This is: $u_1,u_2 \sim \mathnormal{U}(0,1)$.</span>
+<span id="cb7-572"><a href="#cb7-572" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-573"><a href="#cb7-573" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The domain is continuous and has no zero values. *i.e.*, assumes $u_1 &gt;0$ because the formulas use $ln(u_1)$. Also, $ln(0)$ is not defined.</span>
+<span id="cb7-574"><a href="#cb7-574" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-575"><a href="#cb7-575" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Availability of trigonometric functions. The method uses polar coordinates explicitly, so sine and cosine must be accurate and efficient.</span>
+<span id="cb7-576"><a href="#cb7-576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-577"><a href="#cb7-577" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Floating point precision. The logarithms and square root should be precise enough so numerical errors cannot distort the tails of the normal distribution.</span>
+<span id="cb7-578"><a href="#cb7-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-579"><a href="#cb7-579" aria-hidden="true" tabindex="-1"></a><span class="fu">### Marsaglia-Bray method</span></span>
+<span id="cb7-580"><a href="#cb7-580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-581"><a href="#cb7-581" aria-hidden="true" tabindex="-1"></a>@Marsaglia1964 provided an improvement to @Box1958 that runs faster^[Sometimes called the *polar form of the</span>
+<span id="cb7-582"><a href="#cb7-582" aria-hidden="true" tabindex="-1"></a>Box-Muller method*.]. It transforms uniform points inside a unit disk into points distributed according to a bivariate normal distribution avoiding \"expensive\" trigonometric functions used in the original Box-Muller method. The algorithm is as follows:</span>
+<span id="cb7-583"><a href="#cb7-583" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-584"><a href="#cb7-584" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Generate two independent uniform random numbers $u$ and $v$ from $U(-1,1)$^<span class="co">[</span><span class="ot">If $y \sim U(0,1)$, then $g=2y-1 \sim U(-1,1)$.</span><span class="co">]</span>.</span>
+<span id="cb7-585"><a href="#cb7-585" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-586"><a href="#cb7-586" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Compute $s=u^2 + v^2$.</span>
+<span id="cb7-587"><a href="#cb7-587" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-588"><a href="#cb7-588" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>If $s \geq 1$ or $s=0$, reject and go back to step 1.</span>
+<span id="cb7-589"><a href="#cb7-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-590"><a href="#cb7-590" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Compute $m=\sqrt{\frac{-2 ln (s)}{s}}.$</span>
+<span id="cb7-591"><a href="#cb7-591" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-592"><a href="#cb7-592" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Calculate $z_0=u \cdot m$ and $z_1=v \cdot m$.</span>
+<span id="cb7-593"><a href="#cb7-593" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-594"><a href="#cb7-594" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Append $z_0$ and $z_1$ to the list of random variates $z$.</span>
+<span id="cb7-595"><a href="#cb7-595" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-596"><a href="#cb7-596" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Repeat until $n$ samples are generated.</span>
+<span id="cb7-597"><a href="#cb7-597" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-598"><a href="#cb7-598" aria-hidden="true" tabindex="-1"></a>@lst-MarsBrey presents the python code to generate 1000 random normal variates. The histogram of these random numbers is presented in @fig-MarsBreyNormal.</span>
+<span id="cb7-599"><a href="#cb7-599" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-600"><a href="#cb7-600" aria-hidden="true" tabindex="-1"></a>::: {#lst-MarsBrey}</span>
+<span id="cb7-601"><a href="#cb7-601" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Listing: Marsaglia-Bray Polar method to generate random variates."}</span>
+<span id="cb7-602"><a href="#cb7-602" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-603"><a href="#cb7-603" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb7-604"><a href="#cb7-604" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-605"><a href="#cb7-605" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-606"><a href="#cb7-606" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb7-607"><a href="#cb7-607" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb7-608"><a href="#cb7-608" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> time.perf_counter()</span>
+<span id="cb7-609"><a href="#cb7-609" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> marsaglia_bray(n, seed<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb7-610"><a href="#cb7-610" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb7-611"><a href="#cb7-611" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> []</span>
+<span id="cb7-612"><a href="#cb7-612" aria-hidden="true" tabindex="-1"></a>draws <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-613"><a href="#cb7-613" aria-hidden="true" tabindex="-1"></a>rejections <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-614"><a href="#cb7-614" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="bu">len</span>(samples) <span class="op">&lt;</span> n:</span>
+<span id="cb7-615"><a href="#cb7-615" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw U, V ~ Uniform(-1, 1)</span></span>
+<span id="cb7-616"><a href="#cb7-616" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> rng.uniform(<span class="op">-</span><span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
+<span id="cb7-617"><a href="#cb7-617" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> rng.uniform(<span class="op">-</span><span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
+<span id="cb7-618"><a href="#cb7-618" aria-hidden="true" tabindex="-1"></a>draws <span class="op">+=</span> <span class="dv">2</span></span>
+<span id="cb7-619"><a href="#cb7-619" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> U<span class="op">*</span>U <span class="op">+</span> V<span class="op">*</span>V</span>
+<span id="cb7-620"><a href="#cb7-620" aria-hidden="true" tabindex="-1"></a><span class="co"># Reject if outside the unit disk or at the origin</span></span>
+<span id="cb7-621"><a href="#cb7-621" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> S <span class="op">==</span> <span class="fl">0.0</span> <span class="kw">or</span> S <span class="op">&gt;=</span> <span class="fl">1.0</span>:</span>
+<span id="cb7-622"><a href="#cb7-622" aria-hidden="true" tabindex="-1"></a>rejections <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-623"><a href="#cb7-623" aria-hidden="true" tabindex="-1"></a><span class="cf">continue</span></span>
+<span id="cb7-624"><a href="#cb7-624" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to standard normals</span></span>
+<span id="cb7-625"><a href="#cb7-625" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> np.sqrt(<span class="op">-</span><span class="fl">2.0</span> <span class="op">*</span> np.log(S) <span class="op">/</span> S)</span>
+<span id="cb7-626"><a href="#cb7-626" aria-hidden="true" tabindex="-1"></a>Z0 <span class="op">=</span> U <span class="op">*</span> M</span>
+<span id="cb7-627"><a href="#cb7-627" aria-hidden="true" tabindex="-1"></a>Z1 <span class="op">=</span> V <span class="op">*</span> M</span>
+<span id="cb7-628"><a href="#cb7-628" aria-hidden="true" tabindex="-1"></a>samples.append(Z0)</span>
+<span id="cb7-629"><a href="#cb7-629" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(samples) <span class="op">&lt;</span> n:</span>
+<span id="cb7-630"><a href="#cb7-630" aria-hidden="true" tabindex="-1"></a>samples.append(Z1)</span>
+<span id="cb7-631"><a href="#cb7-631" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> np.array(samples), draws, rejections</span>
+<span id="cb7-632"><a href="#cb7-632" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Generate 1,000 random variates ----</span></span>
+<span id="cb7-633"><a href="#cb7-633" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb7-634"><a href="#cb7-634" aria-hidden="true" tabindex="-1"></a>samples, draws, rejs <span class="op">=</span> marsaglia_bray(N, seed<span class="op">=</span><span class="dv">2025</span>)</span>
+<span id="cb7-635"><a href="#cb7-635" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-636"><a href="#cb7-636" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Generated: </span><span class="sc">{</span>N<span class="sc">}</span><span class="ss"> samples | Uniform draws: </span><span class="sc">{</span>draws<span class="sc">}</span><span class="ss"> | Rejections: </span><span class="sc">{</span>rejs<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-637"><a href="#cb7-637" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sample mean: </span><span class="sc">{</span>samples<span class="sc">.</span>mean()<span class="sc">:.4f}</span><span class="ss">, sample std: </span><span class="sc">{</span>samples<span class="sc">.</span>std(ddof<span class="op">=</span><span class="dv">1</span>)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb7-638"><a href="#cb7-638" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">", "</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, samples))) </span>
+<span id="cb7-639"><a href="#cb7-639" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> time.perf_counter()</span>
+<span id="cb7-640"><a href="#cb7-640" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Time Elapsed: </span><span class="sc">{</span>end <span class="op">-</span> start<span class="sc">:.3f}</span><span class="ss"> s"</span>)</span>
+<span id="cb7-641"><a href="#cb7-641" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb7-642"><a href="#cb7-642" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-643"><a href="#cb7-643" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-644"><a href="#cb7-644" aria-hidden="true" tabindex="-1"></a>::: {#fig-MarsBreyNormal}</span>
-<span id="cb7-645"><a href="#cb7-645" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/MarsaGrey.png)</span>{width=70% alt="Normal random variates by Marsaglia-Bray method."}</span>
-<span id="cb7-646"><a href="#cb7-646" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-647"><a href="#cb7-647" aria-hidden="true" tabindex="-1"></a>Normal random variates by Marsaglia-Bray method.</span>
-<span id="cb7-648"><a href="#cb7-648" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-649"><a href="#cb7-649" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-643"><a href="#cb7-643" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-644"><a href="#cb7-644" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-645"><a href="#cb7-645" aria-hidden="true" tabindex="-1"></a>::: {#fig-MarsBreyNormal}</span>
+<span id="cb7-646"><a href="#cb7-646" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/MarsaGrey.png)</span>{width=70% alt="Normal random variates by Marsaglia-Bray method."}</span>
+<span id="cb7-647"><a href="#cb7-647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-648"><a href="#cb7-648" aria-hidden="true" tabindex="-1"></a>Normal random variates by Marsaglia-Bray method.</span>
+<span id="cb7-649"><a href="#cb7-649" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb7-650"><a href="#cb7-650" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-651"><a href="#cb7-651" aria-hidden="true" tabindex="-1"></a>The acceptance rate is $\simeq \frac{\pi}{4} \simeq 0.785$. Thus, the method is efficient and avoids sine and cosine calls used in the original Box-Muller form.</span>
-<span id="cb7-652"><a href="#cb7-652" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-653"><a href="#cb7-653" aria-hidden="true" tabindex="-1"></a>The assumptions of the Marsaglia-Bray method are:</span>
-<span id="cb7-654"><a href="#cb7-654" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-655"><a href="#cb7-655" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Uniform random numbers are independent and well distributed. The method samples points uniformly in a square and rejects those outside the unit disk.</span>
-<span id="cb7-656"><a href="#cb7-656" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-657"><a href="#cb7-657" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Rejection sampling works efficiently. It assumes the acceptance ratio is around 78.5%. If the uniform generation is biased, the rejection step will fail to produce correct normal variates.</span>
-<span id="cb7-658"><a href="#cb7-658" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-659"><a href="#cb7-659" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No zero radius. It assumes $s \neq 0$ otherwise division by zero occurs in the calculation of $m$.</span>
-<span id="cb7-660"><a href="#cb7-660" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-661"><a href="#cb7-661" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Availability of logarithm and square root calculations.</span>
-<span id="cb7-662"><a href="#cb7-662" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-663"><a href="#cb7-663" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Rotational symmetry. It assumes the normal distribution is isotropic^<span class="co">[</span><span class="ot">This means, if you rotate the coordinate system, the distribution looks exactly the same; there is no preferred direction.</span><span class="co">]</span> in 2D.</span>
-<span id="cb7-664"><a href="#cb7-664" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-665"><a href="#cb7-665" aria-hidden="true" tabindex="-1"></a>Both methods rely on converting uniform random numbers into normal variates using mathematical properties of the normal distribution in polar coordinates. If any assumption fails (e.g., poor RNG, inaccurate math functions), the generated numbers will deviate from the true normal distribution.</span>
-<span id="cb7-666"><a href="#cb7-666" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-667"><a href="#cb7-667" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other methods</span></span>
-<span id="cb7-668"><a href="#cb7-668" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-669"><a href="#cb7-669" aria-hidden="true" tabindex="-1"></a>This final section presents a non-exhaustive list with brief descriptions of additional methods for generating random numbers from probability distributions beyond those discussed earlier.</span>
-<span id="cb7-670"><a href="#cb7-670" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-671"><a href="#cb7-671" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Ziggurat algorithm&nbsp;<span class="co">[</span><span class="ot">@Marsaglia2000</span><span class="co">]</span>. Imagine stacking blocks under the curve of the distribution. You pick a block at random and then a point inside it. If the point is outside the curve, you retry. This method avoids \"heavy\" math like logs and trigonometric functions most of the time. The method is very fast for normal and exponential distributions.</span>
-<span id="cb7-672"><a href="#cb7-672" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-673"><a href="#cb7-673" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Ratio of uniforms&nbsp;<span class="co">[</span><span class="ot">@Kinderman1977</span><span class="co">]</span>. Pick two random numbers in a rectangle, take their ratio, and keep it if it falls inside a certain shape. The method does not require an inverse CDF. Is good for PDFs, and PMFs, when a bounding region can be built.</span>
-<span id="cb7-674"><a href="#cb7-674" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-675"><a href="#cb7-675" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Adaptive rejection sampling&nbsp;<span class="co">[</span><span class="ot">@Gilks1992</span><span class="co">]</span>,&nbsp;<span class="co">[</span><span class="ot">@Devroye1986</span><span class="co">]</span>. Improves rejection sampling by using piecewise linear envelopes that adapt to the target distribution. Therefore, draws from an easy shape that hughs the curve of the target distribution tightly and adjusts the shape as it goes to waste or reject fewer samples. It is efficient for log-concave distributions^[Gaussian, exponential, uniform,</span>
-<span id="cb7-676"><a href="#cb7-676" aria-hidden="true" tabindex="-1"></a>Laplace (double exponential), Gamma for $\alpha \geq 1$, Beta, Binomial, Poisson, and all other distributions where the natural logarithm of the curve of the PDF bends downward, never upward. Log-concavity often occurs when the PDF is unimodal and its tails decrease exponentially or faster.].</span>
-<span id="cb7-677"><a href="#cb7-677" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-678"><a href="#cb7-678" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Markov Chain Monte Carlo Methods&nbsp;<span class="co">[</span><span class="ot">@Robert1999</span><span class="co">]</span>. This method generates samples constructing Markov chains whose stationary distribution is the target distribution. It starts at a random point, moves around using rules that favor areas where the distribution is high and, after enough steps, the points look like the target distribution. The method is used for complex high dimensional distributions where direct sampling is hard.</span>
-<span id="cb7-679"><a href="#cb7-679" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-680"><a href="#cb7-680" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Slice sampling&nbsp;<span class="co">[</span><span class="ot">@Neal2003</span><span class="co">]</span>. Samples by drawing a horizontal "slice" under the curve of the target PDF and then samling uniformly from that slice, forming a Markov chain that explores the distribution. It is simple and works for many distributions.</span>
-<span id="cb7-681"><a href="#cb7-681" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-682"><a href="#cb7-682" aria-hidden="true" tabindex="-1"></a>There are numerous methods available for generating random samples from probability distributions, each with its own advantages, limitations, and areas of application. Beyond the commonly discussed techniques such as inversion, acceptance--rejection, and transformation methods, specialized algorithms like the Ziggurat method, ratio-of-uniforms, adaptive rejection sampling, slice sampling, and Markov Chain Monte Carlo approaches are widely used in practice. These methods are essential for simulation, statistical modeling, and computational experiments. The interested Starfleet cadet^<span class="co">[</span><span class="ot">Star Trek.</span><span class="co">]</span> is encouraged to consult the library or her/his preferred engineering professor for other references, theoretical foundations, and implementation guidelines.</span>
-<span id="cb7-683"><a href="#cb7-683" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-684"><a href="#cb7-684" aria-hidden="true" tabindex="-1"></a><span class="fu">## Questions</span></span>
-<span id="cb7-685"><a href="#cb7-685" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-686"><a href="#cb7-686" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What is the purpose of generating probability distributions from $U(0,1)$ random variables?</span>
-<span id="cb7-687"><a href="#cb7-687" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-688"><a href="#cb7-688" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Define a random variate.</span>
-<span id="cb7-689"><a href="#cb7-689" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-690"><a href="#cb7-690" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Explain the idea behind the inverse transform method.</span>
-<span id="cb7-691"><a href="#cb7-691" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-692"><a href="#cb7-692" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Under what condition can the inverse transform method be used?</span>
-<span id="cb7-693"><a href="#cb7-693" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-694"><a href="#cb7-694" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Derive the inverse transform formula for the exponential distribution.</span>
-<span id="cb7-695"><a href="#cb7-695" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-696"><a href="#cb7-696" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Why can $1-u$ be replaced with $u$ in the exponential inversion formula?</span>
-<span id="cb7-697"><a href="#cb7-697" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-698"><a href="#cb7-698" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Explain how to generate a Bernoulli random variable using $U(0,1)$.</span>
-<span id="cb7-699"><a href="#cb7-699" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-700"><a href="#cb7-700" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>What is the convolution method and when is it applicable?</span>
-<span id="cb7-701"><a href="#cb7-701" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-702"><a href="#cb7-702" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>State the convolution theorem used in simulation.</span>
-<span id="cb7-703"><a href="#cb7-703" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-704"><a href="#cb7-704" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Why does the Erlang distribution naturally fit the convolution method?</span>
-<span id="cb7-705"><a href="#cb7-705" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-706"><a href="#cb7-706" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>What is the main idea of the acceptance-rejection method?</span>
-<span id="cb7-707"><a href="#cb7-707" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-708"><a href="#cb7-708" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Define the role of the constant $M$ in acceptance-rejection sampling.</span>
-<span id="cb7-709"><a href="#cb7-709" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-710"><a href="#cb7-710" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>What determines the efficiency of the acceptance-rejection method?</span>
-<span id="cb7-711"><a href="#cb7-711" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-712"><a href="#cb7-712" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>What is the expected number of iterations in acceptance-rejection?</span>
-<span id="cb7-713"><a href="#cb7-713" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-714"><a href="#cb7-714" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>Explain what a mixture distribution is.</span>
-<span id="cb7-715"><a href="#cb7-715" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-716"><a href="#cb7-716" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Describe the steps of the composition method.</span>
-<span id="cb7-717"><a href="#cb7-717" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-718"><a href="#cb7-718" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Why can the inverse method not be used directly for the normal distribution?</span>
-<span id="cb7-719"><a href="#cb7-719" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-720"><a href="#cb7-720" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>Write the Box--Muller transformation formulas.</span>
-<span id="cb7-721"><a href="#cb7-721" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-722"><a href="#cb7-722" aria-hidden="true" tabindex="-1"></a><span class="ss">19. </span>What is the main advantage of the Marsaglia--Bray method over Box--Muller?</span>
-<span id="cb7-723"><a href="#cb7-723" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-724"><a href="#cb7-724" aria-hidden="true" tabindex="-1"></a><span class="ss">20. </span>What is the approximate acceptance rate of the Marsaglia--Bray method?</span>
-<span id="cb7-725"><a href="#cb7-725" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-726"><a href="#cb7-726" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercises</span></span>
-<span id="cb7-727"><a href="#cb7-727" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-728"><a href="#cb7-728" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Inverse Method.** Given $u = 0.25$ and $\lambda = 2$, compute a sample from an exponential distribution using inversion.</span>
-<span id="cb7-729"><a href="#cb7-729" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-730"><a href="#cb7-730" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Bernoulli Simulation.** Let $p=0.7$. Given $u = 0.6$, determine the outcome of a Bernoulli trial.</span>
-<span id="cb7-731"><a href="#cb7-731" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-732"><a href="#cb7-732" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Erlang Calculation.** Generate one Erlang($k=2$, $\lambda=1$) sample using: $u_1=0.5$, $u_2=0.8$.</span>
-<span id="cb7-733"><a href="#cb7-733" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-734"><a href="#cb7-734" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Acceptance--Rejection** If $M=2$, what is the probability of accepting a candidate sample?</span>
-<span id="cb7-735"><a href="#cb7-735" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-736"><a href="#cb7-736" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Acceptance Probability.** If $M=5$, compute the expected number of iterations until acceptance.</span>
-<span id="cb7-737"><a href="#cb7-737" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-738"><a href="#cb7-738" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>**Mixture Sampling.** A mixture has weights $w_1=0.7$, $w_2=0.3$. If a uniform random number is $u=0.65$, which component is selected?</span>
-<span id="cb7-739"><a href="#cb7-739" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-740"><a href="#cb7-740" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>**Box-Muller Computation.** Given $u_1=0.5$, $u_2=0.25$, compute $x_1$ using Box-Muller.</span>
-<span id="cb7-741"><a href="#cb7-741" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-742"><a href="#cb7-742" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>**Marsaglia--Bray condition.** Given $u=0.8$, $v=0.7$, determine whether the sample is accepted or rejected.</span>
-<span id="cb7-743"><a href="#cb7-743" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-744"><a href="#cb7-744" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>**Geometric Distribution.** For $p=0.3$, compute the probability that the first success occurs at trial $k=3$.</span>
-<span id="cb7-745"><a href="#cb7-745" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-746"><a href="#cb7-746" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>**Negative Binomial.** Compute $P(X=2)$ for a negative binomial with $r=2$, $p=0.5$.</span>
-<span id="cb7-747"><a href="#cb7-747" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-748"><a href="#cb7-748" aria-hidden="true" tabindex="-1"></a><span class="fu">## Notes of the Chapter {#notes-of-the-chapter .unnumbered}</span></span>
-<span id="cb7-749"><a href="#cb7-749" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-750"><a href="#cb7-750" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Richard Phillips Feynman (May 11, 1918 -- February 15, 1988) was an American theoretical physicist widely regarded as one of the most influential scientists of the 20th century. Feynman made transformative contributions to quantum electrodynamics (QED), for which he shared the 1965 Nobel Prize in Physics with Julian Schwinger and Sin-Itiro Tomonaga, and introduced the now-ubiquitous Feynman diagrams, intuitive visual tools that revolutionized calculations in particle physics. He also played key roles at Los Alamos during the Manhattan Project and later became a legendary professor at Caltech, renowned for his clarity, creativity, and infectious curiosity as a teacher and scientific communicator. As a member of the Rogers Commission investigating the 1986 Space Shuttle Challenger disaster, Feynman famously demonstrated the failure of rubber O-rings at low temperatures by dunking one into ice water on live television, cutting through technical jargon with a simple, decisive experiment.</span>
-<span id="cb7-751"><a href="#cb7-751" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-752"><a href="#cb7-752" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {#References .unnumbered}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb7-651"><a href="#cb7-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-652"><a href="#cb7-652" aria-hidden="true" tabindex="-1"></a>The acceptance rate is $\simeq \frac{\pi}{4} \simeq 0.785$. Thus, the method is efficient and avoids sine and cosine calls used in the original Box-Muller form.</span>
+<span id="cb7-653"><a href="#cb7-653" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-654"><a href="#cb7-654" aria-hidden="true" tabindex="-1"></a>The assumptions of the Marsaglia-Bray method are:</span>
+<span id="cb7-655"><a href="#cb7-655" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-656"><a href="#cb7-656" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Uniform random numbers are independent and well distributed. The method samples points uniformly in a square and rejects those outside the unit disk.</span>
+<span id="cb7-657"><a href="#cb7-657" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-658"><a href="#cb7-658" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Rejection sampling works efficiently. It assumes the acceptance ratio is around 78.5%. If the uniform generation is biased, the rejection step will fail to produce correct normal variates.</span>
+<span id="cb7-659"><a href="#cb7-659" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-660"><a href="#cb7-660" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No zero radius. It assumes $s \neq 0$ otherwise division by zero occurs in the calculation of $m$.</span>
+<span id="cb7-661"><a href="#cb7-661" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-662"><a href="#cb7-662" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Availability of logarithm and square root calculations.</span>
+<span id="cb7-663"><a href="#cb7-663" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-664"><a href="#cb7-664" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Rotational symmetry. It assumes the normal distribution is isotropic^<span class="co">[</span><span class="ot">This means, if you rotate the coordinate system, the distribution looks exactly the same; there is no preferred direction.</span><span class="co">]</span> in 2D.</span>
+<span id="cb7-665"><a href="#cb7-665" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-666"><a href="#cb7-666" aria-hidden="true" tabindex="-1"></a>Both methods rely on converting uniform random numbers into normal variates using mathematical properties of the normal distribution in polar coordinates. If any assumption fails (e.g., poor RNG, inaccurate math functions), the generated numbers will deviate from the true normal distribution.</span>
+<span id="cb7-667"><a href="#cb7-667" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-668"><a href="#cb7-668" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other methods</span></span>
+<span id="cb7-669"><a href="#cb7-669" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-670"><a href="#cb7-670" aria-hidden="true" tabindex="-1"></a>This final section presents a non-exhaustive list with brief descriptions of additional methods for generating random numbers from probability distributions beyond those discussed earlier.</span>
+<span id="cb7-671"><a href="#cb7-671" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-672"><a href="#cb7-672" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Ziggurat algorithm&nbsp;<span class="co">[</span><span class="ot">@Marsaglia2000</span><span class="co">]</span>. Imagine stacking blocks under the curve of the distribution. You pick a block at random and then a point inside it. If the point is outside the curve, you retry. This method avoids \"heavy\" math like logs and trigonometric functions most of the time. The method is very fast for normal and exponential distributions.</span>
+<span id="cb7-673"><a href="#cb7-673" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-674"><a href="#cb7-674" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Ratio of uniforms&nbsp;<span class="co">[</span><span class="ot">@Kinderman1977</span><span class="co">]</span>. Pick two random numbers in a rectangle, take their ratio, and keep it if it falls inside a certain shape. The method does not require an inverse CDF. Is good for PDFs, and PMFs, when a bounding region can be built.</span>
+<span id="cb7-675"><a href="#cb7-675" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-676"><a href="#cb7-676" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Adaptive rejection sampling&nbsp;<span class="co">[</span><span class="ot">@Gilks1992</span><span class="co">]</span>,&nbsp;<span class="co">[</span><span class="ot">@Devroye1986</span><span class="co">]</span>. Improves rejection sampling by using piecewise linear envelopes that adapt to the target distribution. Therefore, draws from an easy shape that hughs the curve of the target distribution tightly and adjusts the shape as it goes to waste or reject fewer samples. It is efficient for log-concave distributions^[Gaussian, exponential, uniform,</span>
+<span id="cb7-677"><a href="#cb7-677" aria-hidden="true" tabindex="-1"></a>Laplace (double exponential), Gamma for $\alpha \geq 1$, Beta, Binomial, Poisson, and all other distributions where the natural logarithm of the curve of the PDF bends downward, never upward. Log-concavity often occurs when the PDF is unimodal and its tails decrease exponentially or faster.].</span>
+<span id="cb7-678"><a href="#cb7-678" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-679"><a href="#cb7-679" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Markov Chain Monte Carlo Methods&nbsp;<span class="co">[</span><span class="ot">@Robert1999</span><span class="co">]</span>. This method generates samples constructing Markov chains whose stationary distribution is the target distribution. It starts at a random point, moves around using rules that favor areas where the distribution is high and, after enough steps, the points look like the target distribution. The method is used for complex high dimensional distributions where direct sampling is hard.</span>
+<span id="cb7-680"><a href="#cb7-680" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-681"><a href="#cb7-681" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Slice sampling&nbsp;<span class="co">[</span><span class="ot">@Neal2003</span><span class="co">]</span>. Samples by drawing a horizontal "slice" under the curve of the target PDF and then samling uniformly from that slice, forming a Markov chain that explores the distribution. It is simple and works for many distributions.</span>
+<span id="cb7-682"><a href="#cb7-682" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-683"><a href="#cb7-683" aria-hidden="true" tabindex="-1"></a>There are numerous methods available for generating random samples from probability distributions, each with its own advantages, limitations, and areas of application. Beyond the commonly discussed techniques such as inversion, acceptance--rejection, and transformation methods, specialized algorithms like the Ziggurat method, ratio-of-uniforms, adaptive rejection sampling, slice sampling, and Markov Chain Monte Carlo approaches are widely used in practice. These methods are essential for simulation, statistical modeling, and computational experiments. The interested Starfleet cadet^<span class="co">[</span><span class="ot">Star Trek.</span><span class="co">]</span> is encouraged to consult the library or her/his preferred engineering professor for other references, theoretical foundations, and implementation guidelines.</span>
+<span id="cb7-684"><a href="#cb7-684" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-685"><a href="#cb7-685" aria-hidden="true" tabindex="-1"></a><span class="fu">## Questions</span></span>
+<span id="cb7-686"><a href="#cb7-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-687"><a href="#cb7-687" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What is the purpose of generating probability distributions from $U(0,1)$ random variables?</span>
+<span id="cb7-688"><a href="#cb7-688" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-689"><a href="#cb7-689" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Define a random variate.</span>
+<span id="cb7-690"><a href="#cb7-690" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-691"><a href="#cb7-691" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Explain the idea behind the inverse transform method.</span>
+<span id="cb7-692"><a href="#cb7-692" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-693"><a href="#cb7-693" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Under what condition can the inverse transform method be used?</span>
+<span id="cb7-694"><a href="#cb7-694" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-695"><a href="#cb7-695" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Derive the inverse transform formula for the exponential distribution.</span>
+<span id="cb7-696"><a href="#cb7-696" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-697"><a href="#cb7-697" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Why can $1-u$ be replaced with $u$ in the exponential inversion formula?</span>
+<span id="cb7-698"><a href="#cb7-698" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-699"><a href="#cb7-699" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Explain how to generate a Bernoulli random variable using $U(0,1)$.</span>
+<span id="cb7-700"><a href="#cb7-700" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-701"><a href="#cb7-701" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>What is the convolution method and when is it applicable?</span>
+<span id="cb7-702"><a href="#cb7-702" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-703"><a href="#cb7-703" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>State the convolution theorem used in simulation.</span>
+<span id="cb7-704"><a href="#cb7-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-705"><a href="#cb7-705" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Why does the Erlang distribution naturally fit the convolution method?</span>
+<span id="cb7-706"><a href="#cb7-706" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-707"><a href="#cb7-707" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>What is the main idea of the acceptance-rejection method?</span>
+<span id="cb7-708"><a href="#cb7-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-709"><a href="#cb7-709" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Define the role of the constant $M$ in acceptance-rejection sampling.</span>
+<span id="cb7-710"><a href="#cb7-710" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-711"><a href="#cb7-711" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>What determines the efficiency of the acceptance-rejection method?</span>
+<span id="cb7-712"><a href="#cb7-712" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-713"><a href="#cb7-713" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>What is the expected number of iterations in acceptance-rejection?</span>
+<span id="cb7-714"><a href="#cb7-714" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-715"><a href="#cb7-715" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>Explain what a mixture distribution is.</span>
+<span id="cb7-716"><a href="#cb7-716" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-717"><a href="#cb7-717" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Describe the steps of the composition method.</span>
+<span id="cb7-718"><a href="#cb7-718" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-719"><a href="#cb7-719" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Why can the inverse method not be used directly for the normal distribution?</span>
+<span id="cb7-720"><a href="#cb7-720" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-721"><a href="#cb7-721" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>Write the Box--Muller transformation formulas.</span>
+<span id="cb7-722"><a href="#cb7-722" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-723"><a href="#cb7-723" aria-hidden="true" tabindex="-1"></a><span class="ss">19. </span>What is the main advantage of the Marsaglia--Bray method over Box--Muller?</span>
+<span id="cb7-724"><a href="#cb7-724" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-725"><a href="#cb7-725" aria-hidden="true" tabindex="-1"></a><span class="ss">20. </span>What is the approximate acceptance rate of the Marsaglia--Bray method?</span>
+<span id="cb7-726"><a href="#cb7-726" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-727"><a href="#cb7-727" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercises</span></span>
+<span id="cb7-728"><a href="#cb7-728" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-729"><a href="#cb7-729" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Inverse Method.** Given $u = 0.25$ and $\lambda = 2$, compute a sample from an exponential distribution using inversion.</span>
+<span id="cb7-730"><a href="#cb7-730" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-731"><a href="#cb7-731" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Bernoulli Simulation.** Let $p=0.7$. Given $u = 0.6$, determine the outcome of a Bernoulli trial.</span>
+<span id="cb7-732"><a href="#cb7-732" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-733"><a href="#cb7-733" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Erlang Calculation.** Generate one Erlang($k=2$, $\lambda=1$) sample using: $u_1=0.5$, $u_2=0.8$.</span>
+<span id="cb7-734"><a href="#cb7-734" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-735"><a href="#cb7-735" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Acceptance--Rejection** If $M=2$, what is the probability of accepting a candidate sample?</span>
+<span id="cb7-736"><a href="#cb7-736" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-737"><a href="#cb7-737" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Acceptance Probability.** If $M=5$, compute the expected number of iterations until acceptance.</span>
+<span id="cb7-738"><a href="#cb7-738" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-739"><a href="#cb7-739" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>**Mixture Sampling.** A mixture has weights $w_1=0.7$, $w_2=0.3$. If a uniform random number is $u=0.65$, which component is selected?</span>
+<span id="cb7-740"><a href="#cb7-740" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-741"><a href="#cb7-741" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>**Box-Muller Computation.** Given $u_1=0.5$, $u_2=0.25$, compute $x_1$ using Box-Muller.</span>
+<span id="cb7-742"><a href="#cb7-742" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-743"><a href="#cb7-743" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>**Marsaglia--Bray condition.** Given $u=0.8$, $v=0.7$, determine whether the sample is accepted or rejected.</span>
+<span id="cb7-744"><a href="#cb7-744" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-745"><a href="#cb7-745" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>**Geometric Distribution.** For $p=0.3$, compute the probability that the first success occurs at trial $k=3$.</span>
+<span id="cb7-746"><a href="#cb7-746" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-747"><a href="#cb7-747" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>**Negative Binomial.** Compute $P(X=2)$ for a negative binomial with $r=2$, $p=0.5$.</span>
+<span id="cb7-748"><a href="#cb7-748" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-749"><a href="#cb7-749" aria-hidden="true" tabindex="-1"></a><span class="fu">## Notes of the Chapter {#notes-of-the-chapter .unnumbered}</span></span>
+<span id="cb7-750"><a href="#cb7-750" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-751"><a href="#cb7-751" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Richard Phillips Feynman (May 11, 1918 -- February 15, 1988) was an American theoretical physicist widely regarded as one of the most influential scientists of the 20th century. Feynman made transformative contributions to quantum electrodynamics (QED), for which he shared the 1965 Nobel Prize in Physics with Julian Schwinger and Sin-Itiro Tomonaga, and introduced the now-ubiquitous Feynman diagrams, intuitive visual tools that revolutionized calculations in particle physics. He also played key roles at Los Alamos during the Manhattan Project and later became a legendary professor at Caltech, renowned for his clarity, creativity, and infectious curiosity as a teacher and scientific communicator. As a member of the Rogers Commission investigating the 1986 Space Shuttle Challenger disaster, Feynman famously demonstrated the failure of rubber O-rings at low temperatures by dunking one into ice water on live television, cutting through technical jargon with a simple, decisive experiment.</span>
+<span id="cb7-752"><a href="#cb7-752" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-753"><a href="#cb7-753" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {#References .unnumbered}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
