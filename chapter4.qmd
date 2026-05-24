@@ -465,6 +465,7 @@ The process to generate random variates is:
 
     - Once $I$ is chosen, sample $x$ from $f_I(x)$.
 
+    
 4.  Return the sample $x$. This sample is distributed according to the mixture $f(x)$.
 
 The index $I$ is important because it transforms the mixture problem into two simpler ones:
