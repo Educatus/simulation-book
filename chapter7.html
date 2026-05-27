@@ -379,7 +379,7 @@ Figure&nbsp;8.3: Distribution of Gap values and comparison with specifications.
 </figcaption>
 </figure>
 </div>
-<p>Monte Carlo vs.&nbsp;Worst‑Case vs.&nbsp;RSS: Monte Carlo provides yield estimates under realistic variability; worst‑case stack‑up is often overly pessimistic, while RSS (root‑sum‑square) is optimistic unless variability is truly normal and small. For production decisions, Monte Carlo is preferred.</p>
+<p>Monte Carlo vs.&nbsp;Worst‑Case<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> vs.&nbsp;RSS<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>: Monte Carlo provides yield estimates under realistic variability; worst‑case stack‑up is often overly pessimistic, while RSS (root‑sum‑square) is optimistic unless variability is truly normal and small. For production decisions, Monte Carlo is preferred.</p>
 <div id="lst-mchousing" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-mchousing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -495,6 +495,8 @@ Raychaudhuri, S. (2008). <span class="nocase">Introduction to Monte Carlo Simula
 <ol>
 <li id="fn1"><p>This mathematical model is called transfer function.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Adapted from <span class="citation" data-cites="Creveling1997">Creveling (<a href="#ref-Creveling1997" role="doc-biblioref">1997</a>)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Worst-case tolerance analysis assumes that all individual variations reach their extreme limits at the same time and adds them directly to find the maximum possible deviation.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>RSS tolerance analysis is a method used to estimate how variations in different parts combine, assuming those variations occur randomly and are unlikely to all happen at their worst value at the same time.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1055,96 +1057,97 @@ Raychaudhuri, S. (2008). <span class="nocase">Introduction to Monte Carlo Simula
 <span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>Distribution of Gap values and comparison with specifications.</span>
 <span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>Monte Carlo vs. Worst‑Case vs. RSS: Monte Carlo provides yield estimates under realistic variability; worst‑case stack‑up is often overly pessimistic, while RSS (root‑sum‑square) is optimistic unless variability is truly normal and small. For production decisions, Monte Carlo is preferred.</span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>Monte Carlo vs. Worst‑Case^<span class="co">[</span><span class="ot">Worst-case tolerance analysis assumes that all individual variations reach their extreme limits at the same time and adds them directly to find the maximum possible deviation.</span><span class="co">]</span> vs. RSS^<span class="co">[</span><span class="ot">RSS tolerance analysis is a method used to estimate how variations in different parts combine, assuming those variations occur randomly and are unlikely to all happen at their worst value at the same time.</span><span class="co">]</span>: Monte Carlo provides yield estimates under realistic variability; worst‑case stack‑up is often overly pessimistic, while RSS (root‑sum‑square) is optimistic unless variability is truly normal and small. For production decisions, Monte Carlo is preferred.</span>
 <span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>::: {#lst-mchousing}</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Listing: Python simulation for Housing and Stacking."}</span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------</span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo tolerance stack-up</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------</span></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lognormal_params_from_mean_cv(m: <span class="bu">float</span>, cv: <span class="bu">float</span>):</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> m <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Mean must be positive for lognormal."</span>)</span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cv <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"CV must be positive for lognormal."</span>)</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>    sigma2 <span class="op">=</span> np.log(<span class="fl">1.0</span> <span class="op">+</span> cv<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> np.sqrt(sigma2)</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> np.log(m) <span class="op">-</span> <span class="fl">0.5</span> <span class="op">*</span> sigma2</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mu, sigma</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="co"># Scenario parameters</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="fl">100.00</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>parts <span class="op">=</span> [</span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"A"</span>, <span class="st">"mean"</span>: <span class="fl">30.00</span>, <span class="st">"cv"</span>: <span class="fl">0.02</span>},</span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"B"</span>, <span class="st">"mean"</span>: <span class="fl">45.00</span>, <span class="st">"cv"</span>: <span class="fl">0.03</span>},</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"C"</span>, <span class="st">"mean"</span>: <span class="fl">24.80</span>, <span class="st">"cv"</span>: <span class="fl">0.025</span>},</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>LSL <span class="op">=</span> <span class="fl">0.05</span></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>USL <span class="op">=</span> <span class="fl">0.35</span></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100000</span></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">12345</span>)</span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>samples_per_part <span class="op">=</span> {}</span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> parts:</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>    mu, sigma <span class="op">=</span> lognormal_params_from_mean_cv(p[<span class="st">"mean"</span>], p[<span class="st">"cv"</span>])</span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>    samples <span class="op">=</span> rng.lognormal(mean<span class="op">=</span>mu, sigma<span class="op">=</span>sigma, size<span class="op">=</span>N)</span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>    samples_per_part[p[<span class="st">"name"</span>]] <span class="op">=</span> samples</span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>stack_sum <span class="op">=</span> <span class="bu">sum</span>(samples_per_part[name] <span class="cf">for</span> name <span class="kw">in</span> samples_per_part)</span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> L <span class="op">-</span> stack_sum</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>mean_gap <span class="op">=</span> <span class="bu">float</span>(np.mean(G))</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean gap: </span><span class="sc">{</span>mean_gap<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>::: {#lst-mchousing}</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Listing: Python simulation for Housing and Stacking."}</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Monte Carlo tolerance stack-up</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lognormal_params_from_mean_cv(m: <span class="bu">float</span>, cv: <span class="bu">float</span>):</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> m <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Mean must be positive for lognormal."</span>)</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cv <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"CV must be positive for lognormal."</span>)</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>    sigma2 <span class="op">=</span> np.log(<span class="fl">1.0</span> <span class="op">+</span> cv<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> np.sqrt(sigma2)</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> np.log(m) <span class="op">-</span> <span class="fl">0.5</span> <span class="op">*</span> sigma2</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mu, sigma</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Scenario parameters</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="fl">100.00</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>parts <span class="op">=</span> [</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"A"</span>, <span class="st">"mean"</span>: <span class="fl">30.00</span>, <span class="st">"cv"</span>: <span class="fl">0.02</span>},</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"B"</span>, <span class="st">"mean"</span>: <span class="fl">45.00</span>, <span class="st">"cv"</span>: <span class="fl">0.03</span>},</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"C"</span>, <span class="st">"mean"</span>: <span class="fl">24.80</span>, <span class="st">"cv"</span>: <span class="fl">0.025</span>},</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>LSL <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>USL <span class="op">=</span> <span class="fl">0.35</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100000</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">12345</span>)</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>samples_per_part <span class="op">=</span> {}</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> parts:</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>    mu, sigma <span class="op">=</span> lognormal_params_from_mean_cv(p[<span class="st">"mean"</span>], p[<span class="st">"cv"</span>])</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>    samples <span class="op">=</span> rng.lognormal(mean<span class="op">=</span>mu, sigma<span class="op">=</span>sigma, size<span class="op">=</span>N)</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>    samples_per_part[p[<span class="st">"name"</span>]] <span class="op">=</span> samples</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>stack_sum <span class="op">=</span> <span class="bu">sum</span>(samples_per_part[name] <span class="cf">for</span> name <span class="kw">in</span> samples_per_part)</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> L <span class="op">-</span> stack_sum</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>mean_gap <span class="op">=</span> <span class="bu">float</span>(np.mean(G))</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean gap: </span><span class="sc">{</span>mean_gap<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## Software Tools</span></span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>MC simulation can be implemented using many programming languages such as Python, R, C, and C++, as well as specialized software packages and spreadsheet add-ins. Tools like Oracle Crystal Ball, \@RISK, and FrontlineSolvers for Excel make MC simulation accessible to a wide audience, enabling users to model uncertainty and analyze outcomes with ease.</span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion</span></span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>Monte Carlo simulation is an invaluable technique for analyzing uncertain scenarios and making probabilistic decisions. Its simplicity, versatility, and the availability of supporting software have driven widespread adoption across mathematics, engineering, finance, and beyond.</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="fu">## Questions     </span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What is Monte Carlo simulation and why is it useful in engineering?</span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>How does Monte Carlo simulation differ from deterministic models?</span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>What is meant by "what-if" analysis in Monte Carlo simulation?</span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Define a transfer function and explain its role.</span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Why are probability distributions assigned to input variables?</span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>What is a random variate in the context of Monte Carlo simulation?</span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Why are multiple simulation runs required?</span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>What types of statistics are used in Monte Carlo output analysis?</span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Name at least three application areas of Monte Carlo simulation.</span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Why is Monte Carlo preferred over worst-case and RSS methods in tolerance analysis?</span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## Notes of the Chapter {#notes-of-the-chapter .unnumbered}</span></span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nicholas Constantine Metropolis (June 11, 1915 -- October 17, 1999) was a Greek-American physicist and one of the founding figures of computational physics and Monte Carlo simulation. Recruited to Los Alamos National Laboratory during the Manhattan Project by J. Robert Oppenheimer, Metropolis played a central role in transforming stochastic sampling from a theoretical idea into a practical computational tool. Along with Stanislaw Ulam, he helped develop and implement the Monte Carlo method. His work laid the foundations of modern simulation, numerical experimentation, and statistical computing used today across science, engineering, and finance. A fun fact about Metropolis: He named Los Alamos's first computer MANIAC (Mathematical Analyzer, Numerical Integrator, and Computer), partly to mock the growing obsession with grand acronyms---much to John von Neumann's disapproval.</span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {#References .unnumbered}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a><span class="fu">## Software Tools</span></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>MC simulation can be implemented using many programming languages such as Python, R, C, and C++, as well as specialized software packages and spreadsheet add-ins. Tools like Oracle Crystal Ball, \@RISK, and FrontlineSolvers for Excel make MC simulation accessible to a wide audience, enabling users to model uncertainty and analyze outcomes with ease.</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion</span></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>Monte Carlo simulation is an invaluable technique for analyzing uncertain scenarios and making probabilistic decisions. Its simplicity, versatility, and the availability of supporting software have driven widespread adoption across mathematics, engineering, finance, and beyond.</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## Questions     </span></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What is Monte Carlo simulation and why is it useful in engineering?</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>How does Monte Carlo simulation differ from deterministic models?</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>What is meant by "what-if" analysis in Monte Carlo simulation?</span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Define a transfer function and explain its role.</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Why are probability distributions assigned to input variables?</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>What is a random variate in the context of Monte Carlo simulation?</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Why are multiple simulation runs required?</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>What types of statistics are used in Monte Carlo output analysis?</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Name at least three application areas of Monte Carlo simulation.</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Why is Monte Carlo preferred over worst-case and RSS methods in tolerance analysis?</span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a><span class="fu">## Notes of the Chapter {#notes-of-the-chapter .unnumbered}</span></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nicholas Constantine Metropolis (June 11, 1915 -- October 17, 1999) was a Greek-American physicist and one of the founding figures of computational physics and Monte Carlo simulation. Recruited to Los Alamos National Laboratory during the Manhattan Project by J. Robert Oppenheimer, Metropolis played a central role in transforming stochastic sampling from a theoretical idea into a practical computational tool. Along with Stanislaw Ulam, he helped develop and implement the Monte Carlo method. His work laid the foundations of modern simulation, numerical experimentation, and statistical computing used today across science, engineering, and finance. A fun fact about Metropolis: He named Los Alamos's first computer MANIAC (Mathematical Analyzer, Numerical Integrator, and Computer), partly to mock the growing obsession with grand acronyms---much to John von Neumann's disapproval.</span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {#References .unnumbered}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

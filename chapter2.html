@@ -324,16 +324,16 @@ window.Quarto = {
 <ul>
 <li><p>Quantify uncertainty through confidence intervals.</p></li>
 <li><p>Compare alternatives using hypothesis testing.</p></li>
-<li><p>Optimize designs using regression and metamodeling<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
+<li><p>Optimize designs using regression and metamodels.</p></li>
 <li><p>Validate models against real-world data.</p></li>
 </ul>
-<p>Without these methods, simulation becomes guesswork rather than an engineering<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> decision support tool.</p>
+<p>Without these methods, simulation becomes guesswork rather than an engineering<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> decision support tool.</p>
 </section>
 <section id="descriptive-and-inferential-statistics" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="descriptive-and-inferential-statistics"><span class="header-section-number">3.2</span> Descriptive and Inferential Statistics</h2>
 <p>Summarizing simulation outputs with statistics such as the mean, variance, standard deviation, and confidence intervals, provides insight into the performance of systems under study. For example, calculating the average waiting time and its variability for customers in a queue. Descriptive and inferential statistics form the basis for performance evaluation and comparison across different scenarios and system’s designs&nbsp;<span class="citation" data-cites="Moroney1954">(<a href="#ref-Moroney1954" role="doc-biblioref">Moroney, 1954</a>)</span>.</p>
 <p>Confidence intervals (CI’s) quantify uncertainty in simulation estimates, enabling decision-makers to estimate the precision of our findings. For example, we might state that the mean throughput of as simulated process is 120 ± 5 units/hour at 95% confidence. CI’s are used because simulation results are subject to sampling error. Therefore, CI’s provide a statistical guarantee about the precision of estimates, which is crucial for risk sensitive decisions&nbsp;<span class="citation" data-cites="Devore2012">(<a href="#ref-Devore2012" role="doc-biblioref">Devore, 2012</a>)</span>.</p>
-<p>Hypothesis testing and comparisons such as t-tests, ANOVA, Anderson-Darling for normality etc., determine whether differences between scenarios are statistically significant. For example, testing if a new scheduling policy reduces patient wait times compared to the current policy<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Hypothesis testing is a technique used to check if what we observe in our data is real or just happened by chance. This is, it helps with decisions based on random variation, ensuring changes are statistically justified&nbsp;<span class="citation" data-cites="Gonnick1993">(<a href="#ref-Gonnick1993" role="doc-biblioref">Goonick &amp; Smith, 1993</a>)</span>.</p>
+<p>Hypothesis testing and comparisons such as t-tests, ANOVA, Anderson-Darling for normality etc., determine whether differences between scenarios are statistically significant. For example, testing if a new scheduling policy reduces patient wait times compared to the current policy<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Hypothesis testing is a technique used to check if what we observe in our data is real or just happened by chance. This is, it helps with decisions based on random variation, ensuring changes are statistically justified&nbsp;<span class="citation" data-cites="Gonnick1993">(<a href="#ref-Gonnick1993" role="doc-biblioref">Goonick &amp; Smith, 1993</a>)</span>.</p>
 </section>
 <section id="probability-distributions" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="probability-distributions"><span class="header-section-number">3.3</span> Probability Distributions</h2>
@@ -361,7 +361,7 @@ window.Quarto = {
 </section>
 <section id="bootstrapping" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="bootstrapping"><span class="header-section-number">3.4</span> Bootstrapping</h2>
-<p>Bootstrapping estimates the distribution of simulation outputs by resampling<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. It is useful when analytical solutions are infeasible. For example, estimating the confidence interval for median waiting time in a congested emergency system. Bootstrapping handles non-normality and small sample sizes, improving robustness of our statistical inferences&nbsp;<span class="citation" data-cites="Efron1979">(<a href="#ref-Efron1979" role="doc-biblioref">Efron, 1979</a>)</span>.</p>
+<p>Bootstrapping estimates the distribution of simulation outputs by resampling<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. It is useful when analytical solutions are infeasible. For example, estimating the confidence interval for median waiting time in a congested emergency system. Bootstrapping handles non-normality and small sample sizes, improving robustness of our statistical inferences&nbsp;<span class="citation" data-cites="Efron1979">(<a href="#ref-Efron1979" role="doc-biblioref">Efron, 1979</a>)</span>.</p>
 </section>
 <section id="random-and-pseudo-random-number-generators" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="random-and-pseudo-random-number-generators"><span class="header-section-number">3.5</span> Random and Pseudo-random Number Generators</h2>
@@ -373,7 +373,7 @@ window.Quarto = {
 </section>
 <section id="regression-and-metamodeling" class="level2" data-number="3.7">
 <h2 data-number="3.7" class="anchored" data-anchor-id="regression-and-metamodeling"><span class="header-section-number">3.7</span> Regression and Metamodeling</h2>
-<p>Regression models and metamodels approximate simulation behavior, enabling sensitivity analysis and optimization. For example, building a regression model to predict average queue length based on arrival and service rates. Metamodels, on the other hand, reduce computational cost and allow real-time decision support&nbsp;<span class="citation" data-cites="Blas2021 Montgomery2001">(<a href="#ref-Blas2021" role="doc-biblioref">Blas et al., 2021</a>; <a href="#ref-Montgomery2001" role="doc-biblioref">Montgomery et al., 2001</a>)</span>.</p>
+<p>Regression models and metamodels approximate simulation behavior, enabling sensitivity analysis and optimization. For example, building a regression model to predict average queue length based on arrival and service rates. Metamodels<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, on the other hand, reduce computational cost and allow real-time decision support&nbsp;<span class="citation" data-cites="Blas2021 Montgomery2001">(<a href="#ref-Blas2021" role="doc-biblioref">Blas et al., 2021</a>; <a href="#ref-Montgomery2001" role="doc-biblioref">Montgomery et al., 2001</a>)</span>.</p>
 </section>
 <section id="goodness-of-fit-tests" class="level2" data-number="3.8">
 <h2 data-number="3.8" class="anchored" data-anchor-id="goodness-of-fit-tests"><span class="header-section-number">3.8</span> Goodness-of-Fit Tests</h2>
@@ -416,13 +416,13 @@ window.Quarto = {
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-Blas2021" class="csl-entry" role="listitem">
-Blas, M. J., Gonnet, silvio, &amp; Zeigler, B. P. (2021). <span class="nocase">Towards a Universal Representation of DEVS: A Metamodel Based Definition of DEVS Formal Specification</span>. <em>ANNSIM ’21, Society for Modeling and Simulation INternational</em>.
+Blas, M. J., Gonnet, S., &amp; Zeigler, B. P. (2021). <span class="nocase">Towards a Universal Representation of DEVS: A Metamodel Based Definition of DEVS Formal Specification</span>. <em>ANNSIM ’21, Society for Modeling and Simulation International</em>.
 </div>
 <div id="ref-Box1978" class="csl-entry" role="listitem">
-Box, G. E. P. (1978). <em><span class="nocase">Statistics for Experimenters</span></em> (First). John wiley &amp; Sons.
+Box, G. E. P. (1978). <em><span class="nocase">Statistics for Experimenters</span></em> (First ed.). John Wiley &amp; Sons.
 </div>
 <div id="ref-Devore2012" class="csl-entry" role="listitem">
-Devore, J. L. (2012). <em>Probability &amp; statistics for engineering and the sciences</em> (Eighth). Brooks Cole, Mexico.
+Devore, J. L. (2012). <em>Probability &amp; statistics for engineering and the sciences</em> (Eighth ed.). Brooks Cole, Mexico.
 </div>
 <div id="ref-Efron1979" class="csl-entry" role="listitem">
 Efron, B. (1979). <span class="nocase">Bootstrap Methods: Another Look at the Jacknife</span>. <em>The Annals of Statistics</em>, <em>7</em>(1), 1–26.
@@ -434,10 +434,10 @@ Gjerloev, A., Grieco, L., Lame, G., &amp; Crowe, S. (2025). <span class="nocase"
 Goldreich, O. (2010). <em>A primer on pseudorandom generators</em>. University lecture series, V 55: American Statistical Society, RI.
 </div>
 <div id="ref-Gonnick1993" class="csl-entry" role="listitem">
-Goonick, L., &amp; Smith, W. (1993). <em>The cartoon guide to statistics</em> (First). Harper Collins, NY.
+Goonick, L., &amp; Smith, W. (1993). <em>The cartoon guide to statistics</em> (First ed.). Harper Collins, NY.
 </div>
 <div id="ref-Karlin1981" class="csl-entry" role="listitem">
-Karlin, S., &amp; Taylor, H. M. (1981). <em>A second course in stochastic processes</em> (First). Academic Press, San Diego.
+Karlin, S., &amp; Taylor, H. M. (1981). <em>A second course in stochastic processes</em> (First ed.). Academic Press, San Diego.
 </div>
 <div id="ref-Law2017" class="csl-entry" role="listitem">
 Law, A. M. (2017). <span class="nocase">A Tutorial on Design of Experiments for Simulation Modeling</span>. <em>Proceedings of the 2017 Winter Simulation Conference</em>, 550–564.
@@ -446,7 +446,7 @@ Law, A. M. (2017). <span class="nocase">A Tutorial on Design of Experiments for 
 Martin, D. V., Fernandez, C. B., &amp; Municio, A. M. G. (2025). <span class="nocase">Systematic Review of Discrete Event Simulation in Healthcare and Statistics Distributions</span>. <em>Applied Science</em>, <em>15, 1861</em>.
 </div>
 <div id="ref-Montgomery2001" class="csl-entry" role="listitem">
-Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2001). <em>Introduction to linear regression analysis</em> (Third). John Wiley &amp; Sons, NY.
+Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2001). <em>Introduction to linear regression analysis</em> (Third ed.). John Wiley &amp; Sons, NY.
 </div>
 <div id="ref-Moroney1954" class="csl-entry" role="listitem">
 Moroney, M. J. (1954). <em>Facts from figures</em> (Second, revised edition). Penguin Books, Melbourne.
@@ -457,10 +457,10 @@ Moroney, M. J. (1954). <em>Facts from figures</em> (Second, revised edition). Pe
 <hr>
 <ol>
 <li id="fn1"><p>Arrival rates, service times, failure probabilities, etc.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Metamodeling is the process of creating a model of models: a higher-level abstraction that describes the structure, rules, and relationships of other models. A metamodel defines how models are built, what elements they contain, and how those elements interact. It provides a framework or language for constructing and interpreting models consistently.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>And scientific.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>A two-way comparison.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Bootstrapping is a simple way to figure out how confident you can be about a result when you only have a limited amount of data.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>And scientific.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A two-way comparison.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Bootstrapping is a simple way to figure out how confident you can be about a result when you only have a limited amount of data.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>A metamodel is a method that takes the results from several different models and learns how to combine them to produce a better prediction than any single model alone.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>To cope with large amounts of data.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
@@ -971,7 +971,7 @@ Moroney, M. J. (1954). <em>Facts from figures</em> (Second, revised edition). Pe
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Compare alternatives using hypothesis testing.</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Optimize designs using regression and metamodeling^<span class="co">[</span><span class="ot">Metamodeling is the process of creating a model of models: a higher-level abstraction that describes the structure, rules, and relationships of other models. A metamodel defines how models are built, what elements they contain, and how those elements interact. It provides a framework or language for constructing and interpreting models consistently.</span><span class="co">]</span>.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Optimize designs using regression and metamodels.</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Validate models against real-world data.</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
@@ -1018,7 +1018,7 @@ Moroney, M. J. (1954). <em>Facts from figures</em> (Second, revised edition). Pe
 <span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Regression and Metamodeling</span></span>
 <span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>Regression models and metamodels approximate simulation behavior, enabling sensitivity analysis and optimization. For example, building a regression model to predict average queue length based on arrival and service rates. Metamodels, on the other hand, reduce computational cost and allow real-time decision support&nbsp;<span class="co">[</span><span class="ot">@Blas2021; @Montgomery2001</span><span class="co">]</span>.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>Regression models and metamodels approximate simulation behavior, enabling sensitivity analysis and optimization. For example, building a regression model to predict average queue length based on arrival and service rates. Metamodels^<span class="co">[</span><span class="ot">A metamodel is a method that takes the results from several different models and learns how to combine them to produce a better prediction than any single model alone.</span><span class="co">]</span>, on the other hand, reduce computational cost and allow real-time decision support&nbsp;<span class="co">[</span><span class="ot">@Blas2021; @Montgomery2001</span><span class="co">]</span>.</span>
 <span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## Goodness-of-Fit Tests</span></span>
 <span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>

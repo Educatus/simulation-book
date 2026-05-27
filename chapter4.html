@@ -331,11 +331,11 @@ window.Quarto = {
 <ol type="1">
 <li><p><strong>Inverse transform</strong>. This method is conceptually clean because it <em>bends</em> and <em>stretches</em> <span class="math inline">\(U(0,1)\)</span> random numbers to fit random variates of the target distribution needed. The performance of this approach hinges on how fast the evaluation of the inverse of the target distribution <span class="math inline">\(F^{-1}\)</span> can be done.</p></li>
 <li><p><strong>Convolution</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. This method is applied when a complex probability distribution can be expressed as the sum of several independent random variables. In this approach, random variates are first generated from each of the component distributions, and then these values are added together to produce a sample from the target distribution. This works because the distribution of the sum corresponds to the convolution of the component distributions.</p></li>
-<li><p><strong>Acceptance-Rejection</strong>. This is a procedure to generate random numbers, from a complicated target distribution, using a simpler one that <em>envelops</em> the complex target distribution. This method is universal and its efficiency is dependent in the selection of the enveloping function<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
+<li><p><strong>Acceptance-Rejection</strong>. This is a procedure to generate random numbers from a complicated target distribution using a simpler one that <em>envelops</em> the complex target distribution. This method is universal and its efficiency is dependent in the selection of the enveloping function<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
 <li><p><strong>Composition or Mixture</strong>. Very useful when the target distribution can be expressed as a <strong>mixture</strong> or <strong>composition</strong> of simpler distributions<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p></li>
 <li><p><strong>Specialized methods for normal distributions</strong>. Algorithms developed by&nbsp;<span class="citation" data-cites="Box1958">Box &amp; Muller (<a href="#ref-Box1958" role="doc-biblioref">1958</a>)</span> and the polar method by&nbsp;<span class="citation" data-cites="Marsaglia1964">Marsaglia &amp; Bray (<a href="#ref-Marsaglia1964" role="doc-biblioref">1964</a>)</span> will be covered.</p></li>
 </ol>
-<p>A random variate is the realization or specific outcome of a random variable that follows a probability distribution. The process to generate a random variable <span class="math inline">\(x\)</span> with cumulative distribution function as described in <a href="#eq-FPr" class="quarto-xref">Equation&nbsp;<span>5.1</span></a>, needs a PRNG <span class="math inline">\(U(0,1)\)</span>.</p>
+<p>A random variate is the realization or specific outcome of a random variable that follows a probability distribution. The process to generate a random variable <span class="math inline">\(x\)</span> with cumulative distribution function as described in <a href="#eq-FPr" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> needs a PRNG <span class="math inline">\(U(0,1)\)</span>.</p>
 <p><span id="eq-FPr"><span class="math display">\[
     F(x)=Pr(X\leq x) \textnormal{;      } -\infty &lt;x &lt; \infty
 \tag{5.1}\]</span></span></p>
@@ -349,7 +349,7 @@ window.Quarto = {
 <p>With the use of modern simulation software, doing something useful with the generated random numbers will usually take much longer than generating them, fairly small differences in speed or space between algorithms are, in general, of no practical consequence. Thus, when generating random variates, <em>the emphasis is on simplicity and long full periods</em>.</p>
 <section id="inverse-method" class="level3" data-number="5.2.1">
 <h3 data-number="5.2.1" class="anchored" data-anchor-id="inverse-method"><span class="header-section-number">5.2.1</span> Inverse method</h3>
-<p>The is one of the simplest methods and relies on the following theorem that assumes the inverse probability exists in closed form:</p>
+<p>This is one of the simplest methods and relies on the following theorem that assumes the inverse probability exists in closed form:</p>
 <div id="th-inverseth" class="theorem quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-th figure">
 <div aria-describedby="th-inverseth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -378,13 +378,13 @@ Figure&nbsp;5.1: Graphical representation of the inverse method.
 <ol type="1">
 <li><p>Obtain the cumulative distribution function (CDF) <span class="math inline">\(F(x)\)</span>.</p></li>
 <li><p>Replace <span class="math inline">\(F(x)\)</span> with <span class="math inline">\(u\)</span> and <span class="math inline">\(X\)</span> for <span class="math inline">\(x\)</span>.</p></li>
-<li><p>Solve for <span class="math inline">\(X\)</span>$.</p></li>
+<li><p>Solve for <span class="math inline">\(X\)</span>.</p></li>
 </ol>
 </section>
 <section id="Example" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="Example">Example: Inversion method for the Exponential cumulative distribution</h3>
 <ol type="1">
-<li><p>The CDF of an exponential distribution is: <span class="math inline">\(F(x,\lambda)=1-e^{-\lambda x}\:\: \forall \, \lambda&gt;0;\, x\leq 0\)</span>.</p></li>
+<li><p>The CDF of an exponential distribution is: <span class="math inline">\(F(x,\lambda)=1-e^{-\lambda x}\:\: \forall \, \lambda&gt;0;\, x\geq 0\)</span>.</p></li>
 <li><p>Replacing <span class="math inline">\(u\)</span> and <span class="math inline">\(X\)</span>: <span class="math inline">\(u=1-e^{\lambda X}\)</span>.</p></li>
 <li><p>Solving for <span class="math inline">\(X\)</span>: <span class="math inline">\(X=-\frac{1}{\lambda}ln(1-u)\)</span></p></li>
 </ol>
@@ -432,7 +432,7 @@ Listing&nbsp;5.1
 <h3 class="unnumbered anchored" data-anchor-id="Example">Example: Random variate generation for the Bernoulli distribution</h3>
 <ol type="1">
 <li><p>The probability mass function (PMF) is: <span class="math display">\[P(X=1)=p, \,\,\, P(X=0)=1-p\]</span></p></li>
-<li><p>Beunoulli’s Cumulative Distribution Function (CDF): <span class="math display">\[F(x)=\left\{
+<li><p>Bernoulli’s Cumulative Distribution Function (CDF): <span class="math display">\[F(x)=\left\{
         \begin{array}{ll}
             0 &amp; x &lt; 0\\
             1-p &amp; 0 \leq x &lt;1 \\
@@ -440,7 +440,7 @@ Listing&nbsp;5.1
         \end{array}
         \right.\]</span></p></li>
 <li><p>Generate <span class="math inline">\(u \sim U(0,1)\)</span>.</p></li>
-<li><p>If <span class="math inline">\(u\leq 1-p\)</span>, then <span class="math inline">\(X=0\)</span>; else <span class="math inline">\(X=1\)</span>.</p></li>
+<li><p>If <span class="math inline">\(u\leq 1-p\)</span>, then <span class="math inline">\(X=0\)</span>; otherwise, <span class="math inline">\(X=1\)</span>.</p></li>
 </ol>
 </section>
 <section id="Exercise" class="level3 unnumbered">
@@ -555,7 +555,7 @@ Listing&nbsp;5.2
 <li><p><span class="math inline">\(k\)</span> is the number of failures before the <span class="math inline">\(r\)</span>-th success.</p></li>
 </ul>
 <p>The negative binomial distribution is a broader family of distributions. For example, the geometric distribution is one specific case within that family (<span class="math inline">\(r=1\)</span>).</p>
-<p>The negative binomial distribution is widely used across various fields. In quality control, it helps model the number of defective items encountered before finding a certain number of good ones. In reliability engineering, it predicts failures before achieving a set number of successful operations in machines. Epidemiology applies it to model disease transmission when variability exceeds what Poisson assumptions allow. In economics and finance, it is used to handle over-dispersed count data, such as estimating the number of trades before reaching a profit target. Additionally, in simulation and inventory systems, it assists in estimating how many items in stock need to be inspected before encountering a specific number of defects.</p>
+<p>The negative binomial distribution is widely used across various fields. In quality control, it helps model the number of defective items encountered before finding a certain number of good ones. In reliability engineering, it predicts failures before achieving a set number of successful operations in machines. Epidemiology applies it to model disease transmission when variability exceeds what Poisson assumptions allow. In economics and finance it is used to handle over-dispersed count data, such as estimating the number of trades before reaching a profit target. Additionally, in simulation and inventory systems, it assists in estimating how many items in stock need to be inspected before encountering a specific number of defects.</p>
 </section>
 </section>
 <section id="acceptance-rejection" class="level2" data-number="5.4">
@@ -638,7 +638,7 @@ Figure&nbsp;5.3: Graphical representation of the acceptance-rejection method.
 <ol type="1">
 <li><p><em>Choose an enveloping distribution</em>. In this case<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> we will use the exponential PDF: <span class="math inline">\(g(x,\lambda)=\lambda \cdot e^{- \lambda \cdot x}\)</span>.</p></li>
 <li><p><em>Generate a candidate sample.</em> Draw a sample from the exponential distribution using the inversion method on the exponential cumulative distribution function (CDF). Then <span class="math inline">\(x=-\frac{1}{\lambda}ln(u)\)</span>. Keep the value of <span class="math inline">\(u\)</span> associated to that <span class="math inline">\(x\)</span>.</p></li>
-<li><p><em>Calculate the acceptance ratio.</em> This is the ration of the Poisson PMF to the exponential PDF evaluated at a candidate sample: <span class="math display">\[\alpha=\frac{f(x)}{M \cdot g(x)}\]</span> Where <span class="math inline">\(f(x)\)</span> ins the Poisson PMF, <span class="math inline">\(g(x)\)</span> is the exponential PDF, and <span class="math inline">\(M=e^\lambda \cdot 10\)</span>.</p></li>
+<li><p><em>Calculate the acceptance ratio.</em> This is the ration of the Poisson PMF to the exponential PDF evaluated at a candidate sample: <span class="math display">\[\alpha=\frac{f(x)}{M \cdot g(x)}\]</span> Where <span class="math inline">\(f(x)\)</span> is the Poisson PMF, <span class="math inline">\(g(x)\)</span> is the exponential PDF, and <span class="math inline">\(M=e^\lambda \cdot 10\)</span>.</p></li>
 <li><p><em>Accept or reject the candidate.</em> If the uniform random number <span class="math inline">\(u\)</span>, generated in step 2, is less than or equal to the acceptance ratio <span class="math inline">\(\alpha\)</span>, then accept the candidate sample <span class="math inline">\(x\)</span> as a Poisson variate. Otherwise, reject the candidate and repeat the process from step 2.</p></li>
 <li><p><em>Repeat the process.</em> Continue generating candidate samples from the exponential distribution, evaluating the acceptance ratio, and accepting or rejecting them until the number of Poisson variates needed is reached.</p></li>
 </ol>
@@ -1035,7 +1035,7 @@ Figure&nbsp;5.6: Normal random variates by Marsaglia-Bray method.
 <ol type="1">
 <li><p><strong>Inverse Method.</strong> Given <span class="math inline">\(u = 0.25\)</span> and <span class="math inline">\(\lambda = 2\)</span>, compute a sample from an exponential distribution using inversion.</p></li>
 <li><p><strong>Bernoulli Simulation.</strong> Let <span class="math inline">\(p=0.7\)</span>. Given <span class="math inline">\(u = 0.6\)</span>, determine the outcome of a Bernoulli trial.</p></li>
-<li><p><strong>Erlang Calculation.</strong> Generate one Erlang(<span class="math inline">\(k=2\)</span>, <span class="math inline">\(\lambda=1\)</span>) sample using: <span class="math inline">\(u_1=0.5\)</span>, <span class="math inline">\(u_2=0.8\)</span>.</p></li>
+<li><p><strong>Erlang Calculation.</strong> Generate one Erlang (<span class="math inline">\(k=2\)</span>, <span class="math inline">\(\lambda=1\)</span>) sample using: <span class="math inline">\(u_1=0.5\)</span>, <span class="math inline">\(u_2=0.8\)</span>.</p></li>
 <li><p><strong>Acceptance–Rejection</strong> If <span class="math inline">\(M=2\)</span>, what is the probability of accepting a candidate sample?</p></li>
 <li><p><strong>Acceptance Probability.</strong> If <span class="math inline">\(M=5\)</span>, compute the expected number of iterations until acceptance.</p></li>
 <li><p><strong>Mixture Sampling.</strong> A mixture has weights <span class="math inline">\(w_1=0.7\)</span>, <span class="math inline">\(w_2=0.3\)</span>. If a uniform random number is <span class="math inline">\(u=0.65\)</span>, which component is selected?</p></li>
@@ -1069,7 +1069,7 @@ Devroye, L. (1986). <em>Non-uniform random variate generation</em> (First). Spri
 Gilks, W. R., &amp; Wild, P. (1992). Adaptive rejection sampling for gibbs sampling. <em>Journal of the Royal Statistical Society, Series C (Applied Statistics)</em>, <em>41</em>(2), 337–348.
 </div>
 <div id="ref-Banks1998" class="csl-entry" role="listitem">
-<span class="nocase">Jerry Banks, ed.</span> (1998). <em>Handbook of simulation: Principles, methodology, advances, applications, and practice</em> (First). John Wiley; Sons.
+<span class="nocase">Jerry Banks, ed.</span> (1998). <em>Handbook of simulation: Principles, methodology, advances, applications, and practice</em> (First ed.). John Wiley; Sons.
 </div>
 <div id="ref-Kinderman1977" class="csl-entry" role="listitem">
 Kinderman, A. J., &amp; Monahan, J. F. (1977). Computer generation of random variables using the ratio of uniform deviates. <em>ACM Transactions on Mathematical Software</em>, <em>3</em>(3), 257–260.
@@ -1084,10 +1084,10 @@ Marsaglia, G., &amp; Tsang, W. W. (2000). The ziggurat method for generating ran
 Neal, R. M. (2003). The annals of statistics. <em>Slice Sampling</em>, <em>31</em>(3), 705–767.
 </div>
 <div id="ref-Ripley1983" class="csl-entry" role="listitem">
-Ripley, B. D. (1964). Computer generatin of random variables: A tutorial. <em>International Statistical Review</em>, <em>6</em>(3), 260–264.
+Ripley, B. D. (1964). Computer generating of random variables: A tutorial. <em>International Statistical Review</em>, <em>6</em>(3), 260–264.
 </div>
 <div id="ref-Robert1999" class="csl-entry" role="listitem">
-Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (First). Springer, NY.
+Robert, C., &amp; Casella, G. (1999). <em><span>Monte Carlo Statistical Methods</span></em> (First ed.). Springer, NY.
 </div>
 <div id="ref-vonNeumann1951" class="csl-entry" role="listitem">
 <span class="nocase">vonNeumann, J.</span> (1951). Various techniques used in connection with random digits. <em>Computational Statistics &amp; Data Analysis</em>, <em>17</em>, 172–184.
@@ -1109,7 +1109,7 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <li id="fn10"><p>Set of all values where a function is non-zero. In the case of our ratio <span class="math inline">\(\frac{f(x)}{g(x)}\)</span>, support is the region where both <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(g(x)\)</span> are positive.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn11"><p>To explain the method clearly.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn12"><p>Heterogeneous populations are subgroups or sub-populations that behave differently: customer groups, machine failure modes, etc.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn13"><p>For example, in a simulation model, the engineer can assume that demand is <span class="math inline">\(N ∼ (\mu= 100, \sigma= 15)\)</span> but in reality she may only know that the mean is somewhere between 95 and 110, and the standard deviation is between 10 and 20. This uncertainty may arise from limited data, measurement errors, or changing conditions over time. If the engineer ignores parameter uncertainty, the simulation may give overly confidentpredictions.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>For example, in a simulation model, the engineer can assume that demand is <span class="math inline">\(N ∼ (\mu= 100, \sigma= 15)\)</span> but in reality she may only know that the mean is somewhere between 95 and 110, and the standard deviation is between 10 and 20. This uncertainty may arise from limited data, measurement errors, or changing conditions over time. If the engineer ignores parameter uncertainty, the simulation may give overly confident predictions.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn14"><p>e.g., trigonometric, exponential, and logarithmic functions.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn15"><p>The normal distribution does not have a closed form expression for its inverse CDF.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn16"><p>Sometimes called the <em>polar form of the Box-Muller method</em>.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -1608,13 +1608,13 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Convolution**^<span class="co">[</span><span class="ot">Convolution is a mathematical operation that combines two functions to produce a third one, showing how the shape of one function influences or modifies the other.</span><span class="co">]</span>. This method is applied when a complex probability distribution can be expressed as the sum of several independent random variables. In this approach, random variates are first generated from each of the component distributions, and then these values are added together to produce a sample from the target distribution. This works because the distribution of the sum corresponds to the convolution of the component distributions.</span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Acceptance-Rejection**. This is a procedure to generate random numbers, from a complicated target distribution, using a simpler one that *envelops* the complex target distribution. This method is universal and its efficiency is dependent in the selection of the enveloping function^[The best enveloping functions are the ones that provide *tighter* enveloping.].</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Acceptance-Rejection**. This is a procedure to generate random numbers from a complicated target distribution using a simpler one that *envelops* the complex target distribution. This method is universal and its efficiency is dependent in the selection of the enveloping function^[The best enveloping functions are the ones that provide *tighter* enveloping.].</span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Composition or Mixture**. Very useful when the target distribution can be expressed as a **mixture** or **composition** of simpler distributions^<span class="co">[</span><span class="ot">The requirement of *sum of independent random variables does not apply here*, in this case, the target is just a mixture of simpler distributions.</span><span class="co">]</span>.</span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Specialized methods for normal distributions**. Algorithms developed by&nbsp;@Box1958 and the polar method by&nbsp;@Marsaglia1964 will be covered.</span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>A random variate is the realization or specific outcome of a random variable that follows a probability distribution. The process to generate a random variable $x$ with cumulative distribution function as described in @eq-FPr, needs a PRNG $U(0,1)$.</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>A random variate is the realization or specific outcome of a random variable that follows a probability distribution. The process to generate a random variable $x$ with cumulative distribution function as described in @eq-FPr needs a PRNG $U(0,1)$.</span>
 <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    F(x)=Pr(X\leq x) \textnormal{;      } -\infty <span class="dt">&lt;</span><span class="kw">x</span><span class="ot"> </span><span class="er">&lt;</span><span class="ot"> </span><span class="er">\</span><span class="ot">infty</span></span>
@@ -1634,7 +1634,7 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="ot">### Inverse method</span></span>
 <span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="ot">The is one of the simplest methods and relies on the following theorem that assumes the inverse probability exists in closed form:</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="ot">This is one of the simplest methods and relies on the following theorem that assumes the inverse probability exists in closed form:</span></span>
 <span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="ot">::: </span><span class="er">{.</span><span class="ot">theorem #th-inverseth</span><span class="er">}</span></span>
@@ -1659,12 +1659,12 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Replace $F(x)$ with $u$ and $X$ for $x$.</span>
 <span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Solve for $X$$.</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Solve for $X$.</span>
 <span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example: Inversion method for the Exponential cumulative distribution {#Example .unnumbered}</span></span>
 <span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The CDF of an exponential distribution is: $F(x,\lambda)=1-e^{-\lambda x}\:\: \forall \, \lambda&gt;0;\, x\leq 0$.</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The CDF of an exponential distribution is: $F(x,\lambda)=1-e^{-\lambda x}\:\: \forall \, \lambda&gt;0;\, x\geq 0$.</span>
 <span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Replacing $u$ and $X$: $u=1-e^{\lambda X}$.</span>
 <span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a></span>
@@ -1703,7 +1703,7 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The probability mass function (PMF) is: $$P(X=1)=p, \,\,\, P(X=0)=1-p$$</span>
 <span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Beunoulli's Cumulative Distribution Function (CDF): $$F(x)=\left<span class="sc">\{</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Bernoulli's Cumulative Distribution Function (CDF): $$F(x)=\left<span class="sc">\{</span></span>
 <span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>            \begin{array}{ll}</span>
 <span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>                0 &amp; x &lt; 0<span class="sc">\\</span></span>
 <span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a>                1-p &amp; 0 \leq x &lt;1 <span class="sc">\\</span></span>
@@ -1713,7 +1713,7 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Generate $u \sim U(0,1)$.</span>
 <span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>If $u\leq 1-p$, then $X=0$; else $X=1$.</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>If $u\leq 1-p$, then $X=0$; otherwise, $X=1$.</span>
 <span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise: Geometric distribution {#Exercise .unnumbered}</span></span>
 <span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a></span>
@@ -1830,7 +1830,7 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a>The negative binomial distribution is a broader family of distributions. For example, the geometric distribution is one specific case within that family ($r=1$).</span>
 <span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a>The negative binomial distribution is widely used across various fields. In quality control, it helps model the number of defective items encountered before finding a certain number of good ones. In reliability engineering, it predicts failures before achieving a set number of successful operations in machines. Epidemiology applies it to model disease transmission when variability exceeds what Poisson assumptions allow. In economics and finance, it is used to handle over-dispersed count data, such as estimating the number of trades before reaching a profit target. Additionally, in simulation and inventory systems, it assists in estimating how many items in stock need to be inspected before encountering a specific number of defects.</span>
+<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a>The negative binomial distribution is widely used across various fields. In quality control, it helps model the number of defective items encountered before finding a certain number of good ones. In reliability engineering, it predicts failures before achieving a set number of successful operations in machines. Epidemiology applies it to model disease transmission when variability exceeds what Poisson assumptions allow. In economics and finance it is used to handle over-dispersed count data, such as estimating the number of trades before reaching a profit target. Additionally, in simulation and inventory systems, it assists in estimating how many items in stock need to be inspected before encountering a specific number of defects.</span>
 <span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a><span class="fu">## Acceptance-Rejection</span></span>
 <span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a></span>
@@ -1927,7 +1927,7 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-339"><a href="#cb7-339" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-340"><a href="#cb7-340" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>*Generate a candidate sample.* Draw a sample from the exponential distribution using the inversion method on the exponential cumulative distribution function (CDF). Then $x=-\frac{1}{\lambda}ln(u)$. Keep the value of $u$ associated to that $x$.</span>
 <span id="cb7-341"><a href="#cb7-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-342"><a href="#cb7-342" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>*Calculate the acceptance ratio.* This is the ration of the Poisson PMF to the exponential PDF evaluated at a candidate sample: $$\alpha=\frac{f(x)}{M \cdot g(x)}$$ Where $f(x)$ ins the Poisson PMF, $g(x)$ is the exponential PDF, and $M=e^\lambda \cdot 10$.</span>
+<span id="cb7-342"><a href="#cb7-342" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>*Calculate the acceptance ratio.* This is the ration of the Poisson PMF to the exponential PDF evaluated at a candidate sample: $$\alpha=\frac{f(x)}{M \cdot g(x)}$$ Where $f(x)$ is the Poisson PMF, $g(x)$ is the exponential PDF, and $M=e^\lambda \cdot 10$.</span>
 <span id="cb7-343"><a href="#cb7-343" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-344"><a href="#cb7-344" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>*Accept or reject the candidate.* If the uniform random number $u$, generated in step 2, is less than or equal to the acceptance ratio $\alpha$, then accept the candidate sample $x$ as a Poisson variate. Otherwise, reject the candidate and repeat the process from step 2.</span>
 <span id="cb7-345"><a href="#cb7-345" aria-hidden="true" tabindex="-1"></a></span>
@@ -2029,7 +2029,7 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-441"><a href="#cb7-441" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-442"><a href="#cb7-442" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>*Simple sampling*: Generate sample variates from that chosen component, which is usually easy because each component is a standard distribution (e.g., Normal or Poisson).</span>
 <span id="cb7-443"><a href="#cb7-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-444"><a href="#cb7-444" aria-hidden="true" tabindex="-1"></a>Mixture distributions are widely used in simulations to model heterogeneous populations^<span class="co">[</span><span class="ot">Heterogeneous populations are subgroups or sub-populations that behave differently: customer groups, machine failure modes, etc.</span><span class="co">]</span>, uncertainty in parameters^<span class="co">[</span><span class="ot">For example, in a simulation model, the engineer can assume that demand is $N ∼ (\mu= 100, \sigma= 15)$ but in reality she may only know that the mean is somewhere between 95 and 110, and the standard deviation is between 10 and 20. This uncertainty may arise from limited data, measurement errors, or changing conditions over time. If the engineer ignores parameter uncertainty, the simulation may give overly confidentpredictions.</span><span class="co">]</span>, or multi-modal behaviors that cannot be captured by a single distribution.</span>
+<span id="cb7-444"><a href="#cb7-444" aria-hidden="true" tabindex="-1"></a>Mixture distributions are widely used in simulations to model heterogeneous populations^<span class="co">[</span><span class="ot">Heterogeneous populations are subgroups or sub-populations that behave differently: customer groups, machine failure modes, etc.</span><span class="co">]</span>, uncertainty in parameters^<span class="co">[</span><span class="ot">For example, in a simulation model, the engineer can assume that demand is $N ∼ (\mu= 100, \sigma= 15)$ but in reality she may only know that the mean is somewhere between 95 and 110, and the standard deviation is between 10 and 20. This uncertainty may arise from limited data, measurement errors, or changing conditions over time. If the engineer ignores parameter uncertainty, the simulation may give overly confident predictions.</span><span class="co">]</span>, or multi-modal behaviors that cannot be captured by a single distribution.</span>
 <span id="cb7-445"><a href="#cb7-445" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-446"><a href="#cb7-446" aria-hidden="true" tabindex="-1"></a>As a simple example of a mixture distribution, consider a failure rate modeled by a Poisson process with uncertain $\lambda \in<span class="co">[</span><span class="ot">4,6</span><span class="co">]</span>$. Then, we can assume that $\lambda\sim U(4,6)$ and in each simulation run draw a new $\lambda$, and then generate Poisson variates.</span>
 <span id="cb7-447"><a href="#cb7-447" aria-hidden="true" tabindex="-1"></a></span>
@@ -2318,7 +2318,7 @@ Robert, C., &amp; Casella, G. (1999). <em>Monte carlo statistical methods</em> (
 <span id="cb7-730"><a href="#cb7-730" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-731"><a href="#cb7-731" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Bernoulli Simulation.** Let $p=0.7$. Given $u = 0.6$, determine the outcome of a Bernoulli trial.</span>
 <span id="cb7-732"><a href="#cb7-732" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-733"><a href="#cb7-733" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Erlang Calculation.** Generate one Erlang($k=2$, $\lambda=1$) sample using: $u_1=0.5$, $u_2=0.8$.</span>
+<span id="cb7-733"><a href="#cb7-733" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Erlang Calculation.** Generate one Erlang ($k=2$, $\lambda=1$) sample using: $u_1=0.5$, $u_2=0.8$.</span>
 <span id="cb7-734"><a href="#cb7-734" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-735"><a href="#cb7-735" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Acceptance--Rejection** If $M=2$, what is the probability of accepting a candidate sample?</span>
 <span id="cb7-736"><a href="#cb7-736" aria-hidden="true" tabindex="-1"></a></span>

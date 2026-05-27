@@ -263,7 +263,7 @@ window.Quarto = {
   <li><a href="#terminating-simulations" id="toc-terminating-simulations" class="nav-link" data-scroll-target="#terminating-simulations"><span class="header-section-number">7.2</span> Terminating simulations</a>
   <ul class="collapse">
   <li><a href="#estimating-the-number-of-replications-n" id="toc-estimating-the-number-of-replications-n" class="nav-link" data-scroll-target="#estimating-the-number-of-replications-n"><span class="header-section-number">7.2.1</span> Estimating the number of replications <span class="math inline">\(n\)</span></a></li>
-  <li><a href="#example-of-terminating-simulation-and-calculation-of-n" id="toc-example-of-terminating-simulation-and-calculation-of-n" class="nav-link" data-scroll-target="#example-of-terminating-simulation-and-calculation-of-n"><span class="header-section-number">7.2.2</span> Example of terminating simulation and calculation of <span class="math inline">\(n\)</span></a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example of terminating simulation and calculation of <span class="math inline">\(n\)</span></a></li>
   </ul></li>
   <li><a href="#steady-state-simulations" id="toc-steady-state-simulations" class="nav-link" data-scroll-target="#steady-state-simulations"><span class="header-section-number">7.3</span> Steady state simulations</a>
   <ul class="collapse">
@@ -322,7 +322,7 @@ window.Quarto = {
 <p>Because simulation output is inherently random, analyzing it correctly is essential for drawing meaningful conclusions about system performance. The way we approach output analysis depends fundamentally on the nature of the simulation study: whether we are interested in performance over a finite, scenario-driven period, or in the long-run equilibrium behavior of the system. This distinction leads us to two types of output analysis:</p>
 <ul>
 <li><p>Terminating or transient.</p></li>
-<li><p>Steady-state ot non-terminating.</p></li>
+<li><p>Steady-state or non-terminating.</p></li>
 </ul>
 <p>Understanding these types of output analyses is the foundation for selecting appropriate statistical methods and ensuring the reliability of decisions and recommendations based on simulations&nbsp;<span class="citation" data-cites="Goldsman1992">(<a href="#ref-Goldsman1992" role="doc-biblioref">Goldsman, 1992</a>)</span>, <span class="citation" data-cites="Law1983">(<a href="#ref-Law1983" role="doc-biblioref">Law, 1983</a>)</span>.</p>
 </section>
@@ -356,18 +356,18 @@ window.Quarto = {
 <p><span class="math display">\[\begin{equation}
     \mu \in \bar{\bar{y}}_n \pm t_{(n-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{\hat{V}_{rep}}{n}}
 \end{equation}\]</span></p>
-<p>is a good approximation of a <span class="math inline">\(100(1-\alpha)\)</span> two sided confidence interval around the mean <span class="math inline">\(\hat{y}_n\)</span>. Where <span class="math inline">\(t_{(n-1,1-\frac{\alpha}{2})}\)</span> is the <span class="math inline">\(1-\frac{\alpha}{2}\)</span> quantile of the <span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n-1\)</span> degrees of freedom<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>.</p>
+<p>is a good approximation of a <span class="math inline">\(100(1-\alpha)\)</span> two sided confidence interval around the mean, and <span class="math inline">\(t_{(n-1,1-\frac{\alpha}{2})}\)</span> is the <span class="math inline">\(1-\frac{\alpha}{2}\)</span> quantile of the <span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n-1\)</span> degrees of freedom<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>.</p>
 <section id="estimating-the-number-of-replications-n" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="estimating-the-number-of-replications-n"><span class="header-section-number">7.2.1</span> Estimating the number of replications <span class="math inline">\(n\)</span></h3>
-<p>In terminating simulations each replication yields one independent observation of our performance measure<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>. We then form a t‑based confidence interval (CI) across replications; the usual target being the achievement of a desired absolute half‑width <span class="math inline">\(h\)</span> or relative precision.</p>
-<p>One elegant procedure to estimate <span class="math inline">\(n\)</span>, is called <em>pilot runs</em>&nbsp;<span class="citation" data-cites="Centeno1998">(<a href="#ref-Centeno1998" role="doc-biblioref">Centeno &amp; Reyes, 1998</a>)</span>:</p>
+<p>In terminating simulations each replication yields one independent observation of our performance measure<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>. We then form a <em>t</em>‑based confidence interval (CI) across replications; the usual target being the achievement of a desired absolute half‑width <span class="math inline">\(h\)</span> or relative precision.</p>
+<p>One elegant procedure to estimate <span class="math inline">\(n\)</span>, is called <span id="def-pilotruns"><em>pilot runs</em></span>&nbsp;<span class="citation" data-cites="Centeno1998">(<a href="#ref-Centeno1998" role="doc-biblioref">Centeno &amp; Reyes, 1998</a>)</span>:</p>
 <ol type="1">
 <li><p>Perform a short pilot of <span class="math inline">\(n_0\)</span> replications, usually <span class="math inline">\(n_0 \in [5,10]\)</span>, and calculate the cross replication standard deviation <span class="math inline">\(s=\sqrt{\hat{V}_{rep}}\)</span>.</p></li>
 <li><p>If <span class="math inline">\(h_0=t_{(n_0-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{s}{n_0}}\)</span> is less than the desired <span class="math inline">\(h\)</span>, then there is no need for further replications. However, if <span class="math inline">\(h_0 &gt; h\)</span>, then <span class="math inline">\(n\)</span> can be estimated using: <span class="math display">\[n=\left \lceil n_0 \cdot \left(\frac{h_0}{h}\right)^2 \right\rceil\]</span></p></li>
 </ol>
 </section>
-<section id="example-of-terminating-simulation-and-calculation-of-n" class="level3" data-number="7.2.2">
-<h3 data-number="7.2.2" class="anchored" data-anchor-id="example-of-terminating-simulation-and-calculation-of-n"><span class="header-section-number">7.2.2</span> Example of terminating simulation and calculation of <span class="math inline">\(n\)</span></h3>
+<section id="example" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="example">Example of terminating simulation and calculation of <span class="math inline">\(n\)</span></h3>
 <p>We are to calculate the mean time in the system for entities going through an MM1 queue with <span class="math inline">\(\lambda=0.8\)</span>, and <span class="math inline">\(\mu=1\)</span>. The client requests a CI at 95% with a half width precision of 3% of the sample mean. The first <span class="math inline">\(n_0=10\)</span> replications of <span class="math inline">\(m=1000\)</span> entities are presented in <a href="#tbl-terminatingN0" class="quarto-xref">Table&nbsp;<span>7.1</span></a>.</p>
 <div id="tbl-terminatingN0" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -439,7 +439,7 @@ Figure&nbsp;7.1: MM1 system, first <span class="math inline">\(n_0 = 10\)</span>
 </figcaption>
 </figure>
 </div>
-<p>The statistics for our pilot of 10 replicates are: <span class="math inline">\(\hat{\hat{y}}_{10}=5.047\)</span>, with a 95% CI=[4.3287, 5.8200], and <span class="math inline">\(h_0 \simeq 0.7456\)</span>. The target precision is <span class="math inline">\(h \simeq 0.152\)</span>. Then, <span class="math inline">\(n \simeq 241\)</span>.</p>
+<p>The statistics for our pilot of 10 replicates are: <span class="math inline">\(\bar{\bar{y}}=5.047\)</span>, with a 95% CI=[4.3287, 5.8200], and <span class="math inline">\(h_0 \simeq 0.7456\)</span>. The target precision is <span class="math inline">\(h \simeq 0.152\)</span>. Then, <span class="math inline">\(n \simeq 241\)</span>.</p>
 <p>Are the replicate means normally distributed?</p>
 </section>
 </section>
@@ -452,7 +452,7 @@ Figure&nbsp;7.1: MM1 system, first <span class="math inline">\(n_0 = 10\)</span>
 <li><p>Simulating a call center to determine the mean number of calls in queue over an indefinite period.</p></li>
 <li><p>Simulating a manufacturing system operating 24/7 to estimate average daily output.</p></li>
 </ul>
-<p>The main issue to overcome with steady state simulations is the removal of <em>initialization bias</em>. This can be explained mathematically by considering the values <span class="math inline">\(y_1,y_2,  \ldots, y_m\)</span> the result of a simulation run with a set of initial conditions <span class="math inline">\(I\)</span><a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>. If we let <span class="math inline">\(m \to \infty\)</span>, we can obtain the long term mean:</p>
+<p>The main issue to overcome with steady state simulations is the removal of <em>initialization bias</em>. This can be explained mathematically by considering the values <span class="math inline">\(y_1,y_2,  \ldots, y_m\)</span> that result from a simulation run with a set of initial conditions <span class="math inline">\(I\)</span><a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>. If we let <span class="math inline">\(m \to \infty\)</span>, we can obtain the long term mean:</p>
 <p><span class="math display">\[\mu=\lim_{m \to \infty} E(y_m|I)\]</span> For finite values of <span class="math inline">\(m\)</span> we can calculate:</p>
 <p><span class="math display">\[\bar{y}_m=\frac{1}{m} \sum_{i=1}^{m} y_i\]</span></p>
 <p>to estimate <span class="math inline">\(E(y_m|I)\)</span>. Unfortunately, <span class="math inline">\(E(y_m|I) \neq \mu\)</span>. <a href="#fig-Transient" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> shows that the values of <span class="math inline">\(y_i\)</span>’s during the transient period will bias the calculation of the long term mean.</p>
@@ -462,14 +462,14 @@ Figure&nbsp;7.1: MM1 system, first <span class="math inline">\(n_0 = 10\)</span>
 <img src="graphics/Transient2.png" class="img-fluid figure-img" style="width:80.0%" alt="Curve of initialization bias.">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Transient-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.2: Initialization bias for steady state simulations during transient period.
+Figure&nbsp;7.2: Initialization bias for steady state simulations during transient period. Note: The blue continuous lines represent independent replications.
 </figcaption>
 </figure>
 </div>
 <p>The problem can be practically solved if we estimate an index <span class="math inline">\(l \in [1, m-1]\)</span> used to truncate observations <span class="math inline">\(y_1, \ldots, y_l\)</span>, and estimate:</p>
 <p><span class="math display">\[\bar{y}_{m,l}=\frac{1}{m-l} \sum_{i=l+1}^{m} y_i\]</span></p>
 <p>The result is that <span class="math inline">\(\bar{y}_{m,l}\)</span> is <em>generally</em> less biased than <span class="math inline">\(\bar{y}_m\)</span> because, in practice, initial conditions primarily affect data at the beginning of a run.</p>
-<p>The method works well if <span class="math inline">\(m\)</span> is sufficiently large and is characterized by its simplicity and generality.</p>
+<p>The method works well if <span class="math inline">\(m\)</span> is sufficiently large and is characterized by its simplicity and generality. This method is effective if the sample size <span class="math inline">\(m\)</span> is sufficiently large. Its main advantage lies in its simplicity and general applicability: by discarding the initial transient observations, the estimator <span class="math inline">\(\bar{y}_{m,l}\)</span> better reflects the long‑run behavior of the system. Thus, truncation-based approaches offer a practical method to reduce initialization bias in steady‑state simulations, enabling more reliable estimation of performance measures.</p>
 <section id="replication-deletion-approach-with-welchs-method" class="level3" data-number="7.3.1">
 <h3 data-number="7.3.1" class="anchored" data-anchor-id="replication-deletion-approach-with-welchs-method"><span class="header-section-number">7.3.1</span> Replication-deletion approach with Welch’s method</h3>
 <p>In steady‑state (non‑terminating) simulations, the system is usually initialized in an atypical state<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> so early observations are not representative of long‑run behavior. Welch’s method&nbsp;<span class="citation" data-cites="Heidelberg1983">(<a href="#ref-Heidelberg1983" role="doc-biblioref">Heidelberg &amp; Welch, 1983</a>)</span> is a simple, <em>graphical</em> procedure to identify how many initial observations to delete (the warm‑up period) before estimating steady‑state performance measurements. It does this by smoothing time‑indexed outputs across multiple independent replications and visually locating the point where the smoothed curve stabilizes.</p>
@@ -526,19 +526,39 @@ Figure&nbsp;7.3: Welchs’ method for MM1 queeue with <span class="math inline">
 </section>
 <section id="batch-means-method" class="level3" data-number="7.3.2">
 <h3 data-number="7.3.2" class="anchored" data-anchor-id="batch-means-method"><span class="header-section-number">7.3.2</span> Batch means method</h3>
-<p>The method of batch means is frequently used to estimate the steady-state mean <span class="math inline">\(\mu\)</span> or <span class="math inline">\(V(\bar{y}_m)\)</span>&nbsp;<span class="citation" data-cites="Conway1963">(<a href="#ref-Conway1963" role="doc-biblioref">Conway, 1963</a>)</span>, <span class="citation" data-cites="Fishman1978">(<a href="#ref-Fishman1978" role="doc-biblioref">Fishman, 1978</a>)</span>, <span class="citation" data-cites="Alexopoulos1993">(<a href="#ref-Alexopoulos1993" role="doc-biblioref">Alexopoulos, 1993</a>)</span>, <span class="citation" data-cites="Law1979">(<a href="#ref-Law1979" role="doc-biblioref">Law &amp; Carson, 1979</a>)</span>, and <span class="citation" data-cites="Schmeiser1982">(<a href="#ref-Schmeiser1982" role="doc-biblioref">Schmeiser, 1982</a>)</span>.</p>
+<p>The method of batch means is frequently used to estimate the steady-state mean <span class="math inline">\(\mu\)</span> or <span class="math inline">\(V(\bar{y}_m)\)</span> by reducing th effect of autocorrelation&nbsp;<span class="citation" data-cites="Conway1963">(<a href="#ref-Conway1963" role="doc-biblioref">Conway, 1963</a>)</span>, <span class="citation" data-cites="Fishman1978">(<a href="#ref-Fishman1978" role="doc-biblioref">Fishman, 1978</a>)</span>, <span class="citation" data-cites="Alexopoulos1993">(<a href="#ref-Alexopoulos1993" role="doc-biblioref">Alexopoulos, 1993</a>)</span>, <span class="citation" data-cites="Law1979">(<a href="#ref-Law1979" role="doc-biblioref">Law &amp; Carson, 1979</a>)</span>, and <span class="citation" data-cites="Schmeiser1982">(<a href="#ref-Schmeiser1982" role="doc-biblioref">Schmeiser, 1982</a>)</span>.</p>
 <p>The procedure divides the output <span class="math inline">\(y_1, y_2, \ldots, y_m\)</span> of a long simulation run into a number of contiguous batches and uses their sample means<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a> to generate estimators with confidence intervals.</p>
-<p>A fundamental assumption is that the time series output <span class="math inline">\(\{y_i\}\)</span> is covariance stationary<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a> with <span class="math inline">\(Cov(y_i, y{i+j})=C_j\)</span> and split the data into <span class="math inline">\(n\)</span> batches, each with <span class="math inline">\(k\)</span> observations<a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a>. The <span class="math inline">\(i\)</span>th batch consists of the values: <span class="math display">\[y_{(i-1)k+1}, y_{(i-1)k+2}, \ldots, y_{ik}\]</span> for <span class="math inline">\(i=1,2, \ldots, n\)</span> and the <span class="math inline">\(i\)</span>th batch mean is given by:</p>
-<p><span class="math display">\[\bar{y}(k)=\frac{1}{k} \sum_{j=1}^{k} y_{(i-1)k+j}\]</span> Since the process is covariance stationary, it has been shown that:</p>
-<p><span class="math display">\[C_l(k)=Cov[\bar{y}_i(k), \bar{y}_{i+1}(k)]=\frac{1}{k} \sum_{j=1-k}^{k-1} \left( 1-\frac{|j|}{k} \right) C_{lk+j}\]</span> independently of <span class="math inline">\(i\)</span>. Therefore, if the auto-covariate function <span class="math inline">\(\{C_j\}\)</span> is such that <span class="math inline">\(C_l(k) \to 0\)</span> as <span class="math inline">\(k\)</span> increases, a batch size <span class="math inline">\(k\)</span> can be identified for which the batch sizes are normally IID. Thus, the grand batch mean is:</p>
-<p><span class="math display">\[\bar{y}_n=\bar{y}_m=\frac{1}{n}\sum_{i=1}^{n} \bar{y}_i (k)\]</span> and the estimate of <span class="math inline">\(Var[\bar{y}_i(k)]\)</span> is:</p>
+<p>A fundamental assumption is that the time series output <span class="math inline">\(\{y_i\}\)</span> is covariance stationary<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a>, with <span class="math display">\[
+\mathrm{Cov}(y_i, y_{i+j}) = C_j.
+\]</span></p>
+<p>As the batch size <span class="math inline">\(k\)</span> increases, the batch means become approximately independent and normally distributed due to the Central Limit Theorem. This property allows the batch means to be treated as approximately independent observations for the purpose of statistical inference.</p>
+<p>The data are then partitioned into <span class="math inline">\(n\)</span> batches, each containing <span class="math inline">\(k\)</span> observations, where <span class="math inline">\(m = n \times k\)</span>.</p>
+<p>The <span class="math inline">\(i\)</span>th batch consists of the observations: <span class="math display">\[
+y_{(i-1)k+1},\; y_{(i-1)k+2},\; \ldots,\; y_{ik}, \quad i=1,2,\ldots,n.
+\]</span></p>
+<p>and the <span class="math inline">\(i\)</span>th batch mean is calculated as:</p>
+<p><span class="math display">\[\bar{y}_i(k)=\frac{1}{k} \sum_{j=1}^{k} y_{(i-1)k+j}\]</span> Since the process is covariance stationary, it has been shown that:</p>
+<p><span class="math display">\[
+\gamma_l(k)=Cov[\bar{y}_i(k), \bar{y}_{i+l}(k)]
+\]</span></p>
+<p>and:</p>
+<p><span class="math display">\[
+\gamma_l(k)=\frac{1}{k} \sum_{j=1-k}^{k-1} \left(1-\frac{|j|}{k}\right) C_{lk+j}
+\]</span></p>
+<p>independently of <span class="math inline">\(i\)</span>.</p>
+<p>Therefore, if the auto-covariate function <span class="math inline">\(\{C_j\}\)</span> is such that <span class="math inline">\(C_l(k) \to 0\)</span> as <span class="math inline">\(k\)</span> increases batch means are approximately independent and normally distributed. Thus, the grand batch mean is:</p>
+<p><span class="math display">\[
+\bar{y}_n = \frac{1}{n}\sum_{i=1}^n \bar{y}_i(k)
+= \bar{y}_m
+\]</span></p>
+<p>and the estimate of <span class="math inline">\(Var[\bar{y}_i(k)]\)</span> is:</p>
 <p><span class="math display">\[\hat{V}_B=\frac{1}{n-1} \sum_{i=1}^{n} (\bar{y}_i(k)-\bar{y}_n)^2\]</span> Then, we can compute a <span class="math inline">\(100(1- \alpha)\)</span> confidence interval (CI) for <span class="math inline">\(\mu\)</span>:</p>
 <p><span class="math display">\[\mu \in \bar{y}_n \pm t_{(n-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{\hat{V}_B}{n}}\]</span></p>
 <p>The main problem with the application of the batch means method in practice is the choice of the batch size <span class="math inline">\(k\)</span>. Nevertheless, there are some practical recommendations for its selection:</p>
 <ul>
 <li><p>Aim for 20 to 30 batches: With too few, the CI can be unstable; with too many, batch size gets too small and batch means remain correlated. <span class="citation" data-cites="Schmeiser1982">(<a href="#ref-Schmeiser1982" role="doc-biblioref">Schmeiser, 1982</a>)</span> provides an empirical insight: "beyond <span class="math inline">\(k \simeq 30\)</span> <em>the gain is minimal</em>”. This is the classic guidance.</p></li>
-<li><p>Increase batch size until correlation is small: Practically, pick <span class="math inline">\(m\)</span> so the <span class="math inline">\(lag‑1\)</span> auto-correlation of the batch means is near zero<a href="#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a>. Always verify the auto-correlation of the batch means, and their normality.</p></li>
-<li><p>Warm‑up matters: Batch means presumes you already deleted the transient; if you don’t, the early bias contaminates the whole series and your CI centers at the wrong mean.</p></li>
+<li><p>Increase batch size until correlation is small: Practically, pick <span class="math inline">\(m\)</span> so the <span class="math inline">\(lag‑1\)</span> auto-correlation of the batch means is near zero<a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a>. Always verify the auto-correlation of the batch means, and their normality.</p></li>
+<li><p>Warm‑up matters: Batch means presumes you already deleted the transient; if you don’t, the early bias contaminates the whole series and your CI centers at the wrong mean<a href="#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a>.</p></li>
 </ul>
 <p>Lastly, the method is preferred when:</p>
 <ul>
@@ -547,18 +567,27 @@ Figure&nbsp;7.3: Welchs’ method for MM1 queeue with <span class="math inline">
 <li><p>There is need for a simple and auditable CI method embedded in the simulation software.</p></li>
 </ul>
 <p>Batch means ticks all three items above, which is why it used to be in nearly every textbook and commercial package tutorial<a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a>.</p>
+<section id="workflow-for-steady-state-simulation-analysis-with-batch-means" class="level4" data-number="7.3.2.1">
+<h4 data-number="7.3.2.1" class="anchored" data-anchor-id="workflow-for-steady-state-simulation-analysis-with-batch-means"><span class="header-section-number">7.3.2.1</span> Workflow for Steady-State Simulation Analysis with batch means</h4>
+<p>The correct procedure for analyzing steady-state simulation output consists of two distinct steps: removing initialization bias and accounting for correlation in the data.</p>
+<ol type="1">
+<li><p>Run the simulation and collect output data from a sufficiently long simulation run.</p></li>
+<li><p>Remove the initial transient (warm‑up period) using a method such as Welch’s graphical procedure. Discard the initial observations.</p></li>
+<li><p>Apply the batch means method.</p></li>
+</ol>
+</section>
 </section>
 <section id="spc-method" class="level3" data-number="7.3.3">
 <h3 data-number="7.3.3" class="anchored" data-anchor-id="spc-method"><span class="header-section-number">7.3.3</span> SPC method</h3>
 <p>Developed by Stewart Robinson&nbsp;<span class="citation" data-cites="Robinson2007">(<a href="#ref-Robinson2007" role="doc-biblioref">Robinson, 2007</a>)</span>, <span class="citation" data-cites="Robinson2002">(<a href="#ref-Robinson2002" role="doc-biblioref">Robinson, 2002</a>)</span>. The method considers the early part of a single long run as a potential initial transient<a href="#fn28" class="footnote-ref" id="fnref28" role="doc-noteref"><sup>28</sup></a> and then uses a control chart to detect when the process output has become in‑control or <em>stable</em>. Because raw simulation outputs are serially correlated and possibly non‑normal, the SPC chart is built from <em>non‑overlapping averages of consecutive observations</em> rather than point‑wise data. The estimates of center line and control limits use the later portion of the run, which is <em>assumed nearly steady</em>. The method then scans forward from the beginning to find the earliest time index at which the chart shows in‑control behavior. Thus, that index is the recommended truncation point<a href="#fn29" class="footnote-ref" id="fnref29" role="doc-noteref"><sup>29</sup></a>.</p>
 <p>The algorithm works as follows:</p>
 <ol type="1">
-<li><p>Obtain a long run of time persistent output values <span class="math inline">\(\{y_t: t=1,2,\ldots, n\}\)</span>.</p></li>
+<li><p>Obtain a long run of time persistent output values <span class="math inline">\(\{y_i: i=1,2,\ldots, n\}\)</span>.</p></li>
 <li><p>Select a batch size <span class="math inline">\(m\)</span><a href="#fn30" class="footnote-ref" id="fnref30" role="doc-noteref"><sup>30</sup></a> and create non-overlapping batch means: <span class="math display">\[\bar{y}_i=\frac{1}{m}\sum_{j=(i-1)m+1}^{im} y_j \:\:\: i=1,\ldots,k\]</span> where <span class="math inline">\(k=\left \lfloor \frac{n}{m} \right \rfloor\)</span>. These <span class="math inline">\(\bar{y}_i\)</span> are used as points for the control chart because they reduce the auto-correlation and tend to be normally distributed<a href="#fn31" class="footnote-ref" id="fnref31" role="doc-noteref"><sup>31</sup></a>.</p></li>
 <li><p>Select an estimation window at the tail of the run<a href="#fn32" class="footnote-ref" id="fnref32" role="doc-noteref"><sup>32</sup></a> and estimate center line and control limits:</p>
-<p>Let <span class="math inline">\(S=\{\bar{y}_i: i=i_0, \ldots, k\}\)</span> be the chosen tail segment<a href="#fn33" class="footnote-ref" id="fnref33" role="doc-noteref"><sup>33</sup></a>and calculate:</p>
+<p>Let <span class="math inline">\(S=\{\bar{y}_i: i=i_0, \ldots, k\}\)</span> be the chosen tail segment<a href="#fn33" class="footnote-ref" id="fnref33" role="doc-noteref"><sup>33</sup></a> and calculate:</p>
 <p><span class="math display">\[CL=\hat{\mu}= \frac{1}{|S|} \sum_{\bar{y} \in S} \bar{y}\]</span></p>
-<p><span class="math display">\[\hat{\sigma}=\sqrt{\frac{1}{|s|-1} \sum_{\bar{y} \in S} (\bar{y}-\hat{\mu})^2}\]</span></p>
+<p><span class="math display">\[\hat{\sigma}=\sqrt{\frac{1}{|S|-1} \sum_{\bar{y} \in S} (\bar{y}-\hat{\mu})^2}\]</span></p>
 <p><span class="math display">\[WL=\hat{\mu} \pm 2\hat{\sigma}\]</span></p>
 <p><span class="math display">\[AL=\hat{\mu} \pm 3\hat{\sigma}\]</span></p>
 <p>where <span class="math inline">\(CL=\hat{\mu}\)</span> is the central line, <span class="math inline">\(WL\)</span> the warning limits, and <span class="math inline">\(AL\)</span> the upper and lower action limits of a Shewhart control chart<a href="#fn34" class="footnote-ref" id="fnref34" role="doc-noteref"><sup>34</sup></a>.</p></li>
@@ -569,7 +598,7 @@ Figure&nbsp;7.3: Welchs’ method for MM1 queeue with <span class="math inline">
 <li><p>Ascending or descending trends of six or more successive points.</p></li>
 <li><p>Runs of eight or more points on one side of <span class="math inline">\(\hat{\mu}\)</span>.</p></li>
 </ul>
-<p>Let <span class="math inline">\(i^*\)</span> be the earliest batch index after which no SPC rule is violated within a chosen and persistent window<a href="#fn35" class="footnote-ref" id="fnref35" role="doc-noteref"><sup>35</sup></a>. Then, <span class="math inline">\(i^*\)</span> is the truncation point.</p></li>
+<p>Let <span class="math inline">\(i^*=\min\{i : \text{process is in control from } i \text{ onward}\}\)</span> be the earliest batch index after which no SPC rule is violated within a chosen and persistent window<a href="#fn35" class="footnote-ref" id="fnref35" role="doc-noteref"><sup>35</sup></a>. Then, <span class="math inline">\(i^*\)</span> is the truncation point.</p></li>
 </ol>
 <p>The rationale for batching and tail‑based limits is that simulation outputs are typically auto-correlated. Thus, batch means help achieve approximate IID normal behavior in the chart. Also, estimating limits from the tail avoids contamination by early transient bias.</p>
 <p>There are some tuning and practical notes to take into account when applying this method:</p>
@@ -590,6 +619,16 @@ Figure&nbsp;7.4: SPC method to calculate truncating point for MM1 model.
 </figure>
 </div>
 <p>This method converts the warm up detection problem into a standard quality control task identifying when the simulation becomes statistically stable using Shewhart control limits and out of control tests. It uses non overlapping batch means explicitly addressing the auto correlation typical of simulation outputs. Finally, it is relatively easy to implement, gives reproducible results and performed competitively against Welch’s and Time-Series inspection methods&nbsp;<span class="citation" data-cites="Robinson2007">(<a href="#ref-Robinson2007" role="doc-biblioref">Robinson, 2007</a>)</span><a href="#fn37" class="footnote-ref" id="fnref37" role="doc-noteref"><sup>37</sup></a>.</p>
+<section id="workflow-for-steady-state-simulation-analysis-with-the-spc-method" class="level4" data-number="7.3.3.1">
+<h4 data-number="7.3.3.1" class="anchored" data-anchor-id="workflow-for-steady-state-simulation-analysis-with-the-spc-method"><span class="header-section-number">7.3.3.1</span> Workflow for Steady-State Simulation Analysis with the SPC method</h4>
+<p>A practical analysis of steady-state simulation output will be:</p>
+<ol type="1">
+<li><p>Run the simulation and collect output data from a sufficiently long simulation run.</p></li>
+<li><p>Identify the steady-state region using the SPC method obtaining the cutting value <span class="math inline">\(l\)</span>.</p></li>
+<li><p>Run <span class="math inline">\(r\)</span> independent replications each of length <span class="math inline">\(n\)</span> and discard the first <span class="math inline">\(l\)</span> observations.</p></li>
+<li><p>Address autocorrelation using the method of <a href="#def-pilotruns">pilot runs</a> discussed before.</p></li>
+</ol>
+</section>
 </section>
 </section>
 <section id="final-remarks-for-des-and-mc" class="level2" data-number="7.4">
@@ -731,7 +770,7 @@ Schmeiser, B. (1982). Batch size effects in the analysis of simulation output. <
 Tierney, L. (1994). <span class="nocase">Markov Chains for Exploring Posterior Distributions</span>. <em><span class="nocase">The Annals of Statistics</span></em>, <em>22</em>(4), 1701–1728.
 </div>
 <div id="ref-Western1958" class="csl-entry" role="listitem">
-Western Electric Company. (1958). <em><span>Statistical Quality Control Handbook</span></em> (Second). Wester Electric Co., Inc, USA.
+Western Electric Company. (1958). <em><span>Statistical Quality Control Handbook</span></em> (Second ed.). Wester Electric Co., Inc, USA.
 </div>
 <div id="ref-wikipedia_autocovariance" class="csl-entry" role="listitem">
 Wikipedia. (2025). <em>Autocovariance</em>. <a href="https://en.wikipedia.org/wiki/Autocovariance" class="uri">https://en.wikipedia.org/wiki/Autocovariance</a>; Wikipedia, The Free Encyclopedia.
@@ -752,7 +791,7 @@ Wikipedia. (2025). <em>Autocovariance</em>. <a href="https://en.wikipedia.org/wi
 <li id="fn9"><p>A number <em>m</em> such that the <span class="math inline">\(\hat{y}'s\)</span> <em>transient</em> means are approximately <strong>normal</strong>, or the confidence interval (CI) is stable. Pick a sufficiently large value considering if high accuracy is required and the cost/time of running a large replication is not prohibitive.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p>Low-key the moment the senior IME student realizes stats, math, and all those random classes were actually clutch.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn11"><p>e.g., average cost in a day, % rejected in a shift, etc.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12"><p>Initial conditions are the state of the system at simulation time t = 0. They define values of state variables, status of resources, and context before any simulated events occur. Good initial conditions reduce initialization bias and ensure the outputs reflect scenarios intended for study.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Initial conditions are the state of the system at <span class="math inline">\(t = 0\)</span>. They define values of state variables, status of resources, and context before any simulated events occur. Good initial conditions reduce initialization bias and ensure the outputs reflect scenarios intended for study.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn13"><p>e.g., empty and idle.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn14"><p>These are time steps or event counts.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn15"><p>̄<span class="math inline">\(\bar{y}_i\)</span> estimates the transient mean at index <em>i</em>, with reduced variance by aggregation across independent runs.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -765,8 +804,8 @@ Wikipedia. (2025). <em>Autocovariance</em>. <a href="https://en.wikipedia.org/wi
 <li id="fn22"><p>Also to time increments in the simulation clock.<a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn23"><p>i.e., Batch means.<a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn24"><p>A covariance stationary, also called weakly stationary, time series is one whose average level does not drift, its typical variability does not change, and the relationship between values depends only on how far apart they are, not on their calendar date.<a href="#fnref24" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn25"><p>Assume <span class="math inline">\(m=n \times k\)</span><a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn26"><p>In practice: <span class="math inline">\(\rho_1 \leq 0.1\)</span><a href="#fnref26" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn25"><p>In practice: <span class="math inline">\(\rho_1 \leq 0.1\)</span><a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn26"><p>Batch means <em>does not</em> eliminate initialization bias. It assumes that the simulation output already represents steady-state behavior. Therefore, the transient period must be removed prior to applying the method; otherwise, the resulting estimates and confidence intervals will be centered around a biased mean.<a href="#fnref26" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn27"><p>Arena and its output analyzer use batch means. Simio, AnyLogic, FlexSim, SIMUL8, to mention a few, use replication deletion and batch means can be implemented exporting time stamped data, then running the method in Python, R, or Matlab.<a href="#fnref27" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn28"><p>Warm up.<a href="#fnref28" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn29"><p>At the end of the warm-up period.<a href="#fnref29" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -1278,7 +1317,7 @@ Wikipedia. (2025). <em>Autocovariance</em>. <a href="https://en.wikipedia.org/wi
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Terminating or transient.</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Steady-state ot non-terminating.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Steady-state or non-terminating.</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>Understanding these types of output analyses is the foundation for selecting appropriate statistical methods and ensuring the reliability of decisions and recommendations based on simulations&nbsp;<span class="co">[</span><span class="ot">@Goldsman1992</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Law1983</span><span class="co">]</span>.</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
@@ -1332,355 +1371,408 @@ Wikipedia. (2025). <em>Autocovariance</em>. <a href="https://en.wikipedia.org/wi
 <span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>    \mu \in \bar{\bar{y}}_n \pm t_{(n-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{\hat{V}_{rep}}{n}}</span>
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>\end{equation}$$</span>
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>is a good approximation of a $100(1-\alpha)$ two sided confidence interval around the mean $\hat{y}_n$. Where $t_{(n-1,1-\frac{\alpha}{2})}$ is the $1-\frac{\alpha}{2}$ quantile of the $t$ distribution with $n-1$ degrees of freedom^<span class="co">[</span><span class="ot">Low-key the moment the senior IME student realizes stats, math, and all those random classes were actually clutch.</span><span class="co">]</span>.</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>is a good approximation of a $100(1-\alpha)$ two sided confidence interval around the mean, and $t_{(n-1,1-\frac{\alpha}{2})}$ is the $1-\frac{\alpha}{2}$ quantile of the $t$ distribution with $n-1$ degrees of freedom^<span class="co">[</span><span class="ot">Low-key the moment the senior IME student realizes stats, math, and all those random classes were actually clutch.</span><span class="co">]</span>.</span>
 <span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimating the number of replications $n$</span></span>
 <span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>In terminating simulations each replication yields one independent observation of our performance measure^[e.g., average cost in a day, % rejected</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>in a shift, etc.]. We then form a t‑based confidence interval (CI) across replications; the usual target being the achievement of a desired absolute half‑width $h$ or relative precision.</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>One elegant procedure to estimate $n$, is called *pilot runs*&nbsp;<span class="co">[</span><span class="ot">@Centeno1998</span><span class="co">]</span>:</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Perform a short pilot of $n_0$ replications, usually $n_0 \in [5,10]$, and calculate the cross replication standard deviation $s=\sqrt{\hat{V}_{rep}}$.</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>If $h_0=t_{(n_0-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{s}{n_0}}$ is less than the desired $h$, then there is no need for further replications. However, if $h_0 &gt; h$, then $n$ can be estimated using: $$n=\left \lceil n_0 \cdot \left(\frac{h_0}{h}\right)^2 \right\rceil$$</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example of terminating simulation and calculation of $n$</span></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>We are to calculate the mean time in the system for entities going through an MM1 queue with $\lambda=0.8$, and $\mu=1$. The client requests a CI at 95% with a half width precision of 3% of the sample mean. The first $n_0=10$ replications of $m=1000$ entities are presented in @tbl-terminatingN0.</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>::: {#tbl-terminatingN0}</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>   **r**   $\bar{y}_r$</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>  ------- -------------</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="in">     1     4.95156984</span></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="in">     2     3.702752994</span></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="in">     3     6.501464905</span></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="in">     4     3.863453618</span></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="in">     5     5.089188779</span></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="in">     6     4.371318475</span></span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="in">     7     6.460842523</span></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="in">     8     6.054292074</span></span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="in">     9     5.552893988</span></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="in">    10     4.195403425</span></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>  : $n_0=10$ initial replications with mean time in system (Waiting + Service)</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>@fig-RepsTerm presents box-plots of each replication.</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>::: {#fig-RepsTerm}</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/TermRep1.png)</span>{width=80% alt="Box-plots of each replication." }</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>MM1 system, first $n_0 = 10$ replications. Red dots represent the mean value, orange lines the median.</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>In terminating simulations each replication yields one independent observation of our performance measure^<span class="co">[</span><span class="ot">e.g., average cost in a day, % rejected in a shift, etc.</span><span class="co">]</span>. We then form a *t*‑based confidence interval (CI) across replications; the usual target being the achievement of a desired absolute half‑width $h$ or relative precision.</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>One elegant procedure to estimate $n$, is called <span class="co">[</span><span class="ot">*pilot runs*</span><span class="co">]</span>{#def-pilotruns}&nbsp;<span class="co">[</span><span class="ot">@Centeno1998</span><span class="co">]</span>:</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Perform a short pilot of $n_0$ replications, usually $n_0 \in [5,10]$, and calculate the cross replication standard deviation $s=\sqrt{\hat{V}_{rep}}$.</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>If $h_0=t_{(n_0-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{s}{n_0}}$ is less than the desired $h$, then there is no need for further replications. However, if $h_0 &gt; h$, then $n$ can be estimated using: $$n=\left \lceil n_0 \cdot \left(\frac{h_0}{h}\right)^2 \right\rceil$$</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example of terminating simulation and calculation of $n$ {#example .unnumbered}</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>We are to calculate the mean time in the system for entities going through an MM1 queue with $\lambda=0.8$, and $\mu=1$. The client requests a CI at 95% with a half width precision of 3% of the sample mean. The first $n_0=10$ replications of $m=1000$ entities are presented in @tbl-terminatingN0.</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>::: {#tbl-terminatingN0}</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>   **r**   $\bar{y}_r$</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>  ------- -------------</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="in">     1     4.95156984</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="in">     2     3.702752994</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="in">     3     6.501464905</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="in">     4     3.863453618</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="in">     5     5.089188779</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="in">     6     4.371318475</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="in">     7     6.460842523</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="in">     8     6.054292074</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="in">     9     5.552893988</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="in">    10     4.195403425</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>  : $n_0=10$ initial replications with mean time in system (Waiting + Service)</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>@fig-RepsTerm presents box-plots of each replication.</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>::: {#fig-RepsTerm}</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/TermRep1.png)</span>{width=80% alt="Box-plots of each replication." }</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>MM1 system, first $n_0 = 10$ replications. Red dots represent the mean value, orange lines the median.</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>The statistics for our pilot of 10 replicates are: $\hat{\hat{y}}_{10}=5.047$, with a 95% CI=<span class="sc">\[</span>4.3287, 5.8200<span class="sc">\]</span>, and $h_0 \simeq 0.7456$. The target precision is $h \simeq 0.152$. Then, $n \simeq 241$.</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>Are the replicate means normally distributed?</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## Steady state simulations</span></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>A steady-state or non-terminating simulation studies the *long-run* behavior of a system, *aiming to estimate parameters that are independent of initial conditions*. The system is assumed to reach an equilibrium distribution after a sufficient *warm-up* or transient period.</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>Some examples are:</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Simulating a continuously running production line to estimate long-run average throughput.</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Simulating a call center to determine the mean number of calls in queue over an indefinite period.</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Simulating a manufacturing system operating 24/7 to estimate average daily output.</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>The main issue to overcome with steady state simulations is the removal of *initialization bias*. This can be explained mathematically by considering the values $y_1,y_2,  \ldots, y_m$ the result of a simulation run with a set of initial conditions $I$^<span class="co">[</span><span class="ot">Initial conditions are the state of the system at simulation time t = 0. They define values of state variables, status of resources, and context before any simulated events occur. Good initial conditions reduce initialization bias and ensure the outputs reflect scenarios intended for study.</span><span class="co">]</span>. If we let $m \to \infty$, we can obtain the long term mean:</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>$$\mu=\lim_{m \to \infty} E(y_m|I)$$ For finite values of $m$ we can calculate:</span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>$$\bar{y}_m=\frac{1}{m} \sum_{i=1}^{m} y_i$$</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>to estimate $E(y_m|I)$. Unfortunately, $E(y_m|I) \neq \mu$. @fig-Transient shows that the values of $y_i$'s during the transient period will bias the calculation of the long term mean.</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>::: {#fig-Transient}</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/Transient2.png)</span>{width=80% alt="Curve of initialization bias." }</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>Initialization bias for steady state simulations during transient period.</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>The statistics for our pilot of 10 replicates are: $\bar{\bar{y}}=5.047$, with a 95% CI=<span class="sc">\[</span>4.3287, 5.8200<span class="sc">\]</span>, and $h_0 \simeq 0.7456$. The target precision is $h \simeq 0.152$. Then, $n \simeq 241$.</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>Are the replicate means normally distributed?</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Steady state simulations</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>A steady-state or non-terminating simulation studies the *long-run* behavior of a system, *aiming to estimate parameters that are independent of initial conditions*. The system is assumed to reach an equilibrium distribution after a sufficient *warm-up* or transient period.</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>Some examples are:</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Simulating a continuously running production line to estimate long-run average throughput.</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Simulating a call center to determine the mean number of calls in queue over an indefinite period.</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Simulating a manufacturing system operating 24/7 to estimate average daily output.</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>The main issue to overcome with steady state simulations is the removal of *initialization bias*. This can be explained mathematically by considering the values $y_1,y_2,  \ldots, y_m$ that result from a simulation run with a set of initial conditions $I$^<span class="co">[</span><span class="ot">Initial conditions are the state of the system at $t = 0$. They define values of state variables, status of resources, and context before any simulated events occur. Good initial conditions reduce initialization bias and ensure the outputs reflect scenarios intended for study.</span><span class="co">]</span>. If we let $m \to \infty$, we can obtain the long term mean:</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>$$\mu=\lim_{m \to \infty} E(y_m|I)$$ For finite values of $m$ we can calculate:</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>$$\bar{y}_m=\frac{1}{m} \sum_{i=1}^{m} y_i$$</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>to estimate $E(y_m|I)$. Unfortunately, $E(y_m|I) \neq \mu$. @fig-Transient shows that the values of $y_i$'s during the transient period will bias the calculation of the long term mean.</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>::: {#fig-Transient}</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/Transient2.png)</span>{width=80% alt="Curve of initialization bias." }</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>Initialization bias for steady state simulations during transient period. Note: The blue continuous lines represent independent replications.</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>The problem can be practically solved if we estimate an index $l \in <span class="co">[</span><span class="ot">1, m-1</span><span class="co">]</span>$ used to truncate observations $y_1, \ldots, y_l$, and estimate:</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>$$\bar{y}_{m,l}=\frac{1}{m-l} \sum_{i=l+1}^{m} y_i$$</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>The result is that $\bar{y}_{m,l}$ is *generally* less biased than $\bar{y}_m$ because, in practice, initial conditions primarily affect data at the beginning of a run.</span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>The method works well if $m$ is sufficiently large and is characterized by its simplicity and generality.</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>The problem can be practically solved if we estimate an index $l \in <span class="co">[</span><span class="ot">1, m-1</span><span class="co">]</span>$ used to truncate observations $y_1, \ldots, y_l$, and estimate:</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>$$\bar{y}_{m,l}=\frac{1}{m-l} \sum_{i=l+1}^{m} y_i$$</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>The result is that $\bar{y}_{m,l}$ is *generally* less biased than $\bar{y}_m$ because, in practice, initial conditions primarily affect data at the beginning of a run.</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>The method works well if $m$ is sufficiently large and is characterized by its simplicity and generality.</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>This method is effective if the sample size $m$ is sufficiently large. Its main advantage lies in its simplicity and general applicability: by discarding the initial transient observations, the estimator $\bar{y}_{m,l}$ better reflects the long‑run behavior of the system. Thus, truncation-based approaches offer a practical method to reduce initialization bias in steady‑state simulations, enabling more reliable estimation of performance measures.</span>
 <span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="fu">### Replication-deletion approach with Welch's method</span></span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>In steady‑state (non‑terminating) simulations, the system is usually initialized in an atypical state^<span class="co">[</span><span class="ot">e.g., empty and idle.</span><span class="co">]</span> so early observations are not representative of long‑run behavior. Welch's method&nbsp;<span class="co">[</span><span class="ot">@Heidelberg1983</span><span class="co">]</span> is a simple, *graphical* procedure to identify how many initial observations to delete (the warm‑up period) before estimating steady‑state performance measurements. It does this by smoothing time‑indexed outputs across multiple independent replications and visually locating the point where the smoothed curve stabilizes.</span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>Assume you run $k$ independent replications, each producing a time series performance measure $y$ over $n$ equally spaced indices $i=1, \ldots, n$^<span class="co">[</span><span class="ot">These are time steps or event counts.</span><span class="co">]</span>:</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Replication $r$ produces $y_{r,1}, y_{r,2},\ldots, y_{r,n}$ for $r=1, \ldots, k$.</span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Independence is enforced by different random-number streams and resetting counters after each replication.</span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>Welch's method reduces path-to-path noise by *averaging the same time index across replications*:</span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>$$\begin{equation}</span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>    \bar{y}=\frac{1}{k} \sum_{r=1}^{k} y_{r,i} \:\:\: i=1,2,\ldots,n.</span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>\end{equation}$$</span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>This produces a *single trajectory* $\bar{y}_1, \bar{y}_2, \ldots, \bar{y}_n$ that is smoother than any of the single replications^[̄$\bar{y}_i$ estimates the transient mean</span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>at index *i*, with reduced variance by aggregation across independent runs.].</span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>Welch then applies a *centered moving average* with window half-width $w$^<span class="co">[</span><span class="ot">The full window is $2w + 1$.</span><span class="co">]</span>, and a smoothed series $\tilde{y}_j$ is obtained:</span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>$$\begin{equation}</span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>    \tilde{y}_j=\frac{1}{2w+1} \sum_{i=j-w}^{j+w} \bar{y}_i \:\:\:\: j=w+1, \ldots, n-w.</span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>\end{equation}$$</span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>At the ends^<span class="co">[</span><span class="ot">$j \leq w$ or $j\geq n-w$</span><span class="co">]</span>, it uses shorter windows considering only the available points^<span class="co">[</span><span class="ot">To avoid bias.</span><span class="co">]</span>:</span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>$$\begin{equation}</span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>    \tilde{y}_j = \frac{1}{m_j} \sum_{i=max(1,j-w)}^{min(n, j+w)} \bar{y}_i, \:\: \textnormal{where: } m_j=min(n, j+w)-max(1, j-w) +1.</span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>\end{equation}$$</span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>Welch's method recommends the use of a **graphic** to visually reveal when the mean settles. The exact window size is chosen pragmatically to balance noise reduction and responsiveness.</span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>The smoother curve $\tilde{y}_j$ suppresses short term fluctuations . Therefore the engineer can see the underlying drift from the initial transient towards steady state.</span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>To select the truncation point $l$, plot $\tilde{y}_j$ vs $j$ such that the curve appears stable^<span class="co">[</span><span class="ot">Flat and without evident trend.</span><span class="co">]</span> thereafter. Practically:</span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Start at $j=w+1$ and scan forward until the moving average no longer exhibits systematic upward or downward drift.</span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Set the warm up period to $l$^<span class="co">[</span><span class="ot">Discard indices $1, . . . , l$ from each replication.</span><span class="co">]</span>. Then, estimate all performance measurements and confidence intervals on the steady state portion $l+1, \ldots, n$.</span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>@fig-WelchFig shows the application of Welch's method for $k=31$ and $w=125$ in the simulation of the number of entities in system for a MM1 queuing model.</span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>::: {#fig-WelchFig}</span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/WelchFig.png)</span>{width=80% alt="Transient curve with cutting point using Welch's method" }</span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>Welchs' method for MM1 queeue with $\lambda=0.9$ and $\mu=1.0$.</span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>Welch's method is a graphical procedure designed for general applicability. The original paper and later tutorials make a point of not prescribing a single formula for $w$ because the *right* smoothing depends on^<span class="co">[</span><span class="ot">However, @Mahajan2004 recomends $w \leq \frac{m}{4}$</span><span class="co">]</span>:</span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The volatility of the output.</span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>How quickly the model drifts toward equilibrium.</span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>How much averaging at replication‑level is already present.</span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>The recommended practice is to experiment with window widths and choose the smallest $w$ that yields a clearly stable smoothed curve&nbsp;<span class="co">[</span><span class="ot">@Lavenberg1981</span><span class="co">]</span>. Nevertheless, there are some guidelines to adjust $w$, $k$, and $n$ together:</span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>An increase in $k$ makes the cross replication average smoother. Then, $w$ can be reduced&nbsp;<span class="co">[</span><span class="ot">@Goldsman2000</span><span class="co">]</span>.</span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Increasing $w$ generates more smoothing and an easier stabilization. However, there is the risk of *masking* a genuine drift if $w$ is too large. Then, test different values of $w$&nbsp;<span class="co">[</span><span class="ot">@Lavenberg1981</span><span class="co">]</span>.</span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A larger $n$ provides a longer horizon, which makes the steady state portion more visible. This will help verifying that the selection of $l$ is not just a short-run artifact&nbsp;<span class="co">[</span><span class="ot">@Goldsman2000</span><span class="co">]</span>.</span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>When there is a strong auto-correlation pick a larger $w$ and/or a longer $n$&nbsp;<span class="co">[</span><span class="ot">@Mahajan2004</span><span class="co">]</span>.</span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The final warm-up truncation $l$ should be robust to modest changes in $w$ and $k$^[Also to time increments in the</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>simulation clock.]&nbsp;<span class="co">[</span><span class="ot">@Goldsman2000</span><span class="co">]</span>.</span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a><span class="fu">### Batch means method</span></span>
-<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>The method of batch means is frequently used to estimate the steady-state mean $\mu$ or $V(\bar{y}_m)$&nbsp;<span class="co">[</span><span class="ot">@Conway1963</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Fishman1978</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Alexopoulos1993</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Law1979</span><span class="co">]</span>, and <span class="co">[</span><span class="ot">@Schmeiser1982</span><span class="co">]</span>.</span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>The procedure divides the output $y_1, y_2, \ldots, y_m$ of a long simulation run into a number of contiguous batches and uses their sample means^<span class="co">[</span><span class="ot">i.e., Batch means.</span><span class="co">]</span> to generate estimators with confidence intervals.</span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>A fundamental assumption is that the time series output $<span class="sc">\{</span>y_i<span class="sc">\}</span>$ is covariance stationary^<span class="co">[</span><span class="ot">A covariance stationary, also called weakly stationary, time series is one whose average level does not drift, its typical variability does not change, and the relationship between values depends only on how far apart they are, not on their calendar date.</span><span class="co">]</span> with $Cov(y_i, y{i+j})=C_j$ and split the data into $n$ batches, each with $k$ observations^<span class="co">[</span><span class="ot">Assume $m=n \times k$</span><span class="co">]</span>. The $i$th batch consists of the values: $$y_{(i-1)k+1}, y_{(i-1)k+2}, \ldots, y_{ik}$$ for $i=1,2, \ldots, n$ and the $i$th batch mean is given by:</span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>$$\bar{y}(k)=\frac{1}{k} \sum_{j=1}^{k} y_{(i-1)k+j}$$ Since the process is covariance stationary, it has been shown that:</span>
-<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>$$C_l(k)=Cov<span class="co">[</span><span class="ot">\bar{y}_i(k), \bar{y}_{i+1}(k)</span><span class="co">]</span>=\frac{1}{k} \sum_{j=1-k}^{k-1} \left( 1-\frac{|j|}{k} \right) C_{lk+j}$$ independently of $i$. Therefore, if the auto-covariate function $<span class="sc">\{</span>C_j<span class="sc">\}</span>$ is such that $C_l(k) \to 0$ as $k$ increases, a batch size $k$ can be identified for which the batch sizes are normally IID. Thus, the grand batch mean is:</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="fu">### Replication-deletion approach with Welch's method</span></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>In steady‑state (non‑terminating) simulations, the system is usually initialized in an atypical state^<span class="co">[</span><span class="ot">e.g., empty and idle.</span><span class="co">]</span> so early observations are not representative of long‑run behavior. Welch's method&nbsp;<span class="co">[</span><span class="ot">@Heidelberg1983</span><span class="co">]</span> is a simple, *graphical* procedure to identify how many initial observations to delete (the warm‑up period) before estimating steady‑state performance measurements. It does this by smoothing time‑indexed outputs across multiple independent replications and visually locating the point where the smoothed curve stabilizes.</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>Assume you run $k$ independent replications, each producing a time series performance measure $y$ over $n$ equally spaced indices $i=1, \ldots, n$^<span class="co">[</span><span class="ot">These are time steps or event counts.</span><span class="co">]</span>:</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Replication $r$ produces $y_{r,1}, y_{r,2},\ldots, y_{r,n}$ for $r=1, \ldots, k$.</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Independence is enforced by different random-number streams and resetting counters after each replication.</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>Welch's method reduces path-to-path noise by *averaging the same time index across replications*:</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>$$\begin{equation}</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>    \bar{y}=\frac{1}{k} \sum_{r=1}^{k} y_{r,i} \:\:\: i=1,2,\ldots,n.</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>\end{equation}$$</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>This produces a *single trajectory* $\bar{y}_1, \bar{y}_2, \ldots, \bar{y}_n$ that is smoother than any of the single replications^[̄$\bar{y}_i$ estimates the transient mean</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>at index *i*, with reduced variance by aggregation across independent runs.].</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>Welch then applies a *centered moving average* with window half-width $w$^<span class="co">[</span><span class="ot">The full window is $2w + 1$.</span><span class="co">]</span>, and a smoothed series $\tilde{y}_j$ is obtained:</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>$$\begin{equation}</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>    \tilde{y}_j=\frac{1}{2w+1} \sum_{i=j-w}^{j+w} \bar{y}_i \:\:\:\: j=w+1, \ldots, n-w.</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>\end{equation}$$</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>At the ends^<span class="co">[</span><span class="ot">$j \leq w$ or $j\geq n-w$</span><span class="co">]</span>, it uses shorter windows considering only the available points^<span class="co">[</span><span class="ot">To avoid bias.</span><span class="co">]</span>:</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>$$\begin{equation}</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>    \tilde{y}_j = \frac{1}{m_j} \sum_{i=max(1,j-w)}^{min(n, j+w)} \bar{y}_i, \:\: \textnormal{where: } m_j=min(n, j+w)-max(1, j-w) +1.</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>\end{equation}$$</span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>Welch's method recommends the use of a **graphic** to visually reveal when the mean settles. The exact window size is chosen pragmatically to balance noise reduction and responsiveness.</span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>The smoother curve $\tilde{y}_j$ suppresses short term fluctuations . Therefore the engineer can see the underlying drift from the initial transient towards steady state.</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>To select the truncation point $l$, plot $\tilde{y}_j$ vs $j$ such that the curve appears stable^<span class="co">[</span><span class="ot">Flat and without evident trend.</span><span class="co">]</span> thereafter. Practically:</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Start at $j=w+1$ and scan forward until the moving average no longer exhibits systematic upward or downward drift.</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Set the warm up period to $l$^<span class="co">[</span><span class="ot">Discard indices $1, . . . , l$ from each replication.</span><span class="co">]</span>. Then, estimate all performance measurements and confidence intervals on the steady state portion $l+1, \ldots, n$.</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>@fig-WelchFig shows the application of Welch's method for $k=31$ and $w=125$ in the simulation of the number of entities in system for a MM1 queuing model.</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>::: {#fig-WelchFig}</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/WelchFig.png)</span>{width=80% alt="Transient curve with cutting point using Welch's method" }</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>Welchs' method for MM1 queeue with $\lambda=0.9$ and $\mu=1.0$.</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>Welch's method is a graphical procedure designed for general applicability. The original paper and later tutorials make a point of not prescribing a single formula for $w$ because the *right* smoothing depends on^<span class="co">[</span><span class="ot">However, @Mahajan2004 recomends $w \leq \frac{m}{4}$</span><span class="co">]</span>:</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The volatility of the output.</span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>How quickly the model drifts toward equilibrium.</span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>How much averaging at replication‑level is already present.</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>The recommended practice is to experiment with window widths and choose the smallest $w$ that yields a clearly stable smoothed curve&nbsp;<span class="co">[</span><span class="ot">@Lavenberg1981</span><span class="co">]</span>. Nevertheless, there are some guidelines to adjust $w$, $k$, and $n$ together:</span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>An increase in $k$ makes the cross replication average smoother. Then, $w$ can be reduced&nbsp;<span class="co">[</span><span class="ot">@Goldsman2000</span><span class="co">]</span>.</span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Increasing $w$ generates more smoothing and an easier stabilization. However, there is the risk of *masking* a genuine drift if $w$ is too large. Then, test different values of $w$&nbsp;<span class="co">[</span><span class="ot">@Lavenberg1981</span><span class="co">]</span>.</span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A larger $n$ provides a longer horizon, which makes the steady state portion more visible. This will help verifying that the selection of $l$ is not just a short-run artifact&nbsp;<span class="co">[</span><span class="ot">@Goldsman2000</span><span class="co">]</span>.</span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>When there is a strong auto-correlation pick a larger $w$ and/or a longer $n$&nbsp;<span class="co">[</span><span class="ot">@Mahajan2004</span><span class="co">]</span>.</span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The final warm-up truncation $l$ should be robust to modest changes in $w$ and $k$^[Also to time increments in the</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>simulation clock.]&nbsp;<span class="co">[</span><span class="ot">@Goldsman2000</span><span class="co">]</span>.</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a><span class="fu">### Batch means method</span></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>The method of batch means is frequently used to estimate the steady-state mean $\mu$ or $V(\bar{y}_m)$ by reducing th effect of autocorrelation&nbsp;<span class="co">[</span><span class="ot">@Conway1963</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Fishman1978</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Alexopoulos1993</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Law1979</span><span class="co">]</span>, and <span class="co">[</span><span class="ot">@Schmeiser1982</span><span class="co">]</span>.</span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>The procedure divides the output $y_1, y_2, \ldots, y_m$ of a long simulation run into a number of contiguous batches and uses their sample means^<span class="co">[</span><span class="ot">i.e., Batch means.</span><span class="co">]</span> to generate estimators with confidence intervals.</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>A fundamental assumption is that the time series output $<span class="sc">\{</span>y_i<span class="sc">\}</span>$ is covariance stationary^<span class="co">[</span><span class="ot">A covariance stationary, also called weakly stationary, time series is one whose average level does not drift, its typical variability does not change, and the relationship between values depends only on how far apart they are, not on their calendar date.</span><span class="co">]</span>, with</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>\mathrm{Cov}(y_i, y_{i+j}) = C_j.</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>$$\bar{y}_n=\bar{y}_m=\frac{1}{n}\sum_{i=1}^{n} \bar{y}_i (k)$$ and the estimate of $Var<span class="co">[</span><span class="ot">\bar{y}_i(k)</span><span class="co">]</span>$ is:</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>As the batch size $k$ increases, the batch means become approximately independent and normally distributed due to the Central Limit Theorem. This property allows the batch means to be treated as approximately independent observations for the purpose of statistical inference.</span>
 <span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>$$\hat{V}_B=\frac{1}{n-1} \sum_{i=1}^{n} (\bar{y}_i(k)-\bar{y}_n)^2$$ Then, we can compute a $100(1- \alpha)$ confidence interval (CI) for $\mu$:</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>The data are then partitioned into $n$ batches, each containing $k$ observations, where $m = n \times k$.</span>
 <span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>$$\mu \in \bar{y}_n \pm t_{(n-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{\hat{V}_B}{n}}$$</span>
-<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>The main problem with the application of the batch means method in practice is the choice of the batch size $k$. Nevertheless, there are some practical recommendations for its selection:</span>
-<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Aim for 20 to 30 batches: With too few, the CI can be unstable; with too many, batch size gets too small and batch means remain correlated. <span class="co">[</span><span class="ot">@Schmeiser1982</span><span class="co">]</span> provides an empirical insight: \"beyond $k \simeq 30$ *the gain is minimal*". This is the classic guidance.</span>
-<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Increase batch size until correlation is small: Practically, pick $m$ so the $lag‑1$ auto-correlation of the batch means is near zero^<span class="co">[</span><span class="ot">In practice: $\rho_1 \leq 0.1$</span><span class="co">]</span>. Always verify the auto-correlation of the batch means, and their normality.</span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Warm‑up matters: Batch means presumes you already deleted the transient; if you don't, the early bias contaminates the whole series and your CI centers at the wrong mean.</span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>Lastly, the method is preferred when:</span>
-<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We have one long steady‑state run, rather than many independent replications.</span>
-<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Warm up can be discarded and stationary behavior afterward is achieved.</span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There is need for a simple and auditable CI method embedded in the simulation software.</span>
-<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>Batch means ticks all three items above, which is why it used to be in nearly every textbook and commercial package tutorial^<span class="co">[</span><span class="ot">Arena and its output analyzer use batch means. Simio, AnyLogic, FlexSim, SIMUL8, to mention a few, use replication deletion and batch means can be implemented exporting time stamped data, then running the method in Python, R, or Matlab.</span><span class="co">]</span>.</span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a><span class="fu">### SPC method</span></span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>Developed by Stewart Robinson&nbsp;<span class="co">[</span><span class="ot">@Robinson2007</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Robinson2002</span><span class="co">]</span>. The method considers the early part of a single long run as a potential initial transient^<span class="co">[</span><span class="ot">Warm up.</span><span class="co">]</span> and then uses a control chart to detect when the process output has become in‑control or *stable*. Because raw simulation outputs are serially correlated and possibly non‑normal, the SPC chart is built from *non‑overlapping averages of consecutive observations* rather than point‑wise data. The estimates of center line and control limits use the later portion of the run, which is *assumed nearly steady*. The method then scans forward from the beginning to find the earliest time index at which the chart shows in‑control behavior. Thus, that index is the recommended truncation point^<span class="co">[</span><span class="ot">At the end of the warm-up period.</span><span class="co">]</span>.</span>
-<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>The algorithm works as follows:</span>
-<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Obtain a long run of time persistent output values $<span class="sc">\{</span>y_t: t=1,2,\ldots, n<span class="sc">\}</span>$.</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>The $i$th batch consists of the observations:</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>y_{(i-1)k+1},\; y_{(i-1)k+2},\; \ldots,\; y_{ik}, \quad i=1,2,\ldots,n.</span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>and the $i$th batch mean is calculated as:</span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>$$\bar{y}_i(k)=\frac{1}{k} \sum_{j=1}^{k} y_{(i-1)k+j}$$ Since the process is covariance stationary, it has been shown that:</span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>\gamma_l(k)=Cov<span class="co">[</span><span class="ot">\bar{y}_i(k), \bar{y}_{i+l}(k)</span><span class="co">]</span></span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>and:</span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>\gamma_l(k)=\frac{1}{k} \sum_{j=1-k}^{k-1} \left(1-\frac{|j|}{k}\right) C_{lk+j}</span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>independently of $i$. </span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>Therefore, if the auto-covariate function $<span class="sc">\{</span>C_j<span class="sc">\}</span>$ is such that $C_l(k) \to 0$ as $k$ increases batch means are approximately independent and normally distributed. Thus, the grand batch mean is:</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>\bar{y}_n = \frac{1}{n}\sum_{i=1}^n \bar{y}_i(k)</span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>= \bar{y}_m</span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Select a batch size $m$^[$m$ is the number of consecutive</span>
-<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>output values per batch.] and create non-overlapping batch means: $$\bar{y}_i=\frac{1}{m}\sum_{j=(i-1)m+1}^{im} y_j \:\:\: i=1,\ldots,k$$ where $k=\left \lfloor \frac{n}{m} \right \rfloor$. These $\bar{y}_i$ are used as points for the control chart because they reduce the auto-correlation and tend to be normally distributed^[This should be evaluated with an</span>
-<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>Anderson-Darling test.].</span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>and the estimate of $Var<span class="co">[</span><span class="ot">\bar{y}_i(k)</span><span class="co">]</span>$ is:</span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>$$\hat{V}_B=\frac{1}{n-1} \sum_{i=1}^{n} (\bar{y}_i(k)-\bar{y}_n)^2$$ Then, we can compute a $100(1- \alpha)$ confidence interval (CI) for $\mu$:</span>
 <span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Select an estimation window at the tail of the run^[Usually the second half of the $k$</span>
-<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>batches. This selection mitigates bias that would occur if early transient batches were included.] and estimate center line and control limits:</span>
-<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>    Let $S=<span class="sc">\{</span>\bar{y}_i: i=i_0, \ldots, k<span class="sc">\}</span>$ be the chosen tail segment^<span class="co">[</span><span class="ot">$i_0= \lceil \frac{k}{2} \rceil$</span><span class="co">]</span>and calculate:</span>
-<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a>    $$CL=\hat{\mu}= \frac{1}{|S|} \sum_{\bar{y} \in S} \bar{y}$$</span>
-<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a>    $$\hat{\sigma}=\sqrt{\frac{1}{|s|-1} \sum_{\bar{y} \in S} (\bar{y}-\hat{\mu})^2}$$</span>
-<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a>    $$WL=\hat{\mu} \pm 2\hat{\sigma}$$</span>
-<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>    $$AL=\hat{\mu} \pm 3\hat{\sigma}$$</span>
-<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>    where $CL=\hat{\mu}$ is the central line, $WL$ the warning limits, and $AL$ the upper and lower action limits of a Shewhart control chart^[Robinson uses warning and action</span>
-<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a>limits to detect out of control signals.].</span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>$$\mu \in \bar{y}_n \pm t_{(n-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{\hat{V}_B}{n}}$$</span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>The main problem with the application of the batch means method in practice is the choice of the batch size $k$. Nevertheless, there are some practical recommendations for its selection:</span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Aim for 20 to 30 batches: With too few, the CI can be unstable; with too many, batch size gets too small and batch means remain correlated. <span class="co">[</span><span class="ot">@Schmeiser1982</span><span class="co">]</span> provides an empirical insight: \"beyond $k \simeq 30$ *the gain is minimal*". This is the classic guidance.</span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Increase batch size until correlation is small: Practically, pick $m$ so the $lag‑1$ auto-correlation of the batch means is near zero^<span class="co">[</span><span class="ot">In practice: $\rho_1 \leq 0.1$</span><span class="co">]</span>. Always verify the auto-correlation of the batch means, and their normality.</span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Warm‑up matters: Batch means presumes you already deleted the transient; if you don't, the early bias contaminates the whole series and your CI centers at the wrong mean^<span class="co">[</span><span class="ot">Batch means *does not* eliminate initialization bias. It assumes that the simulation output already represents steady-state behavior. Therefore, the transient period must be removed prior to applying the method; otherwise, the resulting estimates and confidence intervals will be centered around a biased mean.</span><span class="co">]</span>.</span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>Lastly, the method is preferred when:</span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We have one long steady‑state run, rather than many independent replications.</span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Warm up can be discarded and stationary behavior afterward is achieved.</span>
 <span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Create the control chart and scan forward to find an *in-control* onset that will identify the end of the warm up period. Starting at batch $i=1$, apply standard SPC rules to the sequence $\bar{y}_1, \bar{y}_2, \ldots$. A conservative set of rules is:</span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There is need for a simple and auditable CI method embedded in the simulation software.</span>
 <span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Any point is outside $\hat{\mu} \pm 3\hat{\sigma}$.</span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a>Batch means ticks all three items above, which is why it used to be in nearly every textbook and commercial package tutorial^<span class="co">[</span><span class="ot">Arena and its output analyzer use batch means. Simio, AnyLogic, FlexSim, SIMUL8, to mention a few, use replication deletion and batch means can be implemented exporting time stamped data, then running the method in Python, R, or Matlab.</span><span class="co">]</span>.</span>
 <span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Two out of three successive points lie outside $\hat{\mu} \pm 2\hat{\sigma}$ on the same side.</span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Workflow for Steady-State Simulation Analysis with batch means</span></span>
 <span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Ascending or descending trends of six or more successive points.</span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a>The correct procedure for analyzing steady-state simulation output consists of two distinct steps: removing initialization bias and accounting for correlation in the data.</span>
 <span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Runs of eight or more points on one side of $\hat{\mu}$.</span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Run the simulation and collect output data from a sufficiently long simulation run.</span>
 <span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>    Let $i^*$ be the earliest batch index after which no SPC rule is violated within a chosen and persistent window^[i.e., the next batches are in control.]. Then, $i^*$ is the truncation point.</span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Remove the initial transient (warm‑up period) using a method such as Welch’s graphical procedure. Discard the initial observations.</span>
 <span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a>The rationale for batching and tail‑based limits is that simulation outputs are typically auto-correlated. Thus, batch means help achieve approximate IID normal behavior in the chart. Also, estimating limits from the tail avoids contamination by early transient bias.</span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Apply the batch means method. </span>
 <span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a>There are some tuning and practical notes to take into account when applying this method:</span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a><span class="fu">### SPC method</span></span>
 <span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Batch size:** Make $m$ large enough that *lag-1* auto-correlation of the points $<span class="sc">\{</span>\bar{y}_i<span class="sc">\}</span>$ is small^<span class="co">[</span><span class="ot">$\left| \rho_1 \right| \le 0.1$</span><span class="co">]</span>. Ensure to have more that 20 or 30 batches for stable variance estimates.</span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a>Developed by Stewart Robinson&nbsp;<span class="co">[</span><span class="ot">@Robinson2007</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Robinson2002</span><span class="co">]</span>. The method considers the early part of a single long run as a potential initial transient^<span class="co">[</span><span class="ot">Warm up.</span><span class="co">]</span> and then uses a control chart to detect when the process output has become in‑control or *stable*. Because raw simulation outputs are serially correlated and possibly non‑normal, the SPC chart is built from *non‑overlapping averages of consecutive observations* rather than point‑wise data. The estimates of center line and control limits use the later portion of the run, which is *assumed nearly steady*. The method then scans forward from the beginning to find the earliest time index at which the chart shows in‑control behavior. Thus, that index is the recommended truncation point^<span class="co">[</span><span class="ot">At the end of the warm-up period.</span><span class="co">]</span>.</span>
 <span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tail length $|S|$:** Use a long tail to estimate $\hat{\mu}$, and $\hat{\sigma}$ reliably.</span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a>The algorithm works as follows:</span>
 <span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**SPC rules:** Classic Western Electric rules can be used&nbsp;<span class="co">[</span><span class="ot">@Western1958</span><span class="co">]</span>.</span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Obtain a long run of time persistent output values $<span class="sc">\{</span>y_i: i=1,2,\ldots, n<span class="sc">\}</span>$.</span>
 <span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>@fig-SPC presents a SPC chart used to calculate the truncation point for the simulation of a MM1 queuing system with $\lambda=0.8$, $\mu=1$ and waiting time in queue $W_q$ as performance measure.</span>
-<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>::: {#fig-SPC}</span>
-<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/SPC.png)</span>{width=80% alt="Control chart with cutting line specifying truncation point" }</span>
-<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>SPC method to calculate truncating point for MM1 model.</span>
-<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Select a batch size $m$^[$m$ is the number of consecutive</span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>output values per batch.] and create non-overlapping batch means: $$\bar{y}_i=\frac{1}{m}\sum_{j=(i-1)m+1}^{im} y_j \:\:\: i=1,\ldots,k$$ where $k=\left \lfloor \frac{n}{m} \right \rfloor$. These $\bar{y}_i$ are used as points for the control chart because they reduce the auto-correlation and tend to be normally distributed^<span class="co">[</span><span class="ot">This should be evaluated with an Anderson-Darling test.</span><span class="co">]</span>.</span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Select an estimation window at the tail of the run^[Usually the second half of the $k$</span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>batches. This selection mitigates bias that would occur if early transient batches were included.] and estimate center line and control limits:</span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>    Let $S=<span class="sc">\{</span>\bar{y}_i: i=i_0, \ldots, k<span class="sc">\}</span>$ be the chosen tail segment^<span class="co">[</span><span class="ot">$i_0= \lceil \frac{k}{2} \rceil$</span><span class="co">]</span> and calculate:</span>
 <span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>This method converts the warm up detection problem into a standard quality control task identifying when the simulation becomes statistically stable using Shewhart control limits and out of control tests. It uses non overlapping batch means explicitly addressing the auto correlation typical of simulation outputs. Finally, it is relatively easy to implement, gives reproducible results and performed competitively against Welch's and Time-Series inspection methods&nbsp;<span class="co">[</span><span class="ot">@Robinson2007</span><span class="co">]</span>^<span class="co">[</span><span class="ot">It provides a less conservative estimate of the warm-up period than does Welch's method. It is also apparent that it provides more guidance than simply inspecting a time-series, which underestimates the amount of warm-up required.</span><span class="co">]</span>.</span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>    $$CL=\hat{\mu}= \frac{1}{|S|} \sum_{\bar{y} \in S} \bar{y}$$</span>
 <span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final remarks for DES and MC</span></span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a>    $$\hat{\sigma}=\sqrt{\frac{1}{|S|-1} \sum_{\bar{y} \in S} (\bar{y}-\hat{\mu})^2}$$</span>
 <span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>The concepts of terminating^<span class="co">[</span><span class="ot">Transient.</span><span class="co">]</span> and steady-state^<span class="co">[</span><span class="ot">Non-terminating.</span><span class="co">]</span> simulations are most commonly discussed in the context of Discrete Event Simulation (DES), but they can also be applied to Monte Carlo simulations with some important distinctions.</span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>    $$WL=\hat{\mu} \pm 2\hat{\sigma}$$</span>
 <span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a><span class="fu">### Terminating simulations for DES</span></span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>    $$AL=\hat{\mu} \pm 3\hat{\sigma}$$</span>
 <span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The simulation has a natural end point, defined by a scenario or event^<span class="co">[</span><span class="ot">e.g., a bank closes at 5 PM, or a factory completes 2,000 parts.</span><span class="co">]</span>.</span>
-<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Analysis focuses on performance over a finite horizon.</span>
-<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Multiple independent replications are run, and classical statistical methods are used on replication-level statistics.</span>
-<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a><span class="fu">### Steady state simulations for DES</span></span>
-<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The simulation is intended to model the long-run behavior of a system, without a natural endpoint.</span>
-<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The goal is to estimate equilibrium or steady-state parameters^<span class="co">[</span><span class="ot">e.g., estimating steady state WIP and throughput of an automotive assembly line operating 24/7.</span><span class="co">]</span>.</span>
-<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Special methods are needed to deal with initialization bias and auto-correlation^[e.g., warm-up/deletion, batch means, regenerative methods, etc.</span>
-<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a>See: <span class="co">[</span><span class="ot">@Alexopoulos1993</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Mahajan2004</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Goldsman2000</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Law1983</span><span class="co">]</span>.].</span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>    where $CL=\hat{\mu}$ is the central line, $WL$ the warning limits, and $AL$ the upper and lower action limits of a Shewhart control chart^[Robinson uses warning and action</span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a>limits to detect out of control signals.].</span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Create the control chart and scan forward to find an *in-control* onset that will identify the end of the warm up period. Starting at batch $i=1$, apply standard SPC rules to the sequence $\bar{y}_1, \bar{y}_2, \ldots$. A conservative set of rules is:</span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Any point is outside $\hat{\mu} \pm 3\hat{\sigma}$.</span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Two out of three successive points lie outside $\hat{\mu} \pm 2\hat{\sigma}$ on the same side.</span>
+<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Ascending or descending trends of six or more successive points.</span>
+<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Runs of eight or more points on one side of $\hat{\mu}$.</span>
+<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a>    Let $i^*=\min\{i : \text{process is in control from } i \text{ onward}\}$ be the earliest batch index after which no SPC rule is violated within a chosen and persistent window^[i.e., the next batches are in control.]. Then, $i^*$ is the truncation point.</span>
 <span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a><span class="fu">### Terminating simulations for Monte Carlo</span></span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a>The rationale for batching and tail‑based limits is that simulation outputs are typically auto-correlated. Thus, batch means help achieve approximate IID normal behavior in the chart. Also, estimating limits from the tail avoids contamination by early transient bias.</span>
 <span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Most Monte Carlo simulations are inherently terminating: A fixed number of trials or samples are generated, and each trial is independent.</span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a>There are some tuning and practical notes to take into account when applying this method:</span>
 <span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There is usually no time evolution or state dependence^[For example, when using Monte</span>
-<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a>Carlo to estimate $\pi$ by randomly sampling points in a square, each sample is independent, and the simulation ends after a set number of samples.].</span>
-<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a><span class="fu">### Steady state simulations for Monte Carlo</span></span>
-<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a>In rare cases, Monte Carlo methods are used to simulate Markov chains or stochastic processes where the goal is to estimate the steady-state distribution. Here, the simulation may run for a long time to allow the process to reach equilibrium, and samples are collected after a \"burn-in\" or warm-up period. This is *analogous* to steady-state DES, and similar output analysis techniques (warm-up, batch means, etc.) are applied&nbsp;<span class="co">[</span><span class="ot">@Hastings1970</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Tierney1994</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Metropolis1953</span><span class="co">]</span>.</span>
-<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a><span class="fu">## Questions</span></span>
-<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What is the purpose of output data analysis in simulation?</span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Batch size:** Make $m$ large enough that *lag-1* auto-correlation of the points $<span class="sc">\{</span>\bar{y}_i<span class="sc">\}</span>$ is small^<span class="co">[</span><span class="ot">$\left| \rho_1 \right| \le 0.1$</span><span class="co">]</span>. Ensure to have more that 20 or 30 batches for stable variance estimates.</span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Tail length $|S|$:** Use a long tail to estimate $\hat{\mu}$, and $\hat{\sigma}$ reliably.</span>
+<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**SPC rules:** Classic Western Electric rules can be used&nbsp;<span class="co">[</span><span class="ot">@Western1958</span><span class="co">]</span>.</span>
+<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a>@fig-SPC presents a SPC chart used to calculate the truncation point for the simulation of a MM1 queuing system with $\lambda=0.8$, $\mu=1$ and waiting time in queue $W_q$ as performance measure.</span>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a>::: {#fig-SPC}</span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a><span class="al">![](graphics/SPC.png)</span>{width=80% alt="Control chart with cutting line specifying truncation point" }</span>
 <span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Why are simulation outputs inherently random?</span>
-<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Explain the difference between terminating and steady-state simulations.</span>
-<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>What is a replication in simulation analysis?</span>
-<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Why are observations within a single replication often dependent?</span>
-<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Why is the sample variance $\frac{s^2(m)}{m}$ biased when data are autocorrelated?</span>
-<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Explain why independent replications solve the autocorrelation problem.</span>
-<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Define the estimator $\bar{\bar{y}}_n$ and explain its significance.</span>
-<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>What is the role of the $t$-distribution in confidence intervals?</span>
-<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>What is the purpose of pilot runs?</span>
-<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Explain the concept of half-width in a confidence interval.</span>
-<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Why must we remove initialization bias in steady-state simulations?</span>
-<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Define the warm-up period.</span>
-<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>Why is $\bar{y}_m$ biased in steady-state simulations?</span>
-<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>What is Welch's method used for?</span>
-<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>What is the purpose of smoothing in Welch's method?</span>
-<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Explain the batch means method.</span>
-<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>Why do we need large batch sizes in batch means?</span>
-<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a><span class="ss">19. </span>What does covariance stationarity mean?</span>
-<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a><span class="ss">20. </span>What is the main idea behind the SPC method for warm-up detection?</span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a>SPC method to calculate truncating point for MM1 model.</span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a>This method converts the warm up detection problem into a standard quality control task identifying when the simulation becomes statistically stable using Shewhart control limits and out of control tests. It uses non overlapping batch means explicitly addressing the auto correlation typical of simulation outputs. Finally, it is relatively easy to implement, gives reproducible results and performed competitively against Welch's and Time-Series inspection methods&nbsp;<span class="co">[</span><span class="ot">@Robinson2007</span><span class="co">]</span>^<span class="co">[</span><span class="ot">It provides a less conservative estimate of the warm-up period than does Welch's method. It is also apparent that it provides more guidance than simply inspecting a time-series, which underestimates the amount of warm-up required.</span><span class="co">]</span>.</span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Workflow for Steady-State Simulation Analysis with the SPC method</span></span>
+<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a>A practical analysis of steady-state simulation output will be:</span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Run the simulation and collect output data from a sufficiently long simulation run.</span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Identify the steady-state region using the SPC method obtaining the cutting value $l$.</span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Run $r$ independent replications each of length $n$ and discard the first $l$ observations.  </span>
+<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Address autocorrelation using the method of <span class="co">[</span><span class="ot">pilot runs</span><span class="co">](#def-pilotruns)</span> discussed before.</span>
+<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final remarks for DES and MC</span></span>
+<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a>The concepts of terminating^<span class="co">[</span><span class="ot">Transient.</span><span class="co">]</span> and steady-state^<span class="co">[</span><span class="ot">Non-terminating.</span><span class="co">]</span> simulations are most commonly discussed in the context of Discrete Event Simulation (DES), but they can also be applied to Monte Carlo simulations with some important distinctions.</span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a><span class="fu">### Terminating simulations for DES</span></span>
+<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The simulation has a natural end point, defined by a scenario or event^<span class="co">[</span><span class="ot">e.g., a bank closes at 5 PM, or a factory completes 2,000 parts.</span><span class="co">]</span>.</span>
+<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Analysis focuses on performance over a finite horizon.</span>
+<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Multiple independent replications are run, and classical statistical methods are used on replication-level statistics.</span>
+<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a><span class="fu">### Steady state simulations for DES</span></span>
+<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The simulation is intended to model the long-run behavior of a system, without a natural endpoint.</span>
+<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The goal is to estimate equilibrium or steady-state parameters^<span class="co">[</span><span class="ot">e.g., estimating steady state WIP and throughput of an automotive assembly line operating 24/7.</span><span class="co">]</span>.</span>
+<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Special methods are needed to deal with initialization bias and auto-correlation^[e.g., warm-up/deletion, batch means, regenerative methods, etc.</span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a>See: <span class="co">[</span><span class="ot">@Alexopoulos1993</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Mahajan2004</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Goldsman2000</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Law1983</span><span class="co">]</span>.].</span>
 <span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a><span class="fu">### Terminating simulations for Monte Carlo</span></span>
 <span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Replication Mean.** Given $n=5$ replication means: $$\bar{y}_r = <span class="sc">\{</span>4, 5, 6, 5, 5<span class="sc">\}</span>$$ Compute $\bar{\bar{y}}_n$.</span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Most Monte Carlo simulations are inherently terminating: A fixed number of trials or samples are generated, and each trial is independent.</span>
 <span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Variance Across Replications.** Using the data in Exercise 1, compute $\hat{V}_{rep}$.</span>
-<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Confidence Interval.** Given: $$\bar{\bar{y}}_n = 5,\quad \hat{V}_{rep}=1,\quad n=10,\quad t=2.262$$ Compute the 95% confidence interval.</span>
-<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Replication Size Estimation.** If: $$n_0=10,\quad h_0=0.8,\quad h=0.2$$ estimate $n$.</span>
-<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Autocorrelation Effect.** Explain how positive autocorrelation affects variance estimation.</span>
-<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>**Warm-up Bias.** Given data: $$y = <span class="sc">\{</span>10, 8, 6, 5, 5, 5, 5<span class="sc">\}</span>$$ Estimate $\bar{y}_m$ and $\bar{y}_{m,l}$ with $l=3$.</span>
-<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>**Batch Means.** If $m=1000$ observations split into $n=20$ batches, compute batch size $k$.</span>
-<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>**Covariance Stationarity.** State one condition required for covariance stationarity.</span>
-<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>**Welch Method Interpretation.** What indicates the correct truncation point in Welch's graph?</span>
-<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>**SPC Method Logic.** Why are batch means used instead of raw observations in SPC?</span>
-<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a><span class="fu">## Notes of the Chapter {#notes-of-the-chapter .unnumbered}</span></span>
-<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sir Arthur Conan Doyle (1859--1930) was a Scottish author best known for creating the fictional detective Sherlock Holmes, a character who revolutionized crime fiction through the use of logical reasoning, keen observation, and forensic science. Holmes first appeared in A Study in Scarlet (1887) and went on to feature in four novels and fifty-six short stories, becoming a cultural icon and a foundational figure in detective literature. Doyle's work established many conventions of the genre, influencing countless adaptations in literature, film, and television, and shaping modern perceptions of analytical problem-solving in criminal investigations. A fun fact about Conan Doyle: The British crown honored him for his writings defending Britain's role in the Boer War, not for his literary genius writing the adventures of Sherlock Holmes, and Dr. John Hamish Watson.</span>
-<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {#references .unnumbered}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There is usually no time evolution or state dependence^[For example, when using Monte</span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a>Carlo to estimate $\pi$ by randomly sampling points in a square, each sample is independent, and the simulation ends after a set number of samples.].</span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a><span class="fu">### Steady state simulations for Monte Carlo</span></span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a>In rare cases, Monte Carlo methods are used to simulate Markov chains or stochastic processes where the goal is to estimate the steady-state distribution. Here, the simulation may run for a long time to allow the process to reach equilibrium, and samples are collected after a \"burn-in\" or warm-up period. This is *analogous* to steady-state DES, and similar output analysis techniques (warm-up, batch means, etc.) are applied&nbsp;<span class="co">[</span><span class="ot">@Hastings1970</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Tierney1994</span><span class="co">]</span>, <span class="co">[</span><span class="ot">@Metropolis1953</span><span class="co">]</span>.</span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a><span class="fu">## Questions</span></span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What is the purpose of output data analysis in simulation?</span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Why are simulation outputs inherently random?</span>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Explain the difference between terminating and steady-state simulations.</span>
+<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>What is a replication in simulation analysis?</span>
+<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Why are observations within a single replication often dependent?</span>
+<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Why is the sample variance $\frac{s^2(m)}{m}$ biased when data are autocorrelated?</span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Explain why independent replications solve the autocorrelation problem.</span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Define the estimator $\bar{\bar{y}}_n$ and explain its significance.</span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>What is the role of the $t$-distribution in confidence intervals?</span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>What is the purpose of pilot runs?</span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Explain the concept of half-width in a confidence interval.</span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Why must we remove initialization bias in steady-state simulations?</span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Define the warm-up period.</span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>Why is $\bar{y}_m$ biased in steady-state simulations?</span>
+<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>What is Welch's method used for?</span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>What is the purpose of smoothing in Welch's method?</span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a><span class="ss">17. </span>Explain the batch means method.</span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a><span class="ss">18. </span>Why do we need large batch sizes in batch means?</span>
+<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a><span class="ss">19. </span>What does covariance stationarity mean?</span>
+<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a><span class="ss">20. </span>What is the main idea behind the SPC method for warm-up detection?</span>
+<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Replication Mean.** Given $n=5$ replication means: $$\bar{y}_r = <span class="sc">\{</span>4, 5, 6, 5, 5<span class="sc">\}</span>$$ Compute $\bar{\bar{y}}_n$.</span>
+<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Variance Across Replications.** Using the data in Exercise 1, compute $\hat{V}_{rep}$.</span>
+<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Confidence Interval.** Given: $$\bar{\bar{y}}_n = 5,\quad \hat{V}_{rep}=1,\quad n=10,\quad t=2.262$$ Compute the 95% confidence interval.</span>
+<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Replication Size Estimation.** If: $$n_0=10,\quad h_0=0.8,\quad h=0.2$$ estimate $n$.</span>
+<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Autocorrelation Effect.** Explain how positive autocorrelation affects variance estimation.</span>
+<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>**Warm-up Bias.** Given data: $$y = <span class="sc">\{</span>10, 8, 6, 5, 5, 5, 5<span class="sc">\}</span>$$ Estimate $\bar{y}_m$ and $\bar{y}_{m,l}$ with $l=3$.</span>
+<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>**Batch Means.** If $m=1000$ observations split into $n=20$ batches, compute batch size $k$.</span>
+<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>**Covariance Stationarity.** State one condition required for covariance stationarity.</span>
+<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>**Welch Method Interpretation.** What indicates the correct truncation point in Welch's graph?</span>
+<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>**SPC Method Logic.** Why are batch means used instead of raw observations in SPC?</span>
+<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a><span class="fu">## Notes of the Chapter {#notes-of-the-chapter .unnumbered}</span></span>
+<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sir Arthur Conan Doyle (1859--1930) was a Scottish author best known for creating the fictional detective Sherlock Holmes, a character who revolutionized crime fiction through the use of logical reasoning, keen observation, and forensic science. Holmes first appeared in A Study in Scarlet (1887) and went on to feature in four novels and fifty-six short stories, becoming a cultural icon and a foundational figure in detective literature. Doyle's work established many conventions of the genre, influencing countless adaptations in literature, film, and television, and shaping modern perceptions of analytical problem-solving in criminal investigations. A fun fact about Conan Doyle: The British crown honored him for his writings defending Britain's role in the Boer War, not for his literary genius writing the adventures of Sherlock Holmes, and Dr. John Hamish Watson.</span>
+<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {#references .unnumbered}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
