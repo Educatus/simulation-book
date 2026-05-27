@@ -4,7 +4,7 @@
 
 > Remember that all models are wrong; the practical question is how wrong do they have to be to not be useful.
 > 
-> — George Box --- because he understood simulation deeply.
+> — George Box --- because he understood modeling deeply.
 
 </div>
 
@@ -13,9 +13,7 @@ Simulation is a very important analytics tool for Industrial Engineering. In a b
 
 ## Systems
 
-A system is defined as a set of interrelated components interacting to achieve a common objective. Systems are ubiquitous in engineering, management, and the natural sciences, encompassing everything from manufacturing plants to biological ecosystems and social organizations. The key characteristics and governing principles of systems, as related to simulation^[For a comprehensive description of the
-characteristics and governing principles
-of a system see  @Bertalanffy1969, @NASASystemsENgHandbook2016, @Adams2014], 
+A system is defined as a set of interrelated components interacting to achieve a common objective. Systems are ubiquitous in engineering, management, and the natural sciences, encompassing everything from manufacturing plants to biological ecosystems and social organizations. The key characteristics and governing principles of systems, as related to simulation^[For a comprehensive description of thebvcharacteristics and governing principles of a system see @Bertalanffy1969, @NASASystemsENgHandbook2016, @Adams2014] are:
 
 1.  **Interconnectedness**: Each component within a system influences and is influenced by other components. This mutual dependency is central to system behavior and often leads to emergent properties that cannot be understood by examining components in isolation.
 
@@ -41,7 +39,7 @@ Relation of Systems, experimentation, models, and simulation.
 
 @fig-SysSim, adapted from @Law2000, presents the relation of systems and simulation modeling.
 
-An elegant^[Elegance is the quality of a solution, proof or concept that combines simplicity, clarity, and depth while achieving correctness and generality. An elegant solution or model typically uses minimal assumptions, avoids unnecessary com- plexity, and often reveals unexpected connections or insights.] model will use the **principle of relevance from systems theory** [@Bertalanffy1969]. This principle states that when analyzing or modeling a system, the engineer should focus only on the elements, relationships, and variables that significantly affect the system's behavior or outcomes, while ignoring extraneous details. Thus, we ensure that our models remain manageable, meaningful, and useful without being overwhelmed by unnecessary complexity.
+An elegant^[Elegance is the quality of a solution, proof or concept that combines simplicity, clarity, and depth while achieving correctness and generality. An elegant solution or model typically uses minimal assumptions, avoids unnecessary complexity, and often reveals unexpected connections or insights.] model will use the **principle of relevance from systems theory** [@Bertalanffy1969]. This principle states that when analyzing or modeling a system, the engineer should focus only on the elements, relationships, and variables that significantly affect the system's behavior or outcomes, while ignoring extraneous details. Thus, we ensure that our models remain manageable, meaningful, and useful without being overwhelmed by unnecessary complexity.
 
 The key points of this principle, as related to simulation, are:
 
@@ -87,7 +85,7 @@ Behavior of neutrons in a nuclear explosion.
 
 @fig-Neutron illustrates the behavior of neutrons during a fission chain reaction [@Neutrons].
 
-This book focuses on the practical modeling of real-world systems through Monte Carlo (MC) and Discrete Event Simulation (DES). To accomplish this, engineers must rely on their statistical knowledge to construct accurate models, explore scenarios that address "what-if" questions, and derive quantitative insights that support sound decision-making. These steps are essential for understanding system behavior and evaluating alternative strategies in complex environments. To prepare for effective simulation modeling, a solid foundation in statistics is indispensable. Concepts such as probability distributions, sampling methods, hypothesis testing, and confidence intervals play a critical role in ensuring that models reflect reality and produce reliable results. The following section provides a concise overview of these statistical principles and the tools most commonly used in simulation practice.
+This book focuses on the practical modeling of real-world systems through Monte Carlo (MC) and Discrete Event Simulation (DES). To accomplish this, engineers must rely on their statistical knowledge to construct accurate models, explore scenarios that address "what-if" questions, and derive quantitative insights that support sound decision-making. These steps are essential for understanding system behavior and evaluating alternative strategies in complex environments. To prepare for effective simulation modeling, a solid foundation in statistics is indispensable. Concepts such as probability distributions, sampling methods, hypothesis testing, and confidence intervals play a critical role in ensuring that models reflect reality and produce reliable results. The following chapter provides a concise overview of these statistical principles and the tools most commonly used in simulation practice.
 
 ## Questions
 

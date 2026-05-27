@@ -20,13 +20,13 @@ The term *canonical* in statistics refers to a standard or natural form of expre
 
 2.  **Convolution**^[Convolution is a mathematical operation that combines two functions to produce a third one, showing how the shape of one function influences or modifies the other.]. This method is applied when a complex probability distribution can be expressed as the sum of several independent random variables. In this approach, random variates are first generated from each of the component distributions, and then these values are added together to produce a sample from the target distribution. This works because the distribution of the sum corresponds to the convolution of the component distributions.
 
-3.  **Acceptance-Rejection**. This is a procedure to generate random numbers, from a complicated target distribution, using a simpler one that *envelops* the complex target distribution. This method is universal and its efficiency is dependent in the selection of the enveloping function^[The best enveloping functions are the ones that provide *tighter* enveloping.].
+3.  **Acceptance-Rejection**. This is a procedure to generate random numbers from a complicated target distribution using a simpler one that *envelops* the complex target distribution. This method is universal and its efficiency is dependent in the selection of the enveloping function^[The best enveloping functions are the ones that provide *tighter* enveloping.].
 
 4.  **Composition or Mixture**. Very useful when the target distribution can be expressed as a **mixture** or **composition** of simpler distributions^[The requirement of *sum of independent random variables does not apply here*, in this case, the target is just a mixture of simpler distributions.].
 
 5.  **Specialized methods for normal distributions**. Algorithms developed by @Box1958 and the polar method by @Marsaglia1964 will be covered.
 
-A random variate is the realization or specific outcome of a random variable that follows a probability distribution. The process to generate a random variable $x$ with cumulative distribution function as described in @eq-FPr, needs a PRNG $U(0,1)$.
+A random variate is the realization or specific outcome of a random variable that follows a probability distribution. The process to generate a random variable $x$ with cumulative distribution function as described in @eq-FPr needs a PRNG $U(0,1)$.
 
 $$
     F(x)=Pr(X\leq x) \textnormal{;      } -\infty <x < \infty
@@ -46,7 +46,7 @@ With the use of modern simulation software, doing something useful with the gene
 
 ### Inverse method
 
-The is one of the simplest methods and relies on the following theorem that assumes the inverse probability exists in closed form:
+This is one of the simplest methods and relies on the following theorem that assumes the inverse probability exists in closed form:
 
 
 ::: {.theorem #th-inverseth}
@@ -71,12 +71,12 @@ Graphical representation of the inverse method.
 
 2. Replace $F(x)$ with $u$ and $X$ for $x$.
 
-3. Solve for $X$$.
+3. Solve for $X$.
 
 
 ### Example: Inversion method for the Exponential cumulative distribution {#Example .unnumbered}
 
-1.  The CDF of an exponential distribution is: $F(x,\lambda)=1-e^{-\lambda x}\:\: \forall \, \lambda>0;\, x\leq 0$.
+1.  The CDF of an exponential distribution is: $F(x,\lambda)=1-e^{-\lambda x}\:\: \forall \, \lambda>0;\, x\geq 0$.
 
 2.  Replacing $u$ and $X$: $u=1-e^{\lambda X}$.
 
@@ -115,7 +115,7 @@ It is easy to see that $1-u \sim  u$. Therefore, we simplify the solution to $X=
 
 1.  The probability mass function (PMF) is: $$P(X=1)=p, \,\,\, P(X=0)=1-p$$
 
-2.  Beunoulli's Cumulative Distribution Function (CDF): $$F(x)=\left\{
+2.  Bernoulli's Cumulative Distribution Function (CDF): $$F(x)=\left\{
             \begin{array}{ll}
                 0 & x < 0\\
                 1-p & 0 \leq x <1 \\
@@ -125,7 +125,7 @@ It is easy to see that $1-u \sim  u$. Therefore, we simplify the solution to $X=
 
 3.  Generate $u \sim U(0,1)$.
 
-4.  If $u\leq 1-p$, then $X=0$; else $X=1$.
+4.  If $u\leq 1-p$, then $X=0$; otherwise, $X=1$.
 
 ### Exercise: Geometric distribution {#Exercise .unnumbered}
 
@@ -242,7 +242,7 @@ where:
 
 The negative binomial distribution is a broader family of distributions. For example, the geometric distribution is one specific case within that family ($r=1$).
 
-The negative binomial distribution is widely used across various fields. In quality control, it helps model the number of defective items encountered before finding a certain number of good ones. In reliability engineering, it predicts failures before achieving a set number of successful operations in machines. Epidemiology applies it to model disease transmission when variability exceeds what Poisson assumptions allow. In economics and finance, it is used to handle over-dispersed count data, such as estimating the number of trades before reaching a profit target. Additionally, in simulation and inventory systems, it assists in estimating how many items in stock need to be inspected before encountering a specific number of defects.
+The negative binomial distribution is widely used across various fields. In quality control, it helps model the number of defective items encountered before finding a certain number of good ones. In reliability engineering, it predicts failures before achieving a set number of successful operations in machines. Epidemiology applies it to model disease transmission when variability exceeds what Poisson assumptions allow. In economics and finance it is used to handle over-dispersed count data, such as estimating the number of trades before reaching a profit target. Additionally, in simulation and inventory systems, it assists in estimating how many items in stock need to be inspected before encountering a specific number of defects.
 
 ## Acceptance-Rejection
 
@@ -339,7 +339,7 @@ The steps to implement the method are as follows:
 
 2.  *Generate a candidate sample.* Draw a sample from the exponential distribution using the inversion method on the exponential cumulative distribution function (CDF). Then $x=-\frac{1}{\lambda}ln(u)$. Keep the value of $u$ associated to that $x$.
 
-3.  *Calculate the acceptance ratio.* This is the ration of the Poisson PMF to the exponential PDF evaluated at a candidate sample: $$\alpha=\frac{f(x)}{M \cdot g(x)}$$ Where $f(x)$ ins the Poisson PMF, $g(x)$ is the exponential PDF, and $M=e^\lambda \cdot 10$.
+3.  *Calculate the acceptance ratio.* This is the ration of the Poisson PMF to the exponential PDF evaluated at a candidate sample: $$\alpha=\frac{f(x)}{M \cdot g(x)}$$ Where $f(x)$ is the Poisson PMF, $g(x)$ is the exponential PDF, and $M=e^\lambda \cdot 10$.
 
 4.  *Accept or reject the candidate.* If the uniform random number $u$, generated in step 2, is less than or equal to the acceptance ratio $\alpha$, then accept the candidate sample $x$ as a Poisson variate. Otherwise, reject the candidate and repeat the process from step 2.
 
@@ -441,7 +441,7 @@ Then the algorithm works by first selecting an index $I$ according to the weight
 
 2.  *Simple sampling*: Generate sample variates from that chosen component, which is usually easy because each component is a standard distribution (e.g., Normal or Poisson).
 
-Mixture distributions are widely used in simulations to model heterogeneous populations^[Heterogeneous populations are subgroups or sub-populations that behave differently: customer groups, machine failure modes, etc.], uncertainty in parameters^[For example, in a simulation model, the engineer can assume that demand is $N ∼ (\mu= 100, \sigma= 15)$ but in reality she may only know that the mean is somewhere between 95 and 110, and the standard deviation is between 10 and 20. This uncertainty may arise from limited data, measurement errors, or changing conditions over time. If the engineer ignores parameter uncertainty, the simulation may give overly confidentpredictions.], or multi-modal behaviors that cannot be captured by a single distribution.
+Mixture distributions are widely used in simulations to model heterogeneous populations^[Heterogeneous populations are subgroups or sub-populations that behave differently: customer groups, machine failure modes, etc.], uncertainty in parameters^[For example, in a simulation model, the engineer can assume that demand is $N ∼ (\mu= 100, \sigma= 15)$ but in reality she may only know that the mean is somewhere between 95 and 110, and the standard deviation is between 10 and 20. This uncertainty may arise from limited data, measurement errors, or changing conditions over time. If the engineer ignores parameter uncertainty, the simulation may give overly confident predictions.], or multi-modal behaviors that cannot be captured by a single distribution.
 
 As a simple example of a mixture distribution, consider a failure rate modeled by a Poisson process with uncertain $\lambda \in[4,6]$. Then, we can assume that $\lambda\sim U(4,6)$ and in each simulation run draw a new $\lambda$, and then generate Poisson variates.
 
@@ -730,7 +730,7 @@ There are numerous methods available for generating random samples from probabil
 
 2.  **Bernoulli Simulation.** Let $p=0.7$. Given $u = 0.6$, determine the outcome of a Bernoulli trial.
 
-3.  **Erlang Calculation.** Generate one Erlang($k=2$, $\lambda=1$) sample using: $u_1=0.5$, $u_2=0.8$.
+3.  **Erlang Calculation.** Generate one Erlang ($k=2$, $\lambda=1$) sample using: $u_1=0.5$, $u_2=0.8$.
 
 4.  **Acceptance--Rejection** If $M=2$, what is the probability of accepting a candidate sample?
 

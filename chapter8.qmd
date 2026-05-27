@@ -9,10 +9,10 @@
 
 ## Choosing strategic simulation projects
 
-As engineers we build models to understand, create, or improve systems and gain strategic advantages. [@Porter1996] defines strategy as the creation of a *unique* and valuable position through a *distinct set of activities, supported by trade‑offs^[i.e., choosing what not to do]and fit among those activities*. Strategy is fundamentally about being different: either performing different activities than rivals or performing similar activities in different ways^[And it is not just the same as operational effectiveness, which can be easily imitated].
+As engineers we build models to understand, create, or improve systems and gain strategic advantages. [@Porter1996] defines strategy as the creation of a *unique* and valuable position through a *distinct set of activities, supported by trade‑offs^[i.e., choosing what not to do]and fit among those activities*. Strategy is fundamentally about being different: either performing different activities than rivals or performing similar activities in different ways^[And it is not just the same as operational effectiveness, which can be easily imitated.].
 
 Simulation is a core analytic tool in the IME toolkit and, when implemented correctly, it can create strategic advantage. It does so by translating the organization's strategy into clear objectives and performance measures, building a credible computational model of the system, and running well‑designed experiments that test alternative policies and scenarios. Through rigorous verification and validation, simulation provides decision ready evidence^[From risk and sensitivity insights to
-costbenefit tradeoffs.] that helps decision makes choose, prioritize, and implement the actions most likely to deliver sustained performance improvements.
+cost benefit tradeoffs.] that helps decision makes choose, prioritize, and implement the actions most likely to deliver sustained performance improvements.
 
 The process of building and delivering a simulation model is presented in @fig-BuildModel^[Adapted from @ParkLeemis_DESAFC_1_1 and @Law2005.].
 
@@ -64,7 +64,7 @@ Goals and objectives drive the questions a simulation model must answer and the 
 
     b)  Specification model (On-paper details): A formalization of data sources, distributions, parameters, event rules, routing priorities, logic over time, and experimental design approach. Related V&V activities are:
 
-        - Data validity and input modeling: Fit tests, stationarity; Experimental design arrays and precision planning^[Scenarios, warm up, run length. replications, output statistics tied to MOE/MOPs.].
+        - Data validity and input modeling: Fit tests, stationarity; Experimental design arrays and precision planning^[Scenarios, warm up, run length, replications, output statistics tied to MOE/MOPs.].
 
         - Specification reviews: pseudo-code, flow charts, sequence of events verified against conceptual logic; unit consistency, dimensions, and measurement definitions.
 
@@ -72,17 +72,19 @@ Goals and objectives drive the questions a simulation model must answer and the 
 
     c)  Computational model (executable in platform): This is the implementation in a simulation platform or computer language^[Simio, AnyLogic, Arena, Python, R, C++, etc.], including: PRNG seed control, instrumentation^[Collection of statistics.], scenario library, and report templates that produce MOE/MOP aligned outputs. Related V&V activities are:
 
-        - Verification^[Activities performed to answer the question Does the code implement the specification?]: White box/trace checks, extreme case tests, conservation of flow checks^[A conservation of flow test checks that your simulation is not losing or creating entities as they move through the model.], debugging with event traces.
+        - Verification^[Activities performed to answer the question Does the code implement the specification?]: White-box trace checks^[White‑box trace checks are a way of validating a simulation by looking inside the model step by step to make sure it behaves correctly according to its logic.], extreme case tests, conservation of flow checks^[A conservation of flow test checks that your simulation is not losing or creating entities as they move through the model.], debugging with event traces.
 
-        - Validation^[Activities performed to answer the question: Does the model answers the purpose?]: Comparison of model outputs with real system history, face validation with subject matter experts, sensitivity and plausibility checks.
+        - Validation^[Activities performed to answer the question: Does the model answers the purpose?]: Comparison of model outputs with real system history, face validation with subject matter experts, sensitivity^[Sensitivity checks examine how much the results of a simulation change when you slightly modify the input assumptions.] and plausibility checks^[Plausibility checks verify whether the simulation outputs make sense in the real-world.].
 
-4.  **Conduct and analyze scenarios: Answer questions.**
+].
+
+1.  **Conduct and analyze scenarios: Answer questions.**
 
     - For each model scenario of interest, run the model as planned^[Run length, warm up period, number of independent model replications.].
 
     - Analyze the results and decide if additional experiments are required to answer the questions.
 
-5.  **Document and present the results of your simulation.**
+2.  **Document and present the results of your simulation.**
 
     - Documentation for the model, and the associated simulation study, must include the conceptual model^[This is critical for future reuse of the model.], a detailed description of the computer program, and results. **Deliverable**: Simulation paper.
 
@@ -90,7 +92,7 @@ Goals and objectives drive the questions a simulation model must answer and the 
 
 ### A note on Verification and Validation
 
-Simulation verification answers the question: *Did we build the model right?* It is checking if the app or computer program faithfully implements the specified model. The deliverables are correct logic, code, and data flow [@NASA_Product_Verification_5_3].
+Simulation verification answers the question: *Did we build the model right?* It is checking if the app or computer program faithfully implements the specified model. The deliverables are: correct logic, code, and data flow [@NASA_Product_Verification_5_3].
 
 Simulation validation answers the question: *Did we build the right model*^[For the specified purpose.]. Validation is about demonstrating the model is an accurate representation of the system, for the intended use. It is often done by comparing the model to real data, subject matter experts, or accepted analytical results [@NASA_Product_Validation_5_4].
 

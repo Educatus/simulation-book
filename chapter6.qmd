@@ -23,7 +23,7 @@ Because simulation output is inherently random, analyzing it correctly is essent
 
 - Terminating or transient.
 
-- Steady-state ot non-terminating.
+- Steady-state or non-terminating.
 
 Understanding these types of output analyses is the foundation for selecting appropriate statistical methods and ensuring the reliability of decisions and recommendations based on simulations [@Goldsman1992], [@Law1983].
 
@@ -77,20 +77,19 @@ $$\begin{equation}
     \mu \in \bar{\bar{y}}_n \pm t_{(n-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{\hat{V}_{rep}}{n}}
 \end{equation}$$
 
-is a good approximation of a $100(1-\alpha)$ two sided confidence interval around the mean $\hat{y}_n$. Where $t_{(n-1,1-\frac{\alpha}{2})}$ is the $1-\frac{\alpha}{2}$ quantile of the $t$ distribution with $n-1$ degrees of freedom^[Low-key the moment the senior IME student realizes stats, math, and all those random classes were actually clutch.].
+is a good approximation of a $100(1-\alpha)$ two sided confidence interval around the mean, and $t_{(n-1,1-\frac{\alpha}{2})}$ is the $1-\frac{\alpha}{2}$ quantile of the $t$ distribution with $n-1$ degrees of freedom^[Low-key the moment the senior IME student realizes stats, math, and all those random classes were actually clutch.].
 
 ### Estimating the number of replications $n$
 
-In terminating simulations each replication yields one independent observation of our performance measure^[e.g., average cost in a day, % rejected
-in a shift, etc.]. We then form a t‑based confidence interval (CI) across replications; the usual target being the achievement of a desired absolute half‑width $h$ or relative precision.
+In terminating simulations each replication yields one independent observation of our performance measure^[e.g., average cost in a day, % rejected in a shift, etc.]. We then form a *t*‑based confidence interval (CI) across replications; the usual target being the achievement of a desired absolute half‑width $h$ or relative precision.
 
-One elegant procedure to estimate $n$, is called *pilot runs* [@Centeno1998]:
+One elegant procedure to estimate $n$, is called [*pilot runs*]{#def-pilotruns} [@Centeno1998]:
 
 1.  Perform a short pilot of $n_0$ replications, usually $n_0 \in [5,10]$, and calculate the cross replication standard deviation $s=\sqrt{\hat{V}_{rep}}$.
 
 2.  If $h_0=t_{(n_0-1, 1-\frac{\alpha}{2})} \cdot \sqrt{\frac{s}{n_0}}$ is less than the desired $h$, then there is no need for further replications. However, if $h_0 > h$, then $n$ can be estimated using: $$n=\left \lceil n_0 \cdot \left(\frac{h_0}{h}\right)^2 \right\rceil$$
 
-### Example of terminating simulation and calculation of $n$
+### Example of terminating simulation and calculation of $n$ {#example .unnumbered}
 
 We are to calculate the mean time in the system for entities going through an MM1 queue with $\lambda=0.8$, and $\mu=1$. The client requests a CI at 95% with a half width precision of 3% of the sample mean. The first $n_0=10$ replications of $m=1000$ entities are presented in @tbl-terminatingN0.
 
@@ -120,7 +119,7 @@ MM1 system, first $n_0 = 10$ replications. Red dots represent the mean value, or
 :::
 
 
-The statistics for our pilot of 10 replicates are: $\hat{\hat{y}}_{10}=5.047$, with a 95% CI=\[4.3287, 5.8200\], and $h_0 \simeq 0.7456$. The target precision is $h \simeq 0.152$. Then, $n \simeq 241$.
+The statistics for our pilot of 10 replicates are: $\bar{\bar{y}}=5.047$, with a 95% CI=\[4.3287, 5.8200\], and $h_0 \simeq 0.7456$. The target precision is $h \simeq 0.152$. Then, $n \simeq 241$.
 
 Are the replicate means normally distributed?
 
@@ -136,7 +135,7 @@ Some examples are:
 
 - Simulating a manufacturing system operating 24/7 to estimate average daily output.
 
-The main issue to overcome with steady state simulations is the removal of *initialization bias*. This can be explained mathematically by considering the values $y_1,y_2,  \ldots, y_m$ the result of a simulation run with a set of initial conditions $I$^[Initial conditions are the state of the system at simulation time t = 0. They define values of state variables, status of resources, and context before any simulated events occur. Good initial conditions reduce initialization bias and ensure the outputs reflect scenarios intended for study.]. If we let $m \to \infty$, we can obtain the long term mean:
+The main issue to overcome with steady state simulations is the removal of *initialization bias*. This can be explained mathematically by considering the values $y_1,y_2,  \ldots, y_m$ that result from a simulation run with a set of initial conditions $I$^[Initial conditions are the state of the system at $t = 0$. They define values of state variables, status of resources, and context before any simulated events occur. Good initial conditions reduce initialization bias and ensure the outputs reflect scenarios intended for study.]. If we let $m \to \infty$, we can obtain the long term mean:
 
 $$\mu=\lim_{m \to \infty} E(y_m|I)$$ For finite values of $m$ we can calculate:
 
@@ -147,7 +146,7 @@ to estimate $E(y_m|I)$. Unfortunately, $E(y_m|I) \neq \mu$. @fig-Transient shows
 ::: {#fig-Transient}
 ![](graphics/Transient2.png){width=80% alt="Curve of initialization bias." }
 
-Initialization bias for steady state simulations during transient period.
+Initialization bias for steady state simulations during transient period. Note: The blue continuous lines represent independent replications.
 :::
 
 
@@ -158,6 +157,8 @@ $$\bar{y}_{m,l}=\frac{1}{m-l} \sum_{i=l+1}^{m} y_i$$
 The result is that $\bar{y}_{m,l}$ is *generally* less biased than $\bar{y}_m$ because, in practice, initial conditions primarily affect data at the beginning of a run.
 
 The method works well if $m$ is sufficiently large and is characterized by its simplicity and generality.
+This method is effective if the sample size $m$ is sufficiently large. Its main advantage lies in its simplicity and general applicability: by discarding the initial transient observations, the estimator $\bar{y}_{m,l}$ better reflects the long‑run behavior of the system. Thus, truncation-based approaches offer a practical method to reduce initialization bias in steady‑state simulations, enabling more reliable estimation of performance measures.
+
 
 ### Replication-deletion approach with Welch's method
 
@@ -231,17 +232,48 @@ simulation clock.] [@Goldsman2000].
 
 ### Batch means method
 
-The method of batch means is frequently used to estimate the steady-state mean $\mu$ or $V(\bar{y}_m)$ [@Conway1963], [@Fishman1978], [@Alexopoulos1993], [@Law1979], and [@Schmeiser1982].
+The method of batch means is frequently used to estimate the steady-state mean $\mu$ or $V(\bar{y}_m)$ by reducing th effect of autocorrelation [@Conway1963], [@Fishman1978], [@Alexopoulos1993], [@Law1979], and [@Schmeiser1982].
 
 The procedure divides the output $y_1, y_2, \ldots, y_m$ of a long simulation run into a number of contiguous batches and uses their sample means^[i.e., Batch means.] to generate estimators with confidence intervals.
 
-A fundamental assumption is that the time series output $\{y_i\}$ is covariance stationary^[A covariance stationary, also called weakly stationary, time series is one whose average level does not drift, its typical variability does not change, and the relationship between values depends only on how far apart they are, not on their calendar date.] with $Cov(y_i, y{i+j})=C_j$ and split the data into $n$ batches, each with $k$ observations^[Assume $m=n \times k$]. The $i$th batch consists of the values: $$y_{(i-1)k+1}, y_{(i-1)k+2}, \ldots, y_{ik}$$ for $i=1,2, \ldots, n$ and the $i$th batch mean is given by:
+A fundamental assumption is that the time series output $\{y_i\}$ is covariance stationary^[A covariance stationary, also called weakly stationary, time series is one whose average level does not drift, its typical variability does not change, and the relationship between values depends only on how far apart they are, not on their calendar date.], with
+$$
+\mathrm{Cov}(y_i, y_{i+j}) = C_j.
+$$
 
-$$\bar{y}(k)=\frac{1}{k} \sum_{j=1}^{k} y_{(i-1)k+j}$$ Since the process is covariance stationary, it has been shown that:
+As the batch size $k$ increases, the batch means become approximately independent and normally distributed due to the Central Limit Theorem. This property allows the batch means to be treated as approximately independent observations for the purpose of statistical inference.
 
-$$C_l(k)=Cov[\bar{y}_i(k), \bar{y}_{i+1}(k)]=\frac{1}{k} \sum_{j=1-k}^{k-1} \left( 1-\frac{|j|}{k} \right) C_{lk+j}$$ independently of $i$. Therefore, if the auto-covariate function $\{C_j\}$ is such that $C_l(k) \to 0$ as $k$ increases, a batch size $k$ can be identified for which the batch sizes are normally IID. Thus, the grand batch mean is:
+The data are then partitioned into $n$ batches, each containing $k$ observations, where $m = n \times k$.
 
-$$\bar{y}_n=\bar{y}_m=\frac{1}{n}\sum_{i=1}^{n} \bar{y}_i (k)$$ and the estimate of $Var[\bar{y}_i(k)]$ is:
+The $i$th batch consists of the observations:
+$$
+y_{(i-1)k+1},\; y_{(i-1)k+2},\; \ldots,\; y_{ik}, \quad i=1,2,\ldots,n.
+$$
+
+and the $i$th batch mean is calculated as:
+
+$$\bar{y}_i(k)=\frac{1}{k} \sum_{j=1}^{k} y_{(i-1)k+j}$$ Since the process is covariance stationary, it has been shown that:
+
+$$
+\gamma_l(k)=Cov[\bar{y}_i(k), \bar{y}_{i+l}(k)]
+$$
+
+and:
+
+$$
+\gamma_l(k)=\frac{1}{k} \sum_{j=1-k}^{k-1} \left(1-\frac{|j|}{k}\right) C_{lk+j}
+$$
+
+independently of $i$. 
+
+Therefore, if the auto-covariate function $\{C_j\}$ is such that $C_l(k) \to 0$ as $k$ increases batch means are approximately independent and normally distributed. Thus, the grand batch mean is:
+
+$$
+\bar{y}_n = \frac{1}{n}\sum_{i=1}^n \bar{y}_i(k)
+= \bar{y}_m
+$$
+
+and the estimate of $Var[\bar{y}_i(k)]$ is:
 
 $$\hat{V}_B=\frac{1}{n-1} \sum_{i=1}^{n} (\bar{y}_i(k)-\bar{y}_n)^2$$ Then, we can compute a $100(1- \alpha)$ confidence interval (CI) for $\mu$:
 
@@ -253,7 +285,7 @@ The main problem with the application of the batch means method in practice is t
 
 - Increase batch size until correlation is small: Practically, pick $m$ so the $lag‑1$ auto-correlation of the batch means is near zero^[In practice: $\rho_1 \leq 0.1$]. Always verify the auto-correlation of the batch means, and their normality.
 
-- Warm‑up matters: Batch means presumes you already deleted the transient; if you don't, the early bias contaminates the whole series and your CI centers at the wrong mean.
+- Warm‑up matters: Batch means presumes you already deleted the transient; if you don't, the early bias contaminates the whole series and your CI centers at the wrong mean^[Batch means *does not* eliminate initialization bias. It assumes that the simulation output already represents steady-state behavior. Therefore, the transient period must be removed prior to applying the method; otherwise, the resulting estimates and confidence intervals will be centered around a biased mean.].
 
 Lastly, the method is preferred when:
 
@@ -265,26 +297,35 @@ Lastly, the method is preferred when:
 
 Batch means ticks all three items above, which is why it used to be in nearly every textbook and commercial package tutorial^[Arena and its output analyzer use batch means. Simio, AnyLogic, FlexSim, SIMUL8, to mention a few, use replication deletion and batch means can be implemented exporting time stamped data, then running the method in Python, R, or Matlab.].
 
+#### Workflow for Steady-State Simulation Analysis with batch means
+
+The correct procedure for analyzing steady-state simulation output consists of two distinct steps: removing initialization bias and accounting for correlation in the data.
+
+1. Run the simulation and collect output data from a sufficiently long simulation run.
+
+2. Remove the initial transient (warm‑up period) using a method such as Welch’s graphical procedure. Discard the initial observations.
+
+3. Apply the batch means method. 
+
 ### SPC method
 
 Developed by Stewart Robinson [@Robinson2007], [@Robinson2002]. The method considers the early part of a single long run as a potential initial transient^[Warm up.] and then uses a control chart to detect when the process output has become in‑control or *stable*. Because raw simulation outputs are serially correlated and possibly non‑normal, the SPC chart is built from *non‑overlapping averages of consecutive observations* rather than point‑wise data. The estimates of center line and control limits use the later portion of the run, which is *assumed nearly steady*. The method then scans forward from the beginning to find the earliest time index at which the chart shows in‑control behavior. Thus, that index is the recommended truncation point^[At the end of the warm-up period.].
 
 The algorithm works as follows:
 
-1.  Obtain a long run of time persistent output values $\{y_t: t=1,2,\ldots, n\}$.
+1.  Obtain a long run of time persistent output values $\{y_i: i=1,2,\ldots, n\}$.
 
 2.  Select a batch size $m$^[$m$ is the number of consecutive
-output values per batch.] and create non-overlapping batch means: $$\bar{y}_i=\frac{1}{m}\sum_{j=(i-1)m+1}^{im} y_j \:\:\: i=1,\ldots,k$$ where $k=\left \lfloor \frac{n}{m} \right \rfloor$. These $\bar{y}_i$ are used as points for the control chart because they reduce the auto-correlation and tend to be normally distributed^[This should be evaluated with an
-Anderson-Darling test.].
+output values per batch.] and create non-overlapping batch means: $$\bar{y}_i=\frac{1}{m}\sum_{j=(i-1)m+1}^{im} y_j \:\:\: i=1,\ldots,k$$ where $k=\left \lfloor \frac{n}{m} \right \rfloor$. These $\bar{y}_i$ are used as points for the control chart because they reduce the auto-correlation and tend to be normally distributed^[This should be evaluated with an Anderson-Darling test.].
 
 3.  Select an estimation window at the tail of the run^[Usually the second half of the $k$
 batches. This selection mitigates bias that would occur if early transient batches were included.] and estimate center line and control limits:
 
-    Let $S=\{\bar{y}_i: i=i_0, \ldots, k\}$ be the chosen tail segment^[$i_0= \lceil \frac{k}{2} \rceil$]and calculate:
+    Let $S=\{\bar{y}_i: i=i_0, \ldots, k\}$ be the chosen tail segment^[$i_0= \lceil \frac{k}{2} \rceil$] and calculate:
 
     $$CL=\hat{\mu}= \frac{1}{|S|} \sum_{\bar{y} \in S} \bar{y}$$
 
-    $$\hat{\sigma}=\sqrt{\frac{1}{|s|-1} \sum_{\bar{y} \in S} (\bar{y}-\hat{\mu})^2}$$
+    $$\hat{\sigma}=\sqrt{\frac{1}{|S|-1} \sum_{\bar{y} \in S} (\bar{y}-\hat{\mu})^2}$$
 
     $$WL=\hat{\mu} \pm 2\hat{\sigma}$$
 
@@ -303,7 +344,7 @@ limits to detect out of control signals.].
 
     - Runs of eight or more points on one side of $\hat{\mu}$.
 
-    Let $i^*$ be the earliest batch index after which no SPC rule is violated within a chosen and persistent window^[i.e., the next batches are in control.]. Then, $i^*$ is the truncation point.
+    Let $i^*=\min\{i : \text{process is in control from } i \text{ onward}\}$ be the earliest batch index after which no SPC rule is violated within a chosen and persistent window^[i.e., the next batches are in control.]. Then, $i^*$ is the truncation point.
 
 The rationale for batching and tail‑based limits is that simulation outputs are typically auto-correlated. Thus, batch means help achieve approximate IID normal behavior in the chart. Also, estimating limits from the tail avoids contamination by early transient bias.
 
@@ -324,6 +365,18 @@ SPC method to calculate truncating point for MM1 model.
 :::
 
 This method converts the warm up detection problem into a standard quality control task identifying when the simulation becomes statistically stable using Shewhart control limits and out of control tests. It uses non overlapping batch means explicitly addressing the auto correlation typical of simulation outputs. Finally, it is relatively easy to implement, gives reproducible results and performed competitively against Welch's and Time-Series inspection methods [@Robinson2007]^[It provides a less conservative estimate of the warm-up period than does Welch's method. It is also apparent that it provides more guidance than simply inspecting a time-series, which underestimates the amount of warm-up required.].
+
+#### Workflow for Steady-State Simulation Analysis with the SPC method
+
+A practical analysis of steady-state simulation output will be:
+
+1. Run the simulation and collect output data from a sufficiently long simulation run.
+
+2. Identify the steady-state region using the SPC method obtaining the cutting value $l$.
+   
+3. Run $r$ independent replications each of length $n$ and discard the first $l$ observations.  
+
+4. Address autocorrelation using the method of [pilot runs](#def-pilotruns) discussed before.
 
 ## Final remarks for DES and MC
 

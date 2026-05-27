@@ -2,22 +2,61 @@
 ---
 title: "Web version for Simulation for Industrial Engineers"
 author: "Ernesto Luis García Contreras, Ph.D."
+number-sections: false
 ---
 
 
-![](graphics/F2COE-IME.png){#fig-famufsu width=50% fig-align="left"}                   
-<div style="float:right; width:100%; text-align:right; font-style: italic; margin: 20px 0;">
-<div style="text-align: left;">
-[Industrial and Manufacturing Engineering (IME)](https://eng.famu.fsu.edu/ime)
-</div>
+<div style="text-align: right; max-width: 70%; margin-left: auto;">
 
-
-> "A process cannot be understood by stopping it. Understanding must move with the flow of the process, must join it and flow with it."  
-> 
+> *"A process cannot be understood by stopping it. Understanding must move with the flow of the process, must join it and flow with it."*  
 > — First Law of Mentat, **Dune**, by Frank Herbert
 
 </div>
-***
+
+
+<div style="float:right; width:35%; margin-left:1.5em; margin-top:1em;">
+
+  <img src="graphics/portadaWeb.jpg" style="width:100%;" alt="Book cover">
+
+</div>
+
+
+
+## Web version
+
+This book was published for the department of Industrial and Manufacturing Engineering at the FAMU-FSU College of Engineering in Spring of 2026. 
+
+For more information about the book and its use in courses, contact Dr. Ernesto Garcia at [ernesto.garcia@eng.famu.fsu.edu](mailto:ernesto.garcia@eng.famu.fsu.edu)
+
+This material is specifically designed to support instruction in the course *ESI 4523: Simulation of Industrial Engineering Systems*. It provides a comprehensive and integrated treatment of the essential statistical foundations and modeling principles required for the development of simulation models.
+
+The material combines theoretical concepts with practical procedures, enabling students to perform discrete-event simulations of manufacturing and service systems, as well as fundamental Monte Carlo simulation techniques. Emphasis is placed on developing both technical competence and structured analytical thinking, which are critical for effective simulation modeling.
+
+---
+
+## The Role of the Industrial Engineer
+
+Beyond technical implementation, this book highlights the distinctive role of the Industrial Engineer (IE). While many can produce visual or computational representations of systems, the IE is trained to go significantly further: to construct models that yield meaningful insights and support decision-making aligned with organizational objectives.
+
+This requires the ability to abstract complex systems, identify key variables, and represent reality in a concise yet powerful manner. Such capabilities demand curiosity, discipline, and a strong analytical mindset—skills that are both rare and highly valued in engineering practice.
+
+---
+
+## Relevance of Simulation
+
+Simulation plays a central role in modern manufacturing, service system design, and operational analysis. It is increasingly recognized as a foundational component in fields such as **Artificial Intelligence** and **Data Analytics**, where modeling uncertainty and evaluating system performance are essential.
+
+---
+
+## About the author
+
+Dr. Ernesto L. Garcia C. is an engineer with extensive experience in industry, academia, and consulting. He currently serves as teaching faculty at the FAMU-FSU College of Engineering, where he works closely with senior students on capstone projects addressing real-world challenges in manufacturing, service systems, and data-driven decision-making. His professional work focuses on integrating analytical methods, statistical modeling, and engineering principles to translate complex organizational objectives into effective and actionable solutions.
+
+Over the course of his career, Dr. Garcia has led and contributed to large-scale initiatives in operations improvement, systems optimization, and performance management. He has guided multidisciplinary teams in the application of Lean Six Sigma, Operations Research, and Advanced Analytics to enhance processes, reduce costs, and improve operational efficiency. His work spans diverse industries and international environments, where he has consistently emphasized the combination of rigorous analytical frameworks with practical implementation strategies.
+
+Dr. Garcia holds a Ph.D. in Industrial Engineering from the University of Missouri--Columbia, where he was a Fulbright Scholar, as well as graduate degrees in business administration and managerial economics from EGADE Business School of ITESM in Mexico City. He also earned a Bachelor’s degree in Mechanical and Electrical Engineering from ITESM at Monterrey campus. His academic and professional contributions are centered on developing engineers with strong analytical thinking skills and a disciplined modeling approach.
+
+---
 
 ## Dedication
  To *S, J, and I*,... my amazing girls.
@@ -32,20 +71,17 @@ This work is licensed under <a href="https://creativecommons.org/licenses/by/4.0
 
 ***
 
-## How to Navigate
-
-Use the left-hand sidebar to explore chapters.  
-
-Each chapter builds on previous concepts and includes figures, equations, and examples.
-
-***
-
 ## About This Version
 
 Companion web version for ISBN: 979-8-9959977-0-2
+
+Cover page: photo by Simone hutsch on Unsplash. Rotterdam Building. Published on November 27, 2018. [Link to original image]( https://unsplash.com/photos/black-concrete-building-at-daytime-jwIBqRGLb6I).
 
 ***
 
 ## References
 
 See the end of each chapter for the bibliography.
+
+
+![](graphics/F2COEHor.png){width=40% fig-align="right"}

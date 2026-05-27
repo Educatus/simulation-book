@@ -89,7 +89,8 @@ Stack up assembly.
 
 Distribution of Gap values and comparison with specifications.
 :::
-Monte Carlo vs. Worst‑Case vs. RSS: Monte Carlo provides yield estimates under realistic variability; worst‑case stack‑up is often overly pessimistic, while RSS (root‑sum‑square) is optimistic unless variability is truly normal and small. For production decisions, Monte Carlo is preferred.
+
+Monte Carlo vs. Worst‑Case^[Worst-case tolerance analysis assumes that all individual variations reach their extreme limits at the same time and adds them directly to find the maximum possible deviation.] vs. RSS^[RSS tolerance analysis is a method used to estimate how variations in different parts combine, assuming those variations occur randomly and are unlikely to all happen at their worst value at the same time.]: Monte Carlo provides yield estimates under realistic variability; worst‑case stack‑up is often overly pessimistic, while RSS (root‑sum‑square) is optimistic unless variability is truly normal and small. For production decisions, Monte Carlo is preferred.
 
 
 ::: {#lst-mchousing}

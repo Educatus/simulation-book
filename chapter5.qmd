@@ -7,7 +7,7 @@
 
 </div>
 
-In simulation modeling data is typically fitted to an appropriate probability distribution. This practice offers several key advantages:
+In simulation modeling, real-world data are typically fitted to an appropriate probability distribution. This distribution serves as a mathematical representation of the inherent variability of the system and is used as input in the simulation model. Using a probability distribution offers several key advantages:
 
 1.  **Accurate capture of variability.** Real-world processes are stochastic and variable. When fitting a distribution to data, we can model this variability mathematically rather than using a single average or arbitrary values.
 
@@ -20,11 +20,11 @@ processing times, etc.] reflect real-world behavior, improving decision-making.
 
 5.  **Statistical Validation.** Using distributions enables hypothesis testing, goodness-of-fit checks, and confidence interval estimation, making the model scientifically defensible.
 
-Real systems are stochastic: arrivals accumulate unexpectedly, service times fluctuate with task complexity, and resource availability changes with human variation. Using only deterministic values suppresses real system behavior. The simulation then behaves like a clockwork mechanism rather than a real process with common and special causes of variation^[Other transient effects, congestion, sudden arrivals, or rare and influential delays cannot appear if the model has been stripped of the variability that generates them.].
+Real-world systems are inherently stochastic: arrivals occur unpredictably, service times vary with task complexity, and resource availability fluctuates due to human, machine, and operational factors. Relying solely on deterministic values suppresses these variations and fails to capture the true behavior of the system. As a result, a model will behave like a rigid, clockwork mechanism rather than a dynamic process influenced by both common and special causes of variation^[Other transient effects, congestion, sudden arrivals, or rare and influential delays cannot appear if the model has been stripped of the variability that generates them.].
 
 ## Data adequacy
 
-Before fitting any dataset to a probability distribution, it is essential to recognize that the quality and characteristics of these data fundamentally affect the validity of the model. Therefore, distribution fitting is not just a mechanical exercise; it is a process grounded in statistical assumptions and practical considerations. If these assumptions are violated or the data is not adequate for the task, the fitted distribution may misrepresent reality, leading to inaccurate simulations and poor decision making^[Systematically validating data quality, independence, shape, and domain, analysts ensure that the fitted distributions are both statistically sound and
+Before fitting any dataset to a probability distribution it is essential to recognize that the quality and characteristics of these data fundamentally affect the validity of the model. Therefore, distribution fitting is not just a mechanical exercise; it is a process grounded in statistical assumptions and practical considerations. If these assumptions are violated or the data are not adequate for the task, the fitted distribution may misrepresent reality, leading to inaccurate simulations and poor decision making^[Systematically validating data quality, independence, shape, and domain, engineers ensure that the fitted distributions are both statistically sound and
 practically meaningful.].
 
 ### Data integrity
@@ -38,11 +38,12 @@ behavior.] can significantly affect parameter estimation, especially for distrib
 
 ### Assessment of independence and stationarity
 
-Most distribution fitting techniques assume that observations are independent and identically distributed^[iid.]. If data exhibits autocorrelation or trends over time, these assumptions fail^[If data is non-stationary (mean or variance changes over time), fitting a distribution assuming constant parameters will produce biased estimates. For example, estimating average service times without noticing a learning effect will overestimate future performance.], the data is non-stationary. Tools like auto-correlation plots or runs tests can detect such patterns. Ignoring these issues can lead to incorrect conclusions.
+Most distribution-fitting techniques assume that observations are independent and identically distributed^[iid]. When data exhibit autocorrelation or temporal trends, these assumptions are violated, indicating that the underlying process is nonstationary. Under such conditions, fitting a distribution with constant parameters can produce biased estimates. For instance, failing to account for a learning effect when estimating service times may lead to an overestimation of future system performance.
+Diagnostic tools such as autocorrelation functions and runs tests are commonly used to identify these patterns. Ignoring dependence or non‑stationarity can undermine the validity of the model and ultimately lead to incorrect conclusions.
 
 ### Exploration of data shape
 
-Before selecting candidate distributions, the engineer should examine the empirical shape of the data using histograms, empirical cumulative distribution functions (CDFs), box-plots, etc. These visualizations reveal skewness, modality, and tail behavior^[For example, a histogram showing strong right skew suggests Exponential, Gamma, or Lognormal distributions rather than Normal.].
+Before selecting candidate distributions the engineer should examine the empirical shape of the data using histograms, empirical cumulative distribution functions (CDFs), box-plots, etc. These visualizations reveal skewness, modality, and tail behavior^[For example, a histogram showing strong right skew suggests Exponential, Gamma, or Lognormal distributions.].
 
 ### Verification of support and constraints.
 
@@ -152,8 +153,7 @@ Continuous inter-arrival data (in minutes).
 2.  *Parameter estimation.* @fig-HistInterData and 
 @tbl-expdatastats presents the histogram and statistics of these data. The exponential distribution has the form:
 $$
-f(x, \lambda, \theta) = \lambda e^{-\lambda (x-\theta)}, \quad x \geq 0$$
-
+f(x, \lambda, \theta) = \lambda e^{-\lambda (x-\theta)}, \quad x \geq 0
 $$
 
 where  $\lambda = \frac{1}{\mu-\theta}$, and $\theta$ is the location parameter^[From our sample data, the statistic
@@ -177,6 +177,7 @@ Sample statistics of inter-arrival data.
 Histogram of interarrival data.
 :::
 
+
 3.  *Goodness of Fit and Visual tests.* Applying the Kolmogorov-Smirnov GOF, the $p$-value is 0.21, failing to reject the null hypothesis^[$H_0$ : Data is exponentially distributed.] at an $\alpha=0.05$^[There is a caveat in the calculation
 of *p-values* for distribution fitting: the parameters are estimated from the data, this makes the test statistic of the GOF smaller, on the average, resulting in *p-values* that are inflated or too optimistic rejecting $H_0$ less often than it should. This situation will be covered in the next section when using statistical libraries to generate and compare the performance of different distributions to model data.]. The corresponding visual tests: $Q-Q$, and $P-P$ plots, are presented in @fig-QQPPExpoData.
 
@@ -186,11 +187,11 @@ of *p-values* for distribution fitting: the parameters are estimated from the da
 Q-Q and P-P plots for inter-arrival data.
 :::
 
-From the analysis performed, we can model the inter-arrival process with an exponential probability with $\hat{\lambda} \simeq 0.37$, and $\hat{\theta}=0.023$.
+From the analysis performed, we can model the inter-arrival process using an exponential distribution with $\hat{\lambda} \simeq 0.37$, and $\hat{\theta}=0.023$.
 
 ## Statistical libraries to estimate probability distributions from data
 
-The @Rproject2025 package fitdistrplus from @Muller2015 provides functions to fit **univariate** distributions for different types of data^[Continuous, censored, non-censored, and discrete.] and allowing different estimation methods (maximum likelihood, moment matching, quantile matching and maximum goodness-of-fit estimation). This package also provides various functions to compare the fit of several distributions to the same data set and can handle bootstrap parameter estimates.
+The @Rproject2025 package `fitdistrplus` from @Muller2015 provides functions to fit **univariate** distributions for different types of data^[Continuous, censored, non-censored, and discrete.] and allowing different estimation methods (maximum likelihood, moment matching, quantile matching and maximum goodness-of-fit estimation). This package also provides various functions to compare the fit of several distributions to the same data set and can handle bootstrap parameter estimates.
 
 The workflow is the following:
 
@@ -241,20 +242,20 @@ The interpretation is:
 
 For our data, we considered four candidates to fit^[The young Padawan might have selected different ones.]: Exponential, Gamma, Weibull, and Lognormal. @tbl-paramfit presents the results of each fit.
 
-::: {#tbl-paramfit}
+::: {#tbl-paramfit style="width:100%; overflow-x:auto;"}
 
 | Distribution | Rate | Shape | Scale | Mean log | SD Log | Loglikelihood | AIC | BIC |
 |:--------------|:------:|:------:|:------:|:---------:|:--------:|:---------------:|:-----:|:-----:|
 | Exponential | 0.366615 | NA | NA | NA | NA | -300.5165 | 603.0330 | 606.0437 |
 | Gamma | 0.336937 | 0.91915 | NA | NA | NA | -300.1593 | 604.3186 | 610.3398 |
 | Weibull | NA | 0.95586 | 2.6750 | NA | NA | -300.2728 | 604.5457 | 610.5669 |
-| Lognormal | NA | NA | NA | 1.0000 | -7.02E-11 | -311.8372 | 627.6744 | 633.6957 |
+| Lognormal | NA | NA | NA | 1.0000 | ~ 0 | -311.8372 | 627.6744 | 633.6957 |
 
 Parameters and fit measures per distribution.
 
 :::
 
-The selection criteria is designed to penalize complexity:
+The last three columns of @tbl-paramfit present goodness of fit statistics designed to penalize complexity:
 
 - **Log-likelihood (loglik)**: Measures how well the model explains the data: **higher** is better^[loglik is a measure of fit.].
 
@@ -262,11 +263,17 @@ The selection criteria is designed to penalize complexity:
 
 - **Bayesian Information Criterion (BIC)**: $BIC=log(n) \cdot k -2 \cdot\textnormal{loglik}$, where $n$ is the sample size. **Lower** BIC prefers simpler models more strongly than AIC because it has a heavier penalty on $k$.
 
+
+::: {.callout-note style="text-align: justify;"}
+Goodness‑of‑fit measures such as the log‑likelihood, AIC, and BIC help us evaluate how well a probability distribution matches observed data. In simple terms, the log‑likelihood tells us how likely it is that the data were generated by a given model—the higher it is, the better the fit. However, models with more parameters tend to fit data better just by being more flexible, so criteria like AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) adjust for this by penalizing model complexity. Thus, they reward models that achieve a good fit using fewer parameters. In practice, lower AIC or BIC values indicate a better balance between accuracy and simplicity, guiding us toward models that *generalize* well rather than just fitting the data closely.
+:::
+
+
 The key is to compare AIC and BIC across all the fitted distributions and select the one with the smallest values. The absolute difference in the AIC or BIC values between two competing models is a good measurement. For example, if model A has AIC of 200, and model B has AIC of 202, the absolute difference is $|200-202|=2$. if the absolute difference is less than 2, the models are essentially equivalent. If it is between 2 and 4, there is evidence favoring the lower AIC. If it is between 4 and 7, there is strong evidence favoring the model with lowest AIC. Of course, the criteria also applies for BIC.
 
 From the values in @tbl-paramfit, the absolute differences in AIC among the Exponential, Weibull, and Gamma distributions are less than 2. The BIC differences between the Exponential, Gamma and Weibull distributions are 4, favoring the lower BIC of the Exponential. The lognormal distribution has larger AIC and BIC by more than an absolute difference of 20 and we can eliminate it from the analysis. A solid candidate is emerging.
 
-The next step is to evaluate the goodness-of-fit test statistics presented in Table @tbl-fitteststats. They measure the distance between the empirical and fitted CDF.
+The next step is to evaluate the goodness-of-fit test statistics presented in @tbl-fitteststats. They measure the distance between the empirical and fitted CDF.
 
 ::: {#tbl-fitteststats}
 
@@ -409,7 +416,7 @@ where:
 
 - $h$ is the bandwidth that controls smoothness^[Smaller *h* for more detail, and larger *h* for a smoother curve.].
 
-- $x$ represents the location where the engineer want to estimate the probability density^[For example, if we have data on service times, and want to know the estimated probability density at 10 minutes, then *x = 10*. Note that *x* is not necessarily one of the data points, it is a *query point*.].
+- $x$ represents the location where the engineer want to estimate the probability density^[For example, if we have data on service times and want to know the estimated probability density at 10 minutes, then *x = 10*. Note that *x* is not necessarily one of the data points, it is a *query point*.].
 
 The Gaussian kernel $K(u)$ is:
 
@@ -417,7 +424,7 @@ $$
     K(u)=\frac{1}{\sqrt{2 \cdot \pi}} e^\frac{-u^2}{2}
 $$
 
-The Gaussian kernel is a smooth, bell-shaped function used in Kernel Density Estimation (KDE) to evaluate a probability density without assuming a specific distribution. It works by placing a Gaussian curve at each data point and summing these curves to create a continuous estimate, with the bandwidth controlling the width of each curve. This kernel is ideal when you need a smooth estimate for continuous data @Wand1995, especially when the underlying distribution is unknown or multimodal, and when tails matter because it has infinite support. It is widely used due to its mathematical convenience and compatibility with automatic bandwidth selection methods, though it may not be suitable for bounded data without adjustments. In summary, use a Gaussian kernel when:
+The Gaussian kernel is a smooth, bell-shaped function used in Kernel Density Estimation (KDE) to evaluate a probability density without assuming a specific distribution. It works by placing a Gaussian curve at each data point and summing these curves to create a continuous estimate, with the bandwidth controlling the width of each curve. This kernel is ideal when you need a smooth estimate for continuous data [@Wand1995], especially when the underlying distribution is unknown or multimodal, and when tails matter because it has infinite support. It is widely used due to its mathematical convenience and compatibility with automatic bandwidth selection methods, though it may not be suitable for bounded data without adjustments. In summary, use a Gaussian kernel when:
 
 - A smooth and continuous estimate is desired. This is ideal for data without sharp boundaries.
 
@@ -457,7 +464,7 @@ The following are service times, in minutes: $[4, 5, 6, 8, 9]$. We will estimate
 
 3.  Compute KDE at point $x=7$. Applying @eq-kde: $\hat{f}(7)\simeq 0.13612$. Therefore, the estimated density is $\hat{f}(7)=0.136$.
 
-4.  Repeat for other query points $x$ from 3 to 10 and plot the KDE.
+4.  Repeat for other query points $x$, from 0 to 14, and plot the KDE.
 
 @tbl-fxcomparison shows the results of the pairs $(x, \hat{f}(x))$ for different values of $h$ corresponding to Scott's formula ($h=1.5$) and Silverman's ($h=1.35$).
 
@@ -465,6 +472,9 @@ The following are service times, in minutes: $[4, 5, 6, 8, 9]$. We will estimate
 
 | $x_i$ | $h=1.35$ $\hat{f}(x)$ | $h=1.5$ $\hat{f}(x)$ |
 |:------:|:-----------------:|:----------------:|
+|0 |               0.001   |          0.002 |
+|1 |               0.006   |          0.009 |
+|2 |               0.025   |          0.031 |
 | 3  | 0.070 | 0.072 |
 | 4  | 0.125 | 0.119 |
 | 5  | 0.155 | 0.147 |
@@ -473,7 +483,10 @@ The following are service times, in minutes: $[4, 5, 6, 8, 9]$. We will estimate
 | 8  | 0.129 | 0.126 |
 | 9  | 0.110 | 0.105 |
 | 10 | 0.065 | 0.066 |
-
+|11             | 0.025          |   0.029|
+|12              | 0.006             | 0.009|
+|13              | 0.001             | 0.002|
+|14              | 0.000             | 0.000|
 Comparison of $\hat{f}(x)$ values for $h=1.5$ and $h=1.35$.
 
 :::
@@ -482,10 +495,17 @@ The corresponding density functions are shown in @fig-KDEfigures.
 
 
 ::: {#fig-KDEfigures}
-![](graphics/KDEforH.png){width=100% alt="Kernel density graphs for the example."}
+![](graphics/KDEExample.png){width=100% alt="Kernel density graphs for the example."}
 
 KDE’s for example data at two values of h.
 :::
+
+
+## Conclusion
+
+Fitting probability distributions from data is essential for representing variability in simulation models. This process requires not only statistical techniques but also careful evaluation of data quality and *modeling assumptions*. A sound approach combines graphical analysis, goodness‑of‑fit measures, and *engineering judgment* to select models that are actionable and elegant.
+
+Effective input modeling is one of the elements that makes simulation models meaningful and reliable.
 
 
 ## Questions
