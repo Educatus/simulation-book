@@ -13,7 +13,7 @@ Simulation is a very important analytics tool for Industrial Engineering. In a b
 
 ## Systems
 
-A system is defined as a set of interrelated components interacting to achieve a common objective. Systems are ubiquitous in engineering, management, and the natural sciences, encompassing everything from manufacturing plants to biological ecosystems and social organizations. The key characteristics and governing principles of systems, as related to simulation^[For a comprehensive description of thebvcharacteristics and governing principles of a system see @Bertalanffy1969, @NASASystemsENgHandbook2016, @Adams2014] are:
+A system is defined as a set of interrelated components interacting to achieve a common objective. Systems are ubiquitous in engineering, management, and the natural sciences, encompassing everything from manufacturing plants to biological ecosystems and social organizations. The key characteristics and governing principles of systems, as related to simulation^[For a comprehensive description of the characteristics and governing principles of a system see @Bertalanffy1969, @NASASystemsENgHandbook2016, @Adams2014] are:
 
 1.  **Interconnectedness**: Each component within a system influences and is influenced by other components. This mutual dependency is central to system behavior and often leads to emergent properties that cannot be understood by examining components in isolation.
 

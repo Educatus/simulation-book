@@ -30,7 +30,7 @@ For more information about the book and its use in courses, contact Dr. Ernesto 
 
 This material is specifically designed to support instruction in the course *ESI 4523: Simulation of Industrial Engineering Systems*. It provides a comprehensive and integrated treatment of the essential statistical foundations and modeling principles required for the development of simulation models.
 
-The material combines theoretical concepts with practical procedures, enabling students to perform discrete-event simulations of manufacturing and service systems, as well as fundamental Monte Carlo simulation techniques. Emphasis is placed on developing both technical competence and structured analytical thinking, which are critical for effective simulation modeling.
+The material combines th eoretical concepts with practical procedures, enabling students to perform discrete-event simulations of manufacturing and service systems, as well as fundamental Monte Carlo simulation techniques. Emphasis is placed on developing both technical competence and structured analytical thinking, which are critical for effective simulation modeling.
 
 ---
 
